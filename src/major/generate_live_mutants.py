@@ -2,39 +2,30 @@ import csv
 import pathlib
 import logging
 
-# file.py -> major dir -> src dir -> root dir
-HOME = pathlib.Path(__file__).parent.parent.parent
-
-FORMAT_VERBOSE = "%(levelname)s::%(module)s::%(lineno)d::%(asctime)s::%(message)s"
-FORMAT = "%(levelname)s::%(message)s"
-
-logging.basicConfig(filename="major.log", format=FORMAT, level=logging.DEBUG)
-logging.getLogger().addHandler(logging.StreamHandler())
-logging.info("---NEW EXECUTION---")
-
 # change subject and version (via fixed)
 subjects = {'cli': 'cli32', 'lang': 'lang53', 'gson': 'gson15'}
-_subject = subjects['cli']
-
-fixed = True
-_version = 'fixed' if fixed else 'buggy'
 
 
-def get_directory(subject, version):
-    assert version in ("buggy", "fixed")
+def get_directory(home, subject, version=None):
+    assert version in (None, "buggy", "fixed")
     assert subject in subjects.values()
 
     logging.info(f"Subject: {subject}")
     logging.info(f"Version: {version}")
 
-    return pathlib.Path(HOME) / f"data/{subject}/major/{version}"
+    p = pathlib.Path(home) / f"data/{subject}/major"
+    if version:
+        p = p / f"{version}"
+    return p
 
 
-_directory = get_directory(_subject, _version)
+def get_live_mutants(directory, keys=(0, 1, 5, 3, 6)):
+    if keys is None:
+        keys = tuple(range(7))
 
+    assert isinstance(keys, (tuple, list))
+    assert 0 <= max(keys) < 7
 
-# start common code
-def work_on_directory(directory=_directory):
     kill_fp = directory / 'kill.csv'
     mutants_fp = directory / 'mutants.log'
 
@@ -56,24 +47,17 @@ def work_on_directory(directory=_directory):
         mutants = [
             (mutant_id, mutant_operator, original, mutation, function, line, full_mutation)
             for mutant_id, mutant_operator, original, mutation, function, line, full_mutation in rows
+                   0              1             2        3          4       5         6
         ]
         """
         live_mutants = [mutant for mutant in rows if mutant[0] in live_mutants_id]
         logging.info(f"{live_mutants=}")
 
-    # store live mutants
+    # change mutants to reflect selected keys
+    live_mutants = [[mutant[k] for k in keys] for mutant in live_mutants]
+
     live_mutants_fp = directory / 'generated_live_mutants.log'
     with open(live_mutants_fp, 'w') as f:
-        keys = [0, 1, 5, 3, 6]
-        f.writelines("...".join([mutant[k] for k in keys]) + "\n" for mutant in live_mutants)
+        f.writelines("...".join(mutant) + "\n" for mutant in live_mutants)
 
     return live_mutants
-
-
-subject = subjects["cli"]
-
-fixed_directory = get_directory(subject=subject, version="fixed")
-fixed_live_mutants = work_on_directory(fixed_directory)
-
-buggy_directory = get_directory(subject=subject, version="buggy")
-buggy_live_mutants = work_on_directory(buggy_directory)
