@@ -19,13 +19,7 @@ def get_directory(home, subject, version=None):
     return p
 
 
-def get_live_mutants(directory, keys=(0, 1, 5, 3, 6)):
-    if keys is None:
-        keys = tuple(range(7))
-
-    assert isinstance(keys, (tuple, list))
-    assert 0 <= max(keys) < 7
-
+def get_live_mutants(directory):
     kill_fp = directory / 'kill.csv'
     mutants_fp = directory / 'mutants.log'
 
@@ -52,9 +46,6 @@ def get_live_mutants(directory, keys=(0, 1, 5, 3, 6)):
         """
         live_mutants = [mutant for mutant in rows if mutant[0] in live_mutants_id]
         logging.info(f"{live_mutants=}")
-
-    # change mutants to reflect selected keys
-    live_mutants = [[mutant[k] for k in keys] for mutant in live_mutants]
 
     live_mutants_fp = directory / 'generated_live_mutants.log'
     with open(live_mutants_fp, 'w') as f:
