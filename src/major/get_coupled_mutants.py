@@ -93,7 +93,7 @@ def get_mutants_from_set(mutants, mutant_set, keys=(1, 2), delimiter="_", sort_o
     return mutants_retrieved
 
 
-diff_mutants = get_mutants_from_set(mutants=buggy_mutants, mutant_set=diff_set, keys=keys, sort_on=2)
+diff_mutants = get_mutants_from_set(mutants=buggy_mutants, mutant_set=diff_set, keys=keys, sort_on=0)
 
 logging.info(f"Caught {len(diff_set)} mutants in the diff set")
 
