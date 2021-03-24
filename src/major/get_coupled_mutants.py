@@ -7,7 +7,7 @@ def get_mutants(fp):
     return temp
 
 
-def create_set_mutants(mutants, keys=(1, 2), delimiter="_"):
+def create_set_mutants(mutants, keys, delimiter="_"):
     """Mutants is a list of mutants, and each mutant is in the format
     mutant_id, mutant_operator, mutant_line, mutation made
 
@@ -23,7 +23,7 @@ def create_set_mutants(mutants, keys=(1, 2), delimiter="_"):
     return s
 
 
-def get_mutants_from_set(mutants, mutant_set, keys=(1, 2), delimiter="_", sort_on=None):
+def get_mutants_from_set(mutants, mutant_set, keys, delimiter="_", sort_on=None):
     """Retrieve mutants from a set (that is a subset of mutants),
     based on the key of the set and the respective values for the mutant.
     """
