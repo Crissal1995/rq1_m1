@@ -1,22 +1,22 @@
-28...ROR...503...<=(int,int)...cmdLineSyntax.length() == 0 |==> cmdLineSyntax.length() <= 0
-42...ROR...517...!=(int,int)...header.trim().length() > 0 |==> header.trim().length() != 0
-54...ROR...524...!=(int,int)...footer.trim().length() > 0 |==> footer.trim().length() != 0
-101...ROR...654...>(int,int)...option.getArgName().length() != 0 |==> option.getArgName().length() > 0
-150...ROR...786...<=(int,int)...argName.length() == 0 |==> argName.length() <= 0
-165...ROR...799...>=(int,int)...optBuf.length() > max |==> optBuf.length() >= max
-170...ROR...809...!=(int,int)...optBuf.length() < max |==> optBuf.length() != max
-171...ROR...809...<=(int,int)...optBuf.length() < max |==> optBuf.length() <= max
-212...ROR...872...<=(int,int)...pos == -1 |==> pos <= -1
-216...ROR...879...!=(int,int)...text.length() > width |==> text.length() != width
-217...ROR...879...>=(int,int)...text.length() > width |==> text.length() >= width
-225...ROR...879...<=(int,int)...pos == nextLineTabStop - 1 |==> pos <= nextLineTabStop - 1
-231...COR...879...RHS(boolean,boolean)...(text.length() > width) && (pos == nextLineTabStop - 1) |==> (pos == nextLineTabStop - 1)
-239...ROR...907...>(int,int)...(pos = text.indexOf('\n', startPos)) != -1 |==> (pos = text.indexOf('\n', startPos)) > -1
-248...ROR...908...>(int,int)...(pos = text.indexOf('\t', startPos)) != -1 |==> (pos = text.indexOf('\t', startPos)) > -1
-308...ROR...938...>=(int,int)...pos == text.length() |==> pos >= text.length()
-309...ROR...938...FALSE(int,int)...pos == text.length() |==> false
-315...LVR...965...NEG...0 |==> -1
-316...ROR...965...<=(int,int)...s.length() == 0 |==> s.length() <= 0
-318...ROR...965...FALSE(int,int)...s.length() == 0 |==> false
-320...COR...965...LHS(boolean,boolean)...(s == null) || (s.length() == 0) |==> (s == null)
-325...ROR...972...!=(int,int)...pos > 0 |==> pos != 0
+28...ROR...==(int,int)...<=(int,int)...org.apache.commons.cli.HelpFormatter@printHelp(java.io.PrintWriter,int,java.lang.String,java.lang.String,org.apache.commons.cli.Options,int,int,java.lang.String,boolean)...503...cmdLineSyntax.length() == 0 |==> cmdLineSyntax.length() <= 0
+42...ROR...>(int,int)...!=(int,int)...org.apache.commons.cli.HelpFormatter@printHelp(java.io.PrintWriter,int,java.lang.String,java.lang.String,org.apache.commons.cli.Options,int,int,java.lang.String,boolean)...517...header.trim().length() > 0 |==> header.trim().length() != 0
+54...ROR...>(int,int)...!=(int,int)...org.apache.commons.cli.HelpFormatter@printHelp(java.io.PrintWriter,int,java.lang.String,java.lang.String,org.apache.commons.cli.Options,int,int,java.lang.String,boolean)...524...footer.trim().length() > 0 |==> footer.trim().length() != 0
+101...ROR...!=(int,int)...>(int,int)...org.apache.commons.cli.HelpFormatter@appendOption(java.lang.StringBuffer,org.apache.commons.cli.Option,boolean)...654...option.getArgName().length() != 0 |==> option.getArgName().length() > 0
+150...ROR...==(int,int)...<=(int,int)...org.apache.commons.cli.HelpFormatter@renderOptions(java.lang.StringBuffer,int,org.apache.commons.cli.Options,int,int)...786...argName.length() == 0 |==> argName.length() <= 0
+165...ROR...>(int,int)...>=(int,int)...org.apache.commons.cli.HelpFormatter@renderOptions(java.lang.StringBuffer,int,org.apache.commons.cli.Options,int,int)...799...optBuf.length() > max |==> optBuf.length() >= max
+170...ROR...<(int,int)...!=(int,int)...org.apache.commons.cli.HelpFormatter@renderOptions(java.lang.StringBuffer,int,org.apache.commons.cli.Options,int,int)...809...optBuf.length() < max |==> optBuf.length() != max
+171...ROR...<(int,int)...<=(int,int)...org.apache.commons.cli.HelpFormatter@renderOptions(java.lang.StringBuffer,int,org.apache.commons.cli.Options,int,int)...809...optBuf.length() < max |==> optBuf.length() <= max
+212...ROR...==(int,int)...<=(int,int)...org.apache.commons.cli.HelpFormatter@renderWrappedText(java.lang.StringBuffer,int,int,java.lang.String)...872...pos == -1 |==> pos <= -1
+216...ROR...>(int,int)...!=(int,int)...org.apache.commons.cli.HelpFormatter@renderWrappedText(java.lang.StringBuffer,int,int,java.lang.String)...879...text.length() > width |==> text.length() != width
+217...ROR...>(int,int)...>=(int,int)...org.apache.commons.cli.HelpFormatter@renderWrappedText(java.lang.StringBuffer,int,int,java.lang.String)...879...text.length() > width |==> text.length() >= width
+225...ROR...==(int,int)...<=(int,int)...org.apache.commons.cli.HelpFormatter@renderWrappedText(java.lang.StringBuffer,int,int,java.lang.String)...879...pos == nextLineTabStop - 1 |==> pos <= nextLineTabStop - 1
+231...COR...&&(boolean,boolean)...RHS(boolean,boolean)...org.apache.commons.cli.HelpFormatter@renderWrappedText(java.lang.StringBuffer,int,int,java.lang.String)...879...(text.length() > width) && (pos == nextLineTabStop - 1) |==> (pos == nextLineTabStop - 1)
+239...ROR...!=(int,int)...>(int,int)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...907...(pos = text.indexOf('\n', startPos)) != -1 |==> (pos = text.indexOf('\n', startPos)) > -1
+248...ROR...!=(int,int)...>(int,int)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...908...(pos = text.indexOf('\t', startPos)) != -1 |==> (pos = text.indexOf('\t', startPos)) > -1
+308...ROR...==(int,int)...>=(int,int)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...938...pos == text.length() |==> pos >= text.length()
+309...ROR...==(int,int)...FALSE(int,int)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...938...pos == text.length() |==> false
+315...LVR...0...NEG...org.apache.commons.cli.HelpFormatter@rtrim(java.lang.String)...965...0 |==> -1
+316...ROR...==(int,int)...<=(int,int)...org.apache.commons.cli.HelpFormatter@rtrim(java.lang.String)...965...s.length() == 0 |==> s.length() <= 0
+318...ROR...==(int,int)...FALSE(int,int)...org.apache.commons.cli.HelpFormatter@rtrim(java.lang.String)...965...s.length() == 0 |==> false
+320...COR...||(boolean,boolean)...LHS(boolean,boolean)...org.apache.commons.cli.HelpFormatter@rtrim(java.lang.String)...965...(s == null) || (s.length() == 0) |==> (s == null)
+325...ROR...>(int,int)...!=(int,int)...org.apache.commons.cli.HelpFormatter@rtrim(java.lang.String)...972...pos > 0 |==> pos != 0

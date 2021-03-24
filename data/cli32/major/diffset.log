@@ -1,35 +1,35 @@
-137...LVR...756...NEG...0 |==> -1
-193...ROR...850...<=(int,int)...pos == -1 |==> pos <= -1
-243...COR...907...==(boolean,boolean)...(pos = text.indexOf('\n', startPos)) != -1 && pos <= width |==> (pos = text.indexOf('\n', startPos)) != -1 == pos <= width
-253...COR...908...==(boolean,boolean)...(pos = text.indexOf('\t', startPos)) != -1 && pos <= width |==> (pos = text.indexOf('\t', startPos)) != -1 == pos <= width
-281...ROR...923...>(int,int)...pos >= startPos |==> pos > startPos
-282...ROR...923...TRUE(int,int)...pos >= startPos |==> true
-284...ROR...923...>(int,int)...(c = text.charAt(pos)) != ' ' |==> (c = text.charAt(pos)) > ' '
-285...COR...923...==(boolean,boolean)...(pos >= startPos) && ((c = text.charAt(pos)) != ' ') |==> (pos >= startPos) == ((c = text.charAt(pos)) != ' ')
-287...COR...923...RHS(boolean,boolean)...(pos >= startPos) && ((c = text.charAt(pos)) != ' ') |==> ((c = text.charAt(pos)) != ' ')
-289...ROR...924...>(int,int)...c != '\n' |==> c > '\n'
-294...ROR...924...>(int,int)...c != '\r' |==> c > '\r'
-299...ROR...930...!=(int,int)...pos > startPos |==> pos != startPos
-300...ROR...930...>=(int,int)...pos > startPos |==> pos >= startPos
-302...AOR...936...%(int,int)...startPos + width |==> startPos % width
-303...AOR...936...*(int,int)...startPos + width |==> startPos * width
-304...AOR...936...-(int,int)...startPos + width |==> startPos - width
-305...AOR...936.../(int,int)...startPos + width |==> startPos / width
-306...STD...936...<NO-OP>...pos = startPos + width |==> <NO-OP>
-307...ROR...937...<(int,int)...pos <= text.length() |==> pos < text.length()
-308...ROR...937...==(int,int)...pos <= text.length() |==> pos == text.length()
-309...ROR...937...TRUE(int,int)...pos <= text.length() |==> true
-310...ROR...937...<(int,int)...(c = text.charAt(pos)) != ' ' |==> (c = text.charAt(pos)) < ' '
-311...ROR...937...>(int,int)...(c = text.charAt(pos)) != ' ' |==> (c = text.charAt(pos)) > ' '
-312...COR...937...==(boolean,boolean)...(pos <= text.length()) && ((c = text.charAt(pos)) != ' ') |==> (pos <= text.length()) == ((c = text.charAt(pos)) != ' ')
-313...COR...937...FALSE(boolean,boolean)...(pos <= text.length()) && ((c = text.charAt(pos)) != ' ') |==> false
-314...COR...937...RHS(boolean,boolean)...(pos <= text.length()) && ((c = text.charAt(pos)) != ' ') |==> ((c = text.charAt(pos)) != ' ')
-318...COR...938...FALSE(boolean,boolean)...(pos <= text.length()) && ((c = text.charAt(pos)) != ' ') && (c != '\n') |==> false
-319...COR...937...LHS(boolean,boolean)...(pos <= text.length()) && ((c = text.charAt(pos)) != ' ') && (c != '\n') |==> (pos <= text.length()) && ((c = text.charAt(pos)) != ' ')
-323...COR...938...FALSE(boolean,boolean)...(pos <= text.length()) && ((c = text.charAt(pos)) != ' ') && (c != '\n') && (c != '\r') |==> false
-324...COR...937...LHS(boolean,boolean)...(pos <= text.length()) && ((c = text.charAt(pos)) != ' ') && (c != '\n') && (c != '\r') |==> (pos <= text.length()) && ((c = text.charAt(pos)) != ' ') && (c != '\n')
-334...LVR...969...NEG...0 |==> -1
-335...ROR...969...<=(int,int)...s.length() == 0 |==> s.length() <= 0
-337...ROR...969...FALSE(int,int)...s.length() == 0 |==> false
-339...COR...969...LHS(boolean,boolean)...(s == null) || (s.length() == 0) |==> (s == null)
-344...ROR...976...!=(int,int)...pos > 0 |==> pos != 0
+137...LVR...0...NEG...org.apache.commons.cli.HelpFormatter@renderOptions(java.lang.StringBuffer,int,org.apache.commons.cli.Options,int,int)...756...0 |==> -1
+193...ROR...==(int,int)...<=(int,int)...org.apache.commons.cli.HelpFormatter@renderWrappedText(java.lang.StringBuffer,int,int,java.lang.String)...850...pos == -1 |==> pos <= -1
+243...COR...&&(boolean,boolean)...==(boolean,boolean)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...907...(pos = text.indexOf('\n', startPos)) != -1 && pos <= width |==> (pos = text.indexOf('\n', startPos)) != -1 == pos <= width
+253...COR...&&(boolean,boolean)...==(boolean,boolean)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...908...(pos = text.indexOf('\t', startPos)) != -1 && pos <= width |==> (pos = text.indexOf('\t', startPos)) != -1 == pos <= width
+281...ROR...>=(int,int)...>(int,int)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...923...pos >= startPos |==> pos > startPos
+282...ROR...>=(int,int)...TRUE(int,int)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...923...pos >= startPos |==> true
+284...ROR...!=(int,int)...>(int,int)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...923...(c = text.charAt(pos)) != ' ' |==> (c = text.charAt(pos)) > ' '
+285...COR...&&(boolean,boolean)...==(boolean,boolean)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...923...(pos >= startPos) && ((c = text.charAt(pos)) != ' ') |==> (pos >= startPos) == ((c = text.charAt(pos)) != ' ')
+287...COR...&&(boolean,boolean)...RHS(boolean,boolean)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...923...(pos >= startPos) && ((c = text.charAt(pos)) != ' ') |==> ((c = text.charAt(pos)) != ' ')
+289...ROR...!=(int,int)...>(int,int)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...924...c != '\n' |==> c > '\n'
+294...ROR...!=(int,int)...>(int,int)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...924...c != '\r' |==> c > '\r'
+299...ROR...>(int,int)...!=(int,int)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...930...pos > startPos |==> pos != startPos
+300...ROR...>(int,int)...>=(int,int)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...930...pos > startPos |==> pos >= startPos
+302...AOR...+(int,int)...%(int,int)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...936...startPos + width |==> startPos % width
+303...AOR...+(int,int)...*(int,int)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...936...startPos + width |==> startPos * width
+304...AOR...+(int,int)...-(int,int)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...936...startPos + width |==> startPos - width
+305...AOR...+(int,int).../(int,int)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...936...startPos + width |==> startPos / width
+306...STD...<ASSIGN>...<NO-OP>...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...936...pos = startPos + width |==> <NO-OP>
+307...ROR...<=(int,int)...<(int,int)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...937...pos <= text.length() |==> pos < text.length()
+308...ROR...<=(int,int)...==(int,int)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...937...pos <= text.length() |==> pos == text.length()
+309...ROR...<=(int,int)...TRUE(int,int)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...937...pos <= text.length() |==> true
+310...ROR...!=(int,int)...<(int,int)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...937...(c = text.charAt(pos)) != ' ' |==> (c = text.charAt(pos)) < ' '
+311...ROR...!=(int,int)...>(int,int)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...937...(c = text.charAt(pos)) != ' ' |==> (c = text.charAt(pos)) > ' '
+312...COR...&&(boolean,boolean)...==(boolean,boolean)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...937...(pos <= text.length()) && ((c = text.charAt(pos)) != ' ') |==> (pos <= text.length()) == ((c = text.charAt(pos)) != ' ')
+313...COR...&&(boolean,boolean)...FALSE(boolean,boolean)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...937...(pos <= text.length()) && ((c = text.charAt(pos)) != ' ') |==> false
+314...COR...&&(boolean,boolean)...RHS(boolean,boolean)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...937...(pos <= text.length()) && ((c = text.charAt(pos)) != ' ') |==> ((c = text.charAt(pos)) != ' ')
+318...COR...&&(boolean,boolean)...FALSE(boolean,boolean)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...938...(pos <= text.length()) && ((c = text.charAt(pos)) != ' ') && (c != '\n') |==> false
+319...COR...&&(boolean,boolean)...LHS(boolean,boolean)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...937...(pos <= text.length()) && ((c = text.charAt(pos)) != ' ') && (c != '\n') |==> (pos <= text.length()) && ((c = text.charAt(pos)) != ' ')
+323...COR...&&(boolean,boolean)...FALSE(boolean,boolean)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...938...(pos <= text.length()) && ((c = text.charAt(pos)) != ' ') && (c != '\n') && (c != '\r') |==> false
+324...COR...&&(boolean,boolean)...LHS(boolean,boolean)...org.apache.commons.cli.HelpFormatter@findWrapPos(java.lang.String,int,int)...937...(pos <= text.length()) && ((c = text.charAt(pos)) != ' ') && (c != '\n') && (c != '\r') |==> (pos <= text.length()) && ((c = text.charAt(pos)) != ' ') && (c != '\n')
+334...LVR...0...NEG...org.apache.commons.cli.HelpFormatter@rtrim(java.lang.String)...969...0 |==> -1
+335...ROR...==(int,int)...<=(int,int)...org.apache.commons.cli.HelpFormatter@rtrim(java.lang.String)...969...s.length() == 0 |==> s.length() <= 0
+337...ROR...==(int,int)...FALSE(int,int)...org.apache.commons.cli.HelpFormatter@rtrim(java.lang.String)...969...s.length() == 0 |==> false
+339...COR...||(boolean,boolean)...LHS(boolean,boolean)...org.apache.commons.cli.HelpFormatter@rtrim(java.lang.String)...969...(s == null) || (s.length() == 0) |==> (s == null)
+344...ROR...>(int,int)...!=(int,int)...org.apache.commons.cli.HelpFormatter@rtrim(java.lang.String)...976...pos > 0 |==> pos != 0
