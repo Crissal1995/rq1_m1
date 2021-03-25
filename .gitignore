@@ -1,5 +1,4 @@
 .idea
 venv*
 **__pycache__**
-src/major/major.log
-major.log
+*.log
