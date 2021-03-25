@@ -1,0 +1,7911 @@
+{
+  "summary": {
+    "date": "Mar 25, 2021",
+    "time": "12:03:00 PM",
+    "duration": 1242,
+    "testCount": 35,
+    "evaluatedClassesCount": 24,
+    "mutatedClassesCount": 21,
+    "score": 0.0,
+    "allKilledMutantsCount": 1869,
+    "allMutantsCount": 2533,
+    "testsRuns": 113267,
+    "testsDuration": 1222707
+  },
+  "operators": [
+    {
+      "name": "PPD",
+      "description": "change parameter type to super class of original type"
+    },
+    {
+      "name": "OMR",
+      "description": "change overloading method"
+    },
+    {
+      "name": "DUL",
+      "description": "Duplicates element in the list"
+    },
+    {
+      "name": "AIR_Rem",
+      "description": "replace basic binary arithmetic instructions with REM"
+    },
+    {
+      "name": "PLD",
+      "description": "change local variable type to super class of original type"
+    },
+    {
+      "name": "OAC",
+      "description": "change order or number of arguments in method invocations"
+    },
+    {
+      "name": "PNC",
+      "description": "call new with child class type"
+    },
+    {
+      "name": "EGE",
+      "description": "generalization of caught errors"
+    },
+    {
+      "name": "AIR_Sub",
+      "description": "replace basic binary arithmetic instructions with SUB"
+    },
+    {
+      "name": "LIR_LeftOperand",
+      "description": "replace binary logical instructions with their left operands"
+    },
+    {
+      "name": "ORV",
+      "description": "Reverses the order of collections with ordering based on comparator"
+    },
+    {
+      "name": "JIR_Ifgt",
+      "description": "replace jump instructions with IFGT (IF_ICMPGT)"
+    },
+    {
+      "name": "LIR_Xor",
+      "description": "replace binary logical instructions with XOR"
+    },
+    {
+      "name": "JIR_Ifge",
+      "description": "replace jump instructions with IFGE (IF_ICMPGE)"
+    },
+    {
+      "name": "AIR_Mul",
+      "description": "replace basic binary arithmetic instructions with MUL"
+    },
+    {
+      "name": "JDC",
+      "description": "delete the implemented default constructor"
+    },
+    {
+      "name": "JTD",
+      "description": "delete this keyword when field has the same name as parameter"
+    },
+    {
+      "name": "AIR_RightOperand",
+      "description": "replace basic binary arithmetic instructions with their right operands"
+    },
+    {
+      "name": "JIR_Iflt",
+      "description": "replace jump instructions with IFLT (IF_ICMPLT)"
+    },
+    {
+      "name": "IOD",
+      "description": "delete overriding method"
+    },
+    {
+      "name": "LIR_RightOperand",
+      "description": "replace binary logical instructions with their right operands"
+    },
+    {
+      "name": "CST",
+      "description": "Changes LinkedHashSet to HashSet to shuffle order of elements in LinkedHashSet"
+    },
+    {
+      "name": "JIR_Ifne",
+      "description": "replace jump instructions with IFNE (IF_ICMPNE, IF_ACMPNE)"
+    },
+    {
+      "name": "EOC",
+      "description": "replace reference comparison with content comparison (equals) and vice-versa"
+    },
+    {
+      "name": "EAM",
+      "description": "change an accessor method name to other compatible accessor method names"
+    },
+    {
+      "name": "FBD",
+      "description": "break statements removal from switch"
+    },
+    {
+      "name": "EMM",
+      "description": "change a modifier method name to other compatible modifier method names"
+    },
+    {
+      "name": "LSF",
+      "description": "Shuffles the list"
+    },
+    {
+      "name": "CCE",
+      "description": "Clears the collection"
+    },
+    {
+      "name": "EOA",
+      "description": "replace reference assignment with content assignment (clone) and vice-versa"
+    },
+    {
+      "name": "OMD",
+      "description": "delete overloading method declarations, one at a time"
+    },
+    {
+      "name": "LIR_And",
+      "description": "replace binary logical instructions with AND"
+    },
+    {
+      "name": "PRV",
+      "description": "change operands of reference assignment"
+    },
+    {
+      "name": "CCD",
+      "description": "compareTo method distortion"
+    },
+    {
+      "name": "SIR_Ushr",
+      "description": "replace shift instructions with USHR"
+    },
+    {
+      "name": "IPC",
+      "description": "delete super constructor call"
+    },
+    {
+      "name": "IOP",
+      "description": "relocate calls to overridden method"
+    },
+    {
+      "name": "ISD",
+      "description": "delete super keyword before fields and methods calls"
+    },
+    {
+      "name": "ISI",
+      "description": "insert super keyword before fields and methods calls"
+    },
+    {
+      "name": "JID",
+      "description": "delete field initialization"
+    },
+    {
+      "name": "CLR",
+      "description": "change list to set that does not allow to duplicated elements"
+    },
+    {
+      "name": "JTI",
+      "description": "insert \"this\" keyword when field has the same name as parameter"
+    },
+    {
+      "name": "REV",
+      "description": "Reverses the list"
+    },
+    {
+      "name": "SIR_Shl",
+      "description": "replace shift instructions with SHL"
+    },
+    {
+      "name": "IOR",
+      "description": "rename overridden method"
+    },
+    {
+      "name": "AIR_Add",
+      "description": "replace basic binary arithmetic instructions with ADD"
+    },
+    {
+      "name": "CSR",
+      "description": "collection synchronization removal"
+    },
+    {
+      "name": "JIR_Ifle",
+      "description": "replace jump instructions with IFLE (IF_ICMPLE)"
+    },
+    {
+      "name": "JIR_Ifnull",
+      "description": "replace jump instruction IFNULL with IFNONNULL and vice-versa"
+    },
+    {
+      "name": "JIR_Ifeq",
+      "description": "replace jump instructions with IFEQ (IF_ICMPEQ, IF_ACMPEQ)"
+    },
+    {
+      "name": "SCR",
+      "description": "stream closing removal"
+    },
+    {
+      "name": "SIR_Shr",
+      "description": "replace shift instructions with SHR"
+    },
+    {
+      "name": "AIR_LeftOperand",
+      "description": "replace basic binary arithmetic instructions with their left operands"
+    },
+    {
+      "name": "LIR_Or",
+      "description": "replace binary logical instructions with OR"
+    },
+    {
+      "name": "AIR_Div",
+      "description": "replace basic binary arithmetic instructions with DIV"
+    },
+    {
+      "name": "SIR_LeftOperand",
+      "description": "replace shift instructions with their left operands"
+    }
+  ],
+  "tests": [
+    {
+      "name": "org.apache.commons.cli.D3StudentTest",
+      "duration": 5,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.A6StudentTest",
+      "duration": 490,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.A3StudentTest",
+      "duration": 56,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.PatternOptionBuilderTest",
+      "duration": 91,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.UtilTest",
+      "duration": 4,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.BugsTest",
+      "duration": 79,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.A5StudentTest",
+      "duration": 813,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.B5StudentTest",
+      "duration": 219,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.B7StudentTest",
+      "duration": 176,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.B3StudentTest",
+      "duration": 49,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.OptionsTest",
+      "duration": 263,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.D2StudentTest",
+      "duration": 192,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.BasicParserTest",
+      "duration": 529,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.PosixParserTest",
+      "duration": 621,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.GnuParserTest",
+      "duration": 1248,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.CommandLineTest",
+      "duration": 8,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.bug.BugCLI71Test",
+      "duration": 26,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.DefaultParserTest",
+      "duration": 931,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.B6StudentTest",
+      "duration": 160,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.OptionGroupTest",
+      "duration": 76,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.HelpFormatterTest",
+      "duration": 160,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.OptionBuilderTest",
+      "duration": 49,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.ApplicationTest",
+      "duration": 31,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.bug.BugCLI148Test",
+      "duration": 58,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.D1StudentTest",
+      "duration": 5,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.bug.BugCLI133Test",
+      "duration": 7,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.OptionTest",
+      "duration": 25,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.bug.BugCLI162Test",
+      "duration": 19,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.bug.BugCLI13Test",
+      "duration": 5,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.A1StudentTest",
+      "duration": 42,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.A2StudentTest",
+      "duration": 125,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.B2StudentTest",
+      "duration": 538,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.bug.BugCLI18Test",
+      "duration": 3,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.ValueTest",
+      "duration": 78,
+      "result": "passed"
+    },
+    {
+      "name": "org.apache.commons.cli.ArgumentIsOptionTest",
+      "duration": 15,
+      "result": "passed"
+    }
+  ],
+  "classes": [
+    {
+      "name": "org.apache.commons.cli.UnrecognizedOptionException",
+      "score": 1.0,
+      "mutantsCount": 3,
+      "mutantsKilledCount": 3,
+      "notKilledMutant": []
+    },
+    {
+      "name": "org.apache.commons.cli.DefaultParser",
+      "score": 0.71813726,
+      "mutantsCount": 408,
+      "mutantsKilledCount": 293,
+      "notKilledMutant": [
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            236
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            7
+          ],
+          "lines": [
+            623
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            9
+          ],
+          "lines": [
+            172
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            49
+          ],
+          "lines": [
+            527
+          ]
+        },
+        {
+          "operators": [
+            "AIR_LeftOperand"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            569
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            160
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            46
+          ],
+          "lines": [
+            492
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            8
+          ],
+          "lines": [
+            172
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            37
+          ],
+          "lines": [
+            424
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            232
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            45
+          ],
+          "lines": [
+            508
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            42
+          ],
+          "lines": [
+            474
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            22
+          ],
+          "lines": [
+            290
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            58
+          ],
+          "lines": [
+            684
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            5
+          ],
+          "lines": [
+            165
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            31
+          ],
+          "lines": [
+            324
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            26
+          ],
+          "lines": [
+            301
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            52
+          ],
+          "lines": [
+            604
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            56
+          ],
+          "lines": [
+            621
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifne"
+          ],
+          "points": [
+            37
+          ],
+          "lines": [
+            631
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            5
+          ],
+          "lines": [
+            167
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            40
+          ],
+          "lines": [
+            436
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            54
+          ],
+          "lines": [
+            631
+          ]
+        },
+        {
+          "operators": [
+            "PLD"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            23
+          ],
+          "lines": [
+            290
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            20
+          ],
+          "lines": [
+            428
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            40
+          ],
+          "lines": [
+            477
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            28
+          ],
+          "lines": [
+            317
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            57
+          ],
+          "lines": [
+            631
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            42
+          ],
+          "lines": [
+            488
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            6
+          ],
+          "lines": [
+            167
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            22
+          ],
+          "lines": [
+            290
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            62
+          ],
+          "lines": [
+            684
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            55
+          ],
+          "lines": [
+            590
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            6
+          ],
+          "lines": [
+            590
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            29
+          ],
+          "lines": [
+            319
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            34
+          ],
+          "lines": [
+            350
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            44
+          ],
+          "lines": [
+            486
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            12
+          ],
+          "lines": [
+            224
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            53
+          ],
+          "lines": [
+            621
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            29
+          ],
+          "lines": [
+            317
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            7
+          ],
+          "lines": [
+            172
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            48
+          ],
+          "lines": [
+            542
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            57
+          ],
+          "lines": [
+            675
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            56
+          ],
+          "lines": [
+            631
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            18
+          ],
+          "lines": [
+            249
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            36
+          ],
+          "lines": [
+            368
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            49
+          ],
+          "lines": [
+            572
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            13
+          ],
+          "lines": [
+            228
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            24
+          ],
+          "lines": [
+            301
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            240
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            26
+          ],
+          "lines": [
+            311
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            26
+          ],
+          "lines": [
+            590
+          ]
+        },
+        {
+          "operators": [
+            "PPD"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "JTI"
+          ],
+          "points": [
+            5
+          ],
+          "lines": [
+            104
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            58
+          ],
+          "lines": [
+            631
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            240
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            27
+          ],
+          "lines": [
+            311
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifne"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            311
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            47
+          ],
+          "lines": [
+            531
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            160
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "EOC"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            228
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            53
+          ],
+          "lines": [
+            590
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            21
+          ],
+          "lines": [
+            262
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            38
+          ],
+          "lines": [
+            436
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            26
+          ],
+          "lines": [
+            311
+          ]
+        },
+        {
+          "operators": [
+            "AIR_Div"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            569
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            11
+          ],
+          "lines": [
+            208
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            20
+          ],
+          "lines": [
+            262
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            27
+          ],
+          "lines": [
+            311
+          ]
+        },
+        {
+          "operators": [
+            "PLD"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            324
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            31
+          ],
+          "lines": [
+            324
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            344
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            47
+          ],
+          "lines": [
+            508
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            28
+          ],
+          "lines": [
+            667
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifne"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            301
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            36
+          ],
+          "lines": [
+            391
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            146
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            34
+          ],
+          "lines": [
+            344
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "EOC"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            240
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            44
+          ],
+          "lines": [
+            502
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            56
+          ],
+          "lines": [
+            671
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            4
+          ],
+          "lines": [
+            160
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            19
+          ],
+          "lines": [
+            249
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            24
+          ],
+          "lines": [
+            301
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            30
+          ],
+          "lines": [
+            324
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            30
+          ],
+          "lines": [
+            319
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            51
+          ],
+          "lines": [
+            569
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            117
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            48
+          ],
+          "lines": [
+            527
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            10
+          ],
+          "lines": [
+            196
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            27
+          ],
+          "lines": [
+            311
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            32
+          ],
+          "lines": [
+            344
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            18
+          ],
+          "lines": [
+            240
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            28
+          ],
+          "lines": [
+            311
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            29
+          ],
+          "lines": [
+            684
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            44
+          ],
+          "lines": [
+            488
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            41
+          ],
+          "lines": [
+            474
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            19
+          ],
+          "lines": [
+            395
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            107
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            30
+          ],
+          "lines": [
+            324
+          ]
+        },
+        {
+          "operators": [
+            "JTI"
+          ],
+          "points": [
+            6
+          ],
+          "lines": [
+            107
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            107
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            14
+          ],
+          "lines": [
+            232
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            14
+          ],
+          "lines": [
+            232
+          ]
+        }
+      ]
+    },
+    {
+      "name": "org.apache.commons.cli.MissingOptionException",
+      "score": 0.7916667,
+      "mutantsCount": 24,
+      "mutantsKilledCount": 19,
+      "notKilledMutant": [
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            85
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            82
+          ]
+        },
+        {
+          "operators": [
+            "LSF"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            66
+          ]
+        },
+        {
+          "operators": [
+            "REV"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            66
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            78
+          ]
+        }
+      ]
+    },
+    {
+      "name": "org.apache.commons.cli.HelpFormatter$OptionComparator",
+      "score": 1.0,
+      "mutantsCount": 11,
+      "mutantsKilledCount": 11,
+      "notKilledMutant": []
+    },
+    {
+      "name": "org.apache.commons.cli.OptionBuilder",
+      "score": 0.85714287,
+      "mutantsCount": 14,
+      "mutantsKilledCount": 12,
+      "notKilledMutant": [
+        {
+          "operators": [
+            "PNC"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            333
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            123
+          ]
+        }
+      ]
+    },
+    {
+      "name": "org.apache.commons.cli.AmbiguousOptionException",
+      "score": 0.4,
+      "mutantsCount": 15,
+      "mutantsKilledCount": 6,
+      "notKilledMutant": [
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            74
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            74
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            69
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifne"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            74
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            69
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            74
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            69
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            74
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifne"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            69
+          ]
+        }
+      ]
+    },
+    {
+      "name": "org.apache.commons.cli.GnuParser",
+      "score": 0.75,
+      "mutantsCount": 60,
+      "mutantsKilledCount": 45,
+      "notKilledMutant": [
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            7
+          ],
+          "lines": [
+            85
+          ]
+        },
+        {
+          "operators": [
+            "EOC"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            60
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            5
+          ],
+          "lines": [
+            79
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            4
+          ],
+          "lines": [
+            73
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            8
+          ],
+          "lines": [
+            103
+          ]
+        },
+        {
+          "operators": [
+            "EOC"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            65
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            105
+          ]
+        },
+        {
+          "operators": [
+            "IOD"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "IOR"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            60
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            69
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            60
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            65
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            6
+          ],
+          "lines": [
+            79
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            69
+          ]
+        }
+      ]
+    },
+    {
+      "name": "org.apache.commons.cli.CommandLineParser",
+      "score": 0.0,
+      "mutantsCount": 0,
+      "mutantsKilledCount": 0,
+      "notKilledMutant": []
+    },
+    {
+      "name": "org.apache.commons.cli.PatternOptionBuilder",
+      "score": 0.81609195,
+      "mutantsCount": 87,
+      "mutantsKilledCount": 71,
+      "notKilledMutant": [
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            156
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            9
+          ],
+          "lines": [
+            130
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            7
+          ],
+          "lines": [
+            130
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            130
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            14
+          ],
+          "lines": [
+            189
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            130
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            8
+          ],
+          "lines": [
+            130
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            4
+          ],
+          "lines": [
+            130
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            12
+          ],
+          "lines": [
+            164
+          ]
+        },
+        {
+          "operators": [
+            "FBD"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            96
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            13
+          ],
+          "lines": [
+            179
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            11
+          ],
+          "lines": [
+            162
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            130
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            6
+          ],
+          "lines": [
+            130
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            130
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            5
+          ],
+          "lines": [
+            130
+          ]
+        }
+      ]
+    },
+    {
+      "name": "org.apache.commons.cli.OptionGroup",
+      "score": 0.7741935,
+      "mutantsCount": 62,
+      "mutantsKilledCount": 48,
+      "notKilledMutant": [
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            99
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            99
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            5
+          ],
+          "lines": [
+            155
+          ]
+        },
+        {
+          "operators": [
+            "EOC"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            99
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            99
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            99
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            99
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            148
+          ]
+        },
+        {
+          "operators": [
+            "IOD"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            166
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            99
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            6
+          ],
+          "lines": [
+            160
+          ]
+        },
+        {
+          "operators": [
+            "IOR"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            99
+          ]
+        }
+      ]
+    },
+    {
+      "name": "org.apache.commons.cli.Parser",
+      "score": 0.0,
+      "mutantsCount": 0,
+      "mutantsKilledCount": 0,
+      "notKilledMutant": []
+    },
+    {
+      "name": "org.apache.commons.cli.OptionValidator",
+      "score": 0.84210527,
+      "mutantsCount": 38,
+      "mutantsKilledCount": 32,
+      "notKilledMutant": [
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            58
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            4
+          ],
+          "lines": [
+            87
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            4
+          ],
+          "lines": [
+            87
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            71
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            6
+          ],
+          "lines": [
+            87
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            69
+          ]
+        }
+      ]
+    },
+    {
+      "name": "org.apache.commons.cli.Util",
+      "score": 0.81395346,
+      "mutantsCount": 43,
+      "mutantsKilledCount": 35,
+      "notKilledMutant": [
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            66
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            4
+          ],
+          "lines": [
+            66
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            66
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            46
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            66
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            66
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            5
+          ],
+          "lines": [
+            66
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            42
+          ]
+        }
+      ]
+    },
+    {
+      "name": "org.apache.commons.cli.CommandLine",
+      "score": 0.70866144,
+      "mutantsCount": 127,
+      "mutantsKilledCount": 90,
+      "notKilledMutant": [
+        {
+          "operators": [
+            "JIR_Ifne"
+          ],
+          "points": [
+            8
+          ],
+          "lines": [
+            280
+          ]
+        },
+        {
+          "operators": [
+            "REV"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            317
+          ]
+        },
+        {
+          "operators": [
+            "EOC"
+          ],
+          "points": [
+            5
+          ],
+          "lines": [
+            277
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            6
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            7
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            5
+          ],
+          "lines": [
+            200
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            11
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            185
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            9
+          ],
+          "lines": [
+            277
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            176
+          ]
+        },
+        {
+          "operators": [
+            "PLD"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            288
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "PLD"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            99
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            10
+          ],
+          "lines": [
+            285
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            5
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            10
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            8
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            179
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            8
+          ],
+          "lines": [
+            277
+          ]
+        },
+        {
+          "operators": [
+            "EOC"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            205
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            99
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            10
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            9
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            179
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            4
+          ],
+          "lines": [
+            197
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            4
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            5
+          ],
+          "lines": [
+            200
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            6
+          ],
+          "lines": [
+            205
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            11
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "EOC"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            179
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            7
+          ],
+          "lines": [
+            273
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            8
+          ],
+          "lines": [
+            277
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            179
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            7
+          ],
+          "lines": [
+            277
+          ]
+        }
+      ]
+    },
+    {
+      "name": "org.apache.commons.cli.BasicParser",
+      "score": 0.0,
+      "mutantsCount": 2,
+      "mutantsKilledCount": 0,
+      "notKilledMutant": [
+        {
+          "operators": [
+            "IOD"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "IOR"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "org.apache.commons.cli.ParseException",
+      "score": 0.5,
+      "mutantsCount": 2,
+      "mutantsKilledCount": 1,
+      "notKilledMutant": [
+        {
+          "operators": [
+            "EGE"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            36
+          ]
+        }
+      ]
+    },
+    {
+      "name": "org.apache.commons.cli.Option",
+      "score": 0.61904764,
+      "mutantsCount": 252,
+      "mutantsKilledCount": 156,
+      "notKilledMutant": [
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            14
+          ],
+          "lines": [
+            681
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            565
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            610
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            565
+          ]
+        },
+        {
+          "operators": [
+            "EGE"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            669
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifnull"
+          ],
+          "points": [
+            4
+          ],
+          "lines": [
+            554
+          ]
+        },
+        {
+          "operators": [
+            "PNC"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            469
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            20
+          ],
+          "lines": [
+            681
+          ]
+        },
+        {
+          "operators": [
+            "AIR_Rem"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            622
+          ]
+        },
+        {
+          "operators": [
+            "EGE"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            403
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            257
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            610
+          ]
+        },
+        {
+          "operators": [
+            "AIR_Add"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            436
+          ]
+        },
+        {
+          "operators": [
+            "AIR_LeftOperand"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            436
+          ]
+        },
+        {
+          "operators": [
+            "AIR_Sub"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            622
+          ]
+        },
+        {
+          "operators": [
+            "PNC"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            403
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            14
+          ],
+          "lines": [
+            606
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            610
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            18
+          ],
+          "lines": [
+            681
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifne"
+          ],
+          "points": [
+            11
+          ],
+          "lines": [
+            565
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifnull"
+          ],
+          "points": [
+            11
+          ],
+          "lines": [
+            621
+          ]
+        },
+        {
+          "operators": [
+            "IOR"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "PNC"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            469
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            9
+          ],
+          "lines": [
+            485
+          ]
+        },
+        {
+          "operators": [
+            "PLD"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            646
+          ]
+        },
+        {
+          "operators": [
+            "AIR_RightOperand"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            622
+          ]
+        },
+        {
+          "operators": [
+            "AIR_Add"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            622
+          ]
+        },
+        {
+          "operators": [
+            "PRV"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            278
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            10
+          ],
+          "lines": [
+            610
+          ]
+        },
+        {
+          "operators": [
+            "IOD"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "AIR_Div"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            436
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            14
+          ],
+          "lines": [
+            561
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            13
+          ],
+          "lines": [
+            565
+          ]
+        },
+        {
+          "operators": [
+            "PRV"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            278
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            10
+          ],
+          "lines": [
+            502
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            8
+          ],
+          "lines": [
+            594
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            12
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifne"
+          ],
+          "points": [
+            10
+          ],
+          "lines": [
+            561
+          ]
+        },
+        {
+          "operators": [
+            "PNC"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            469
+          ]
+        },
+        {
+          "operators": [
+            "AIR_Rem"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            622
+          ]
+        },
+        {
+          "operators": [
+            "AIR_Mul"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            436
+          ]
+        },
+        {
+          "operators": [
+            "AIR_Mul"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            622
+          ]
+        },
+        {
+          "operators": [
+            "IOD"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "IOR"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            24
+          ],
+          "lines": [
+            696
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            20
+          ],
+          "lines": [
+            692
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            5
+          ],
+          "lines": [
+            380
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            14
+          ],
+          "lines": [
+            561
+          ]
+        },
+        {
+          "operators": [
+            "IOR"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "EOC"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            598
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            681
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            19
+          ],
+          "lines": [
+            681
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            7
+          ],
+          "lines": [
+            424
+          ]
+        },
+        {
+          "operators": [
+            "AIR_LeftOperand"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            622
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifnull"
+          ],
+          "points": [
+            5
+          ],
+          "lines": [
+            572
+          ]
+        },
+        {
+          "operators": [
+            "EOC"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            606
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            5
+          ],
+          "lines": [
+            424
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            21
+          ],
+          "lines": [
+            681
+          ]
+        },
+        {
+          "operators": [
+            "PRV"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            278
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            11
+          ],
+          "lines": [
+            531
+          ]
+        },
+        {
+          "operators": [
+            "PNC"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            403
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            11
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            257
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            681
+          ]
+        },
+        {
+          "operators": [
+            "EGE"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            646
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            13
+          ],
+          "lines": [
+            565
+          ]
+        },
+        {
+          "operators": [
+            "PNC"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            403
+          ]
+        },
+        {
+          "operators": [
+            "EOC"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            610
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            328
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            130
+          ]
+        },
+        {
+          "operators": [
+            "IOD"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JTI"
+          ],
+          "points": [
+            11
+          ],
+          "lines": [
+            278
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            12
+          ],
+          "lines": [
+            561
+          ]
+        },
+        {
+          "operators": [
+            "IOR"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            8
+          ],
+          "lines": [
+            467
+          ]
+        },
+        {
+          "operators": [
+            "AIR_Div"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            622
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            22
+          ],
+          "lines": [
+            696
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            6
+          ],
+          "lines": [
+            380
+          ]
+        },
+        {
+          "operators": [
+            "AIR_RightOperand"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            622
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            606
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            6
+          ],
+          "lines": [
+            433
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "AIR_LeftOperand"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            622
+          ]
+        },
+        {
+          "operators": [
+            "AIR_Sub"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            622
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifnull"
+          ],
+          "points": [
+            12
+          ],
+          "lines": [
+            622
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            147
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            12
+          ],
+          "lines": [
+            561
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            338
+          ]
+        },
+        {
+          "operators": [
+            "IOD"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "AIR_Div"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            622
+          ]
+        },
+        {
+          "operators": [
+            "JTD"
+          ],
+          "points": [
+            6
+          ],
+          "lines": [
+            278
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            5
+          ],
+          "lines": [
+            646
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            610
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifnull"
+          ],
+          "points": [
+            8
+          ],
+          "lines": [
+            606
+          ]
+        }
+      ]
+    },
+    {
+      "name": "org.apache.commons.cli.HelpFormatter$1",
+      "score": 0.0,
+      "mutantsCount": 0,
+      "mutantsKilledCount": 0,
+      "notKilledMutant": []
+    },
+    {
+      "name": "org.apache.commons.cli.PosixParser",
+      "score": 0.75949365,
+      "mutantsCount": 158,
+      "mutantsKilledCount": 120,
+      "notKilledMutant": [
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            4
+          ],
+          "lines": [
+            153
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            21
+          ],
+          "lines": [
+            278
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            228
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            6
+          ],
+          "lines": [
+            228
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            7
+          ],
+          "lines": [
+            269
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            105
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            5
+          ],
+          "lines": [
+            124
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            6
+          ],
+          "lines": [
+            137
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            11
+          ],
+          "lines": [
+            187
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            19
+          ],
+          "lines": [
+            233
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            160
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            22
+          ],
+          "lines": [
+            285
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            111
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            117
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            228
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            111
+          ]
+        },
+        {
+          "operators": [
+            "EOC"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            111
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            18
+          ],
+          "lines": [
+            228
+          ]
+        },
+        {
+          "operators": [
+            "IOD"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            20
+          ],
+          "lines": [
+            278
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            11
+          ],
+          "lines": [
+            150
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            13
+          ],
+          "lines": [
+            205
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            8
+          ],
+          "lines": [
+            146
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            228
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            9
+          ],
+          "lines": [
+            146
+          ]
+        },
+        {
+          "operators": [
+            "IOR"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            7
+          ],
+          "lines": [
+            144
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            205
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            19
+          ],
+          "lines": [
+            273
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            9
+          ],
+          "lines": [
+            146
+          ]
+        },
+        {
+          "operators": [
+            "EOC"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            111
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            18
+          ],
+          "lines": [
+            228
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            12
+          ],
+          "lines": [
+            189
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            10
+          ],
+          "lines": [
+            146
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            4
+          ],
+          "lines": [
+            120
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            128
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            233
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            136
+          ]
+        }
+      ]
+    },
+    {
+      "name": "org.apache.commons.cli.MissingArgumentException",
+      "score": 0.33333334,
+      "mutantsCount": 9,
+      "mutantsKilledCount": 3,
+      "notKilledMutant": [
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            52
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            52
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            52
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            52
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            52
+          ]
+        },
+        {
+          "operators": [
+            "EOA"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            53
+          ]
+        }
+      ]
+    },
+    {
+      "name": "org.apache.commons.cli.AlreadySelectedException",
+      "score": 0.5,
+      "mutantsCount": 12,
+      "mutantsKilledCount": 6,
+      "notKilledMutant": [
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            56
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            56
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            56
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            56
+          ]
+        },
+        {
+          "operators": [
+            "EOA"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            59
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            56
+          ]
+        }
+      ]
+    },
+    {
+      "name": "org.apache.commons.cli.TypeHandler",
+      "score": 0.4390244,
+      "mutantsCount": 41,
+      "mutantsKilledCount": 18,
+      "notKilledMutant": [
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            150
+          ]
+        },
+        {
+          "operators": [
+            "PLD"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            161
+          ]
+        },
+        {
+          "operators": [
+            "EOC"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            70
+          ]
+        },
+        {
+          "operators": [
+            "EOC"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            66
+          ]
+        },
+        {
+          "operators": [
+            "EOC"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            74
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            161
+          ]
+        },
+        {
+          "operators": [
+            "PLD"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "PNC"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            161
+          ]
+        },
+        {
+          "operators": [
+            "PNC"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            161
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            132
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            132
+          ]
+        },
+        {
+          "operators": [
+            "EOC"
+          ],
+          "points": [
+            4
+          ],
+          "lines": [
+            78
+          ]
+        },
+        {
+          "operators": [
+            "PNC"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            161
+          ]
+        },
+        {
+          "operators": [
+            "EOC"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            62
+          ]
+        },
+        {
+          "operators": [
+            "PLD"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "EOC"
+          ],
+          "points": [
+            6
+          ],
+          "lines": [
+            86
+          ]
+        },
+        {
+          "operators": [
+            "EOC"
+          ],
+          "points": [
+            8
+          ],
+          "lines": [
+            94
+          ]
+        },
+        {
+          "operators": [
+            "PLD"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "PNC"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            161
+          ]
+        },
+        {
+          "operators": [
+            "EOC"
+          ],
+          "points": [
+            5
+          ],
+          "lines": [
+            82
+          ]
+        },
+        {
+          "operators": [
+            "EOC"
+          ],
+          "points": [
+            7
+          ],
+          "lines": [
+            90
+          ]
+        },
+        {
+          "operators": [
+            "PPD"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            132
+          ]
+        }
+      ]
+    },
+    {
+      "name": "org.apache.commons.cli.HelpFormatter",
+      "score": 0.77221173,
+      "mutantsCount": 1058,
+      "mutantsKilledCount": 817,
+      "notKilledMutant": [
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            7
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            4
+          ],
+          "lines": [
+            584
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            18
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            12
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            11
+          ],
+          "lines": [
+            639
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            6
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            8
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OAC"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            414
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            36
+          ],
+          "lines": [
+            938
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            793
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OAC"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            367
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "PPD"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            517
+          ]
+        },
+        {
+          "operators": [
+            "PLD"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            452
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            14
+          ],
+          "lines": [
+            879
+          ]
+        },
+        {
+          "operators": [
+            "OAC"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            367
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            14
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            14
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            14
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "PNC"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            505
+          ]
+        },
+        {
+          "operators": [
+            "PPD"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            25
+          ],
+          "lines": [
+            907
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            20
+          ],
+          "lines": [
+            799
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            13
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OAC"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            367
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            39
+          ],
+          "lines": [
+            965
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            524
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            14
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            11
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            13
+          ],
+          "lines": [
+            764
+          ]
+        },
+        {
+          "operators": [
+            "OAC"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            367
+          ]
+        },
+        {
+          "operators": [
+            "OAC"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            367
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            13
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            20
+          ],
+          "lines": [
+            825
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            13
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            26
+          ],
+          "lines": [
+            907
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Iflt"
+          ],
+          "points": [
+            26
+          ],
+          "lines": [
+            879
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "PPD"
+          ],
+          "points": [
+            7
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            12
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            13
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            11
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            7
+          ],
+          "lines": [
+            618
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "PPD"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "OAC"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            367
+          ]
+        },
+        {
+          "operators": [
+            "OAC"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            382
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            13
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            22
+          ],
+          "lines": [
+            809
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            10
+          ],
+          "lines": [
+            654
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            13
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            26
+          ],
+          "lines": [
+            872
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            4
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            13
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            10
+          ],
+          "lines": [
+            809
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            14
+          ],
+          "lines": [
+            777
+          ]
+        },
+        {
+          "operators": [
+            "OAC"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            367
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            11
+          ],
+          "lines": [
+            654
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            775
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            503
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            5
+          ],
+          "lines": [
+            564
+          ]
+        },
+        {
+          "operators": [
+            "PPD"
+          ],
+          "points": [
+            5
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            783
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            13
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            14
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            14
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            24
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            6
+          ],
+          "lines": [
+            613
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            552
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            10
+          ],
+          "lines": [
+            624
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OAC"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            382
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            10
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            12
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            14
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OAC"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            367
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            13
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            5
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            508
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            13
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifeq"
+          ],
+          "points": [
+            23
+          ],
+          "lines": [
+            972
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            33
+          ],
+          "lines": [
+            938
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            14
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            5
+          ],
+          "lines": [
+            646
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            18
+          ],
+          "lines": [
+            804
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OAC"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            382
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifge"
+          ],
+          "points": [
+            39
+          ],
+          "lines": [
+            965
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            13
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            24
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            13
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            9
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            16
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            6
+          ],
+          "lines": [
+            650
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            7
+          ],
+          "lines": [
+            605
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            35
+          ],
+          "lines": [
+            972
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            14
+          ],
+          "lines": [
+            661
+          ]
+        },
+        {
+          "operators": [
+            "EAM"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            771
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            14
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            18
+          ],
+          "lines": [
+            786
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            17
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            15
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            28
+          ],
+          "lines": [
+            879
+          ]
+        }
+      ]
+    },
+    {
+      "name": "org.apache.commons.cli.Options",
+      "score": 0.7757009,
+      "mutantsCount": 107,
+      "mutantsKilledCount": 83,
+      "notKilledMutant": [
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            4
+          ],
+          "lines": [
+            156
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            73
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "LSF"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            240
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            3
+          ],
+          "lines": [
+            154
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            9
+          ],
+          "lines": [
+            253
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            5
+          ],
+          "lines": [
+            209
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "IOR"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMD"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            -1
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifgt"
+          ],
+          "points": [
+            8
+          ],
+          "lines": [
+            253
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "OMR"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            6
+          ],
+          "lines": [
+            231
+          ]
+        },
+        {
+          "operators": [
+            "IOD"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            0
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            2
+          ],
+          "lines": [
+            148
+          ]
+        },
+        {
+          "operators": [
+            "REV"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            240
+          ]
+        },
+        {
+          "operators": [
+            "EMM"
+          ],
+          "points": [
+            0
+          ],
+          "lines": [
+            85
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            7
+          ],
+          "lines": [
+            234
+          ]
+        },
+        {
+          "operators": [
+            "JIR_Ifle"
+          ],
+          "points": [
+            1
+          ],
+          "lines": [
+            78
+          ]
+        }
+      ]
+    }
+  ]
+}
