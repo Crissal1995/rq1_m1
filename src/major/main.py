@@ -3,7 +3,7 @@ import logging
 
 from src.major.generate_live_mutants import get_live_mutants, get_directory
 from src.major.get_coupled_mutants import get_mutants_from_set, create_set_mutants
-
+from src.utility import get_root_dir
 
 """
 major scheme for mutation (mutants.log)
@@ -27,12 +27,7 @@ logging.basicConfig(filename="major.log", format=FORMAT, level=logging.DEBUG)
 logging.getLogger().addHandler(logging.StreamHandler())
 logging.info("---NEW EXECUTION---")
 
-# file.py -> major dir -> src dir -> root dir
-HOME = pathlib.Path(__file__).parent.parent.parent
-
-subjects = {'cli': 'cli32', 'lang': 'lang53', 'gson': 'gson15'}
-subject = subjects["cli"]
-root_dir = get_directory(HOME, subject)
+root_dir = get_root_dir("cli", "major")
 
 buggy_dir = root_dir / "buggy"
 fixed_dir = root_dir / "fixed"
