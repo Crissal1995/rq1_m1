@@ -18,10 +18,10 @@ classname = get_class_name(subject=subject)
 buggy_fp = root_dir / "buggy_result.json"
 fixed_fp = root_dir / "fixed_result.json"
 
-buggy_result = model.JudyResult(buggy_fp, classname)
+buggy_result = model.Result(buggy_fp, classname)
 buggy_class = buggy_result.get_class()
 
-fixed_result = model.JudyResult(fixed_fp, classname)
+fixed_result = model.Result(fixed_fp, classname)
 fixed_class = fixed_result.get_class()
 
 # stream content also on buggy.log
@@ -39,5 +39,19 @@ logger.addHandler(fh)
 
 logger.info("FIXED VERSION")
 logger.info(fixed_result)
+
+logger.removeHandler(fh)
+
+
+fh = logging.FileHandler("diff.txt", mode="w")
+logger.addHandler(fh)
+
+logger.info("DIFF MUTANT SET")
+comparer = model.ResultsComparer(buggy_result, fixed_result)
+
+diff_mutants = comparer.compare_mutants(offset_line=938, offset_space=4)
+
+logger.info(f"diff set length: {len(diff_mutants)}")
+logger.info("\n".join([str(m) for m in diff_mutants]))
 
 logger.removeHandler(fh)
