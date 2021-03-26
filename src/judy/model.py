@@ -23,7 +23,7 @@ class MutantOperator:
 
 
 class Mutant:
-    def __init__(self, adict):
+    def __init__(self, adict, include_points):
         lines = adict["lines"]
         operators = adict["operators"]
         points = adict["points"]
@@ -36,26 +36,39 @@ class Mutant:
         self.points: int = points
         self.operator: MutantOperator = MutantOperator.find_by_name(operator)
 
+        # construct tuple for hashing
+        self.include_points = include_points
+        if include_points:
+            self.hash_tuple = (self.line, self.operator.name, self.points)
+        else:
+            self.hash_tuple = (self.line, self.operator.name)
+
     def __repr__(self):
-        return f"Mutant at line {self.line:4}, with {self.points:2} points and operator {self.operator}"
+        s = f"Mutant at line {self.line:4} with"
+        if self.include_points:
+            s += f" {self.points:2} points and"
+        s += f" operator {self.operator}"
+        return s
 
     def __eq__(self, other):
         if not isinstance(other, Mutant):
             return False
-        return self.line == other.line and self.operator == other.operator and self.points == self.points
+        check = self.line == other.line and self.operator == other.operator
+        if self.include_points:
+            check = check and self.points == other.points
+        return check
 
     def __hash__(self):
-        # should points be inside hash function?
-        return hash((self.line, self.operator.name))
+        return hash(self.hash_tuple)
 
 
 class MutatedClass:
-    def __init__(self, adict):
+    def __init__(self, adict, include_points):
         self.name = adict["name"]
         self.total_mutants_count = adict["mutantsCount"]
         self.killed_mutants_count = adict["mutantsKilledCount"]
         self.live_mutants_count = self.total_mutants_count - self.killed_mutants_count
-        self.live_mutants = [Mutant(mdict) for mdict in adict["notKilledMutant"]]
+        self.live_mutants = [Mutant(mdict, include_points) for mdict in adict["notKilledMutant"]]
 
     def __repr__(self):
         s = f"CLASS {self.name}\n"
@@ -74,11 +87,11 @@ class Result:
         self.classname = classname
         self.operators = [MutantOperator(adict) for adict in self.result["operators"]]
 
-    def get_classes(self):
-        return [MutatedClass(adict) for adict in self.result["classes"] if self.classname in adict["name"]]
+    def get_classes(self, include_points=True):
+        return [MutatedClass(adict, include_points) for adict in self.result["classes"] if self.classname in adict["name"]]
 
-    def get_class(self):
-        results = [MutatedClass(adict) for adict in self.result["classes"] if self.classname == adict["name"]]
+    def get_class(self, include_points=True):
+        results = [MutatedClass(adict, include_points) for adict in self.result["classes"] if self.classname == adict["name"]]
         assert len(results) > 0, "No class found!"
         assert len(results) == 1, "Two or more classes found with this name!"
         return results[0]
@@ -91,7 +104,13 @@ class Result:
 
 
 class ResultsComparer:
-    def __init__(self, buggy_result: Result, fixed_result: Result, changed_lines_buggy=None, changed_lines_fixed=None):
+    def __init__(
+            self,
+            buggy_result: Result,
+            fixed_result: Result,
+            changed_lines_buggy=None,
+            changed_lines_fixed=None,
+    ):
         """Buggy and fixed results are Result object
 
         changed_lines_* are lists that include lines added/deleted (as seen in git diffs);
@@ -127,9 +146,9 @@ class ResultsComparer:
         """
         self.total_added = self.added_fixed + self.added_buggy
 
-    def compare_mutants(self, offset_line=None, offset_space=None):
-        buggy_mutants = self.buggy.get_class().live_mutants
-        fixed_mutants = self.fixed.get_class().live_mutants
+    def compare_mutants(self, offset_line: int, offset_space : int, include_points: bool):
+        buggy_mutants = self.buggy.get_class(include_points).live_mutants
+        fixed_mutants = self.fixed.get_class(include_points).live_mutants
 
         # for every mutant, if it's line is >= offset line,
         # then add the offset space specified

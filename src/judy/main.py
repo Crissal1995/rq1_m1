@@ -43,15 +43,27 @@ logger.info(fixed_result)
 logger.removeHandler(fh)
 
 
-fh = logging.FileHandler("diff.txt", mode="w")
+fh = logging.FileHandler("diff_points.txt", mode="w")
 logger.addHandler(fh)
 
 logger.info("DIFF MUTANT SET")
 comparer = model.ResultsComparer(buggy_result, fixed_result)
+diff_mutants = comparer.compare_mutants(offset_line=938, offset_space=4, include_points=True)
 
-diff_mutants = comparer.compare_mutants(offset_line=938, offset_space=4)
+logger.info(f"diff set length (with points): {len(diff_mutants)}")
+logger.info("\n".join([str(m) for m in diff_mutants]))
 
-logger.info(f"diff set length: {len(diff_mutants)}")
+logger.removeHandler(fh)
+
+
+fh = logging.FileHandler("diff_nopoints.txt", mode="w")
+logger.addHandler(fh)
+
+logger.info("DIFF MUTANT SET")
+comparer = model.ResultsComparer(buggy_result, fixed_result)
+diff_mutants = comparer.compare_mutants(offset_line=938, offset_space=4, include_points=False)
+
+logger.info(f"diff set length (without points): {len(diff_mutants)}")
 logger.info("\n".join([str(m) for m in diff_mutants]))
 
 logger.removeHandler(fh)
