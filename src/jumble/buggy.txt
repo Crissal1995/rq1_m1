@@ -1,0 +1,15 @@
+BUGGY VERSION
+set length: 13
+Mutant at line 936 with mutation: + -> -
+Mutant at line 936 with mutation: removed local assignment
+Mutant at line 938 with mutation: negated conditional
+Mutant at line 938 with mutation: 32 ( ) -> 33 (!)
+Mutant at line 938 with mutation: negated conditional
+Mutant at line 938 with mutation: 10 -> 11
+Mutant at line 938 with mutation: negated conditional
+Mutant at line 938 with mutation: 13 -> 14
+Mutant at line 938 with mutation: negated conditional
+Mutant at line 940 with mutation: += -> -=
+Mutant at line 942 with mutation: negated conditional
+Mutant at line 942 with mutation: -1 -> 1
+Mutant at line 942 with mutation: changed return value (ireturn)

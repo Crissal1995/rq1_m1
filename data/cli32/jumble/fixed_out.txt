@@ -1,0 +1,14 @@
+Mutating org.apache.commons.cli.HelpFormatter
+Tests: org.apache.commons.cli.A1StudentTest org.apache.commons.cli.A2StudentTest org.apache.commons.cli.A3StudentTest org.apache.commons.cli.A5StudentTest org.apache.commons.cli.A6StudentTest org.apache.commons.cli.B2StudentTest org.apache.commons.cli.B3StudentTest org.apache.commons.cli.B5StudentTest org.apache.commons.cli.B6StudentTest org.apache.commons.cli.B7StudentTest org.apache.commons.cli.D1StudentTest org.apache.commons.cli.D2StudentTest org.apache.commons.cli.D3StudentTest org.apache.commons.cli.HelpFormatterTest
+
+Mutation points = 246, unit test time limit 2.37s
+...............T.............T....................
+..................................................
+.................................T..........T.T.T.
+...................T........T.T..T.....TTTTT...TT.
+.TTT..TT..TT....TT......T...M FAIL: org.apache.commons.cli.HelpFormatter:938: -1 -> 1
+T....T...........
+Jumbling took 172.697s
+Score: 99%
+----------------------------------------------------------------------------------------------------------
+Generated 246 mutants, killed 245 and live 1
