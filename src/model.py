@@ -151,6 +151,9 @@ class MutantsComparer:
 
 
 class Report(ABC):
+    def makeit(self):
+        raise NotImplementedError
+
     def get_mutants(self):
         raise NotImplementedError
 

@@ -42,7 +42,7 @@ class Mutant(model.Mutant):
             self.block,
             self.killing_test,
             self.description,
-        ) = [child.text.strip() for child in children]
+        ) = [child.text for child in children]
         super().__init__(int(line))
 
     @property
@@ -66,7 +66,14 @@ class Mutant(model.Mutant):
 
 class Report(model.Report):
     def __init__(self, filepath):
-        tree = ET.parse(filepath)
+        self.filepath = filepath
+
+        self.mutants = None
+        self.killed_mutants = None
+        self.live_mutants = None
+
+    def makeit(self):
+        tree = ET.parse(self.filepath)
         root = tree.getroot()
         children = list(root)
         mutants = []
@@ -78,6 +85,8 @@ class Report(model.Report):
         self.killed_mutants = [mutation for mutation in mutants if mutation.detected]
         self.live_mutants = [mutation for mutation in mutants if not mutation.detected]
         assert len(self.killed_mutants) + len(self.live_mutants) == len(self.mutants)
+
+        return self
 
     def get_mutants(self):
         return self.mutants
