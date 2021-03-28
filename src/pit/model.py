@@ -35,26 +35,24 @@ class Mutation:
             self.mutated_class, \
             self.mutated_method, \
             self.method_description, \
-            self.line_number, \
+            self.line, \
             self.mutator, \
             self.index, \
             self.block, \
             self.killing_test, \
             self.description = [child.text for child in children]
 
-        # add var for convenience
-        self.line_number = int(self.line_number)
-        self.line = self.line_number
+        self.line = int(self.line)
 
         #
         # CHANGE THIS ATTR
         # to decide which attributes are used to determine if two mutations are different!
+        # self.mutator removed because we have a pletora of different mutators that can lead to same result
         self._tuple = (
             self.mutated_class,
             self.mutated_method,
             self.method_description,
-            self.line_number,
-            self.mutator,
+            self.line,
             self.description
         )
 
@@ -116,7 +114,7 @@ class ReportsComparer:
 
         set_buggy = set(buggy_mutants)
         set_fixed = set(fixed_mutants)
-        diff_set = set_buggy - set_fixed
+        diff_set = set_buggy.difference(set_fixed)
 
         return sorted(diff_set, key=lambda m: m.line)
 
