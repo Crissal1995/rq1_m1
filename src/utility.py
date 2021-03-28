@@ -7,7 +7,7 @@ subjects = {"cli": "cli32", "lang": "lang53", "gson": "gson15"}
 classnames = {
     "cli": "org.apache.commons.cli.HelpFormatter",
     "gson": "com.google.gson.stream.JsonWriter",
-    "lang": "org.apache.commons.lang.time.DateUtils"
+    "lang": "org.apache.commons.lang.time.DateUtils",
 }
 tools = ["judy", "jumble", "major", "pit"]
 

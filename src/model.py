@@ -150,29 +150,12 @@ class MutantsComparer:
             return sorted(difference_set, key=lambda mutant: mutant.line)
 
 
-class PitMutant(Mutant):
-    def __init__(self, line: int):
-        super().__init__(line)
+class Report(ABC):
+    def get_mutants(self):
+        raise NotImplementedError
 
-    @property
-    def hash_tuple(self) -> tuple:
-        return (self.line,)
+    def get_killed_mutants(self):
+        raise NotImplementedError
 
-
-if __name__ == "__main__":
-    _buggy_mutants = list(PitMutant(line=i) for i in range(930, 943))
-    _fixed_mutants = list(PitMutant(line=i) for i in range(930, 943))
-
-    home = pathlib.Path(__file__) / ".." / ".." / "data" / "cli32"
-    buggy_fp = home / "buggy_helpformatter.java"
-    fixed_fp = home / "fixed_helpformatter.java"
-
-    comparer = MutantsComparer(
-        buggy_mutants=_buggy_mutants,
-        fixed_mutants=_fixed_mutants,
-        buggy_filepath=buggy_fp,
-        fixed_filepath=fixed_fp,
-    )
-
-    diff_set = comparer.get_difference_set()
-    print(diff_set)
+    def get_live_mutants(self):
+        raise NotImplementedError
