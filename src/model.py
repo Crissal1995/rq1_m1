@@ -32,11 +32,13 @@ class Diff:
         source_count: int,
         destination_line: int,
         destination_count: int,
+        lines: [str],
     ):
         self.source_line = source_line
         self.source_count = source_count
         self.destination_line = destination_line
         self.destination_count = destination_count
+        self.lines = lines
 
     @property
     def delta(self):
@@ -47,6 +49,13 @@ class Diff:
             f"Diff({self.source_line}, {self.source_count}, "
             f"{self.destination_line}, {self.destination_count}); delta={self.delta}"
         )
+
+    def __str__(self):
+        src_count = f",{self.source_count}" if self.source_count != 1 else ""
+        dst_count = f",{self.destination_count}" if self.destination_count != 1 else ""
+        s = f"@@ -{self.source_line}{src_count} +{self.destination_line}{dst_count} @@\n"
+        s += "\n".join(self.lines)
+        return s
 
 
 class MutantsComparer:
@@ -117,11 +126,14 @@ class MutantsComparer:
                 source_count=source_count,
                 destination_line=dest_line,
                 destination_count=dest_count,
+                lines=block_diffs,
             )
 
     def get_difference_set(self, ordered=True):
         # make a tmp copy of fixed mutants
-        fixed_mutants = self.fixed_mutants.copy()
+        fixed_mutants = sorted(
+            self.fixed_mutants.copy(), key=lambda mutant: mutant.line
+        )
 
         for diff in self.generate_diffs():
             for mutation in [
