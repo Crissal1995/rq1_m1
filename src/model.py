@@ -51,11 +51,7 @@ class Diff:
         )
 
     def __str__(self):
-        src_count = f",{self.source_count}" if self.source_count != 1 else ""
-        dst_count = f",{self.destination_count}" if self.destination_count != 1 else ""
-        s = f"@@ -{self.source_line}{src_count} +{self.destination_line}{dst_count} @@\n"
-        s += "\n".join(self.lines)
-        return s
+        return "\n".join(self.lines)
 
 
 class MutantsComparer:
@@ -119,8 +115,8 @@ class MutantsComparer:
                 limit = start_indices[i + 1]
             else:
                 limit = len(differences)
-            block_diffs = differences[index + 1 : limit]
-            assert len(block_diffs) == source_count + dest_count
+            block_diffs = differences[index:limit]
+            assert len(block_diffs) == source_count + dest_count + 1
             yield Diff(
                 source_line=source_line,
                 source_count=source_count,
