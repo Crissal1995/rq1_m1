@@ -1,0 +1,196 @@
+diff set, counting 97 mutants
+
+Mutant at line 850 (org.apache.commons.cli.HelpFormatter / renderWrappedText / (Ljava/lang/StringBuffer;IILjava/lang/String;)Ljava/lang/StringBuffer;)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ROR3Mutator - not equal to greater than
+Mutant at line 879 (org.apache.commons.cli.HelpFormatter / renderWrappedText / (Ljava/lang/StringBuffer;IILjava/lang/String;)Ljava/lang/StringBuffer;)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI1Mutator - Incremented (a++) integer local variable number 5
+Mutant at line 907 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI2Mutator - Decremented (a--) integer local variable number 2
+Mutant at line 907 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI1Mutator - Incremented (a++) integer local variable number 2
+Mutant at line 907 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ABSMutator - Negated integer local variable number 3
+Mutant at line 912 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.AOD2Mutator - Replaced integer operation by second member
+Mutant at line 912 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ABSMutator - Negated integer local variable number 3
+Mutant at line 919 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI2Mutator - Decremented (a--) integer local variable number 3
+Mutant at line 919 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI2Mutator - Decremented (a--) integer local variable number 2
+Mutant at line 919 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI1Mutator - Incremented (a++) integer local variable number 2
+Mutant at line 924 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ROR2Mutator - equal to less or equal
+Mutant at line 924 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI4Mutator - Decremented (--a) integer local variable number 3
+Mutant at line 924 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI2Mutator - Decremented (a--) integer local variable number 3
+Mutant at line 924 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ROR4Mutator - Less than to equal
+Mutant at line 924 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.RemoveConditionalMutator_ORDER_IF - removed conditional - replaced comparison check with true
+Mutant at line 924 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ROR1Mutator - Less than to less or equal
+Mutant at line 924 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.ConditionalsBoundaryMutator - changed conditional boundary
+Mutant at line 924 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ABSMutator - Negated integer local variable number 3
+Mutant at line 930 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.RemoveConditionalMutator_ORDER_IF - removed conditional - replaced comparison check with true
+Mutant at line 930 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.ConditionalsBoundaryMutator - changed conditional boundary
+Mutant at line 930 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ABSMutator - Negated integer local variable number 3
+Mutant at line 930 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI1Mutator - Incremented (a++) integer local variable number 3
+Mutant at line 930 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI4Mutator - Decremented (--a) integer local variable number 3
+Mutant at line 930 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ROR4Mutator - Less or equal to equal
+Mutant at line 930 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI2Mutator - Decremented (a--) integer local variable number 3
+Mutant at line 930 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ROR1Mutator - Less or equal to less than
+Mutant at line 936 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.AOD1Mutator - Replaced integer operation with first member
+Mutant at line 936 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.AOD2Mutator - Replaced integer operation by second member
+Mutant at line 936 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.AOR4Mutator - Replaced integer addition with modulus
+Mutant at line 936 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ABSMutator - Negated integer local variable number 2
+Mutant at line 936 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.AOR3Mutator - Replaced integer addition with division
+Mutant at line 936 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.AOR2Mutator - Replaced integer addition with multiplication
+Mutant at line 936 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ABSMutator - Negated integer local variable number 3
+Mutant at line 936 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI3Mutator - Incremented (++a) integer local variable number 2
+Mutant at line 936 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI3Mutator - Incremented (++a) integer local variable number 3
+Mutant at line 936 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI4Mutator - Decremented (--a) integer local variable number 3
+Mutant at line 936 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.MathMutator - Replaced integer addition with subtraction
+Mutant at line 936 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI4Mutator - Decremented (--a) integer local variable number 2
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ABSMutator - Negated integer local variable number 4
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.RemoveConditionalMutator_EQUAL_IF - removed conditional - replaced equality check with true
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.CRCR4Mutator - Substituted 10 with -10
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.CRCR2Mutator - Substituted 10 with 0
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.CRCR1Mutator - Substituted 32 with 1
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ROR4Mutator - greater than to equal
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.CRCR3Mutator - Substituted 13 with -1
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.CRCR4Mutator - Substituted 13 with -13
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ROR3Mutator - equal to greater than
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ROR4Mutator - equal to greater or equal
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI3Mutator - Incremented (++a) integer local variable number 4
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ABSMutator - Negated integer local variable number 5
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.InlineConstantMutator - Substituted 10 with 11
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.CRCR3Mutator - Substituted 10 with -1
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI3Mutator - Incremented (++a) integer local variable number 5
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.CRCR2Mutator - Substituted 32 with 0
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI1Mutator - Incremented (a++) integer local variable number 4
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.CRCR6Mutator - Substituted 10 with 9
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.RemoveConditionalMutator_ORDER_ELSE - removed conditional - replaced comparison check with false
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.CRCR2Mutator - Substituted 13 with 0
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.CRCR3Mutator - Substituted 32 with -1
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ROR5Mutator - equal to not equal
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator - negated conditional
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI1Mutator - Incremented (a++) integer local variable number 5
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.InlineConstantMutator - Substituted 13 with 14
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.NonVoidMethodCallMutator - removed call to java/lang/String::charAt
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.RemoveConditionalMutator_ORDER_IF - removed conditional - replaced comparison check with true
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.CRCR1Mutator - Substituted 10 with 1
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.CRCR6Mutator - Substituted 13 with 12
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ROR1Mutator - greater than to less than
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ROR5Mutator - greater than to not equal
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.ConditionalsBoundaryMutator - changed conditional boundary
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ROR2Mutator - equal to less or equal
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.CRCR1Mutator - Substituted 13 with 1
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.CRCR6Mutator - Substituted 32 with 31
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.RemoveConditionalMutator_EQUAL_ELSE - removed conditional - replaced equality check with false
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.CRCR4Mutator - Substituted 32 with -32
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI2Mutator - Decremented (a--) integer local variable number 4
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.InlineConstantMutator - Substituted 32 with 33
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI2Mutator - Decremented (a--) integer local variable number 5
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ROR1Mutator - equal to less than
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.NonVoidMethodCallMutator - removed call to java/lang/String::length
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ROR3Mutator - greater than to greater or equal
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI4Mutator - Decremented (--a) integer local variable number 5
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ROR2Mutator - greater than to less or equal
+Mutant at line 938 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI4Mutator - Decremented (--a) integer local variable number 4
+Mutant at line 940 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.IncrementsMutator - Changed increment from 1 to -1
+Mutant at line 940 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.experimental.RemoveIncrementsMutator - Removed increment 1
+Mutant at line 942 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ABSMutator - Negated integer local variable number 4
+Mutant at line 942 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.RemoveConditionalMutator_EQUAL_IF - removed conditional - replaced equality check with true
+Mutant at line 942 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI3Mutator - Incremented (++a) integer local variable number 4
+Mutant at line 942 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.PrimitiveReturnsMutator - replaced int return with 0 for org/apache/commons/cli/HelpFormatter::findWrapPos
+Mutant at line 942 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator - replaced return of integer sized value with (x == 0 ? 1 : 0)
+Mutant at line 942 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator - negated conditional
+Mutant at line 942 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ROR3Mutator - not equal to greater than
+Mutant at line 942 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ROR4Mutator - not equal to greater or equal
+Mutant at line 942 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.NonVoidMethodCallMutator - removed call to java/lang/String::length
+Mutant at line 942 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.ROR5Mutator - not equal to equal
+Mutant at line 942 (org.apache.commons.cli.HelpFormatter / findWrapPos / (Ljava/lang/String;II)I)
+Mutator org.pitest.mutationtest.engine.gregor.mutators.rv.UOI4Mutator - Decremented (--a) integer local variable number 4
