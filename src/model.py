@@ -84,7 +84,7 @@ class MutantsComparer:
             err = "Missing source java files!"
             if self.subject:
                 err += f" Subject: {self.subject}"
-            raise ValueError(err)
+            raise FileNotFoundError(err)
 
         buggy_lines = open(buggy_filepath).readlines()
         fixed_lines = open(fixed_filepath).readlines()
