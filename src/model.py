@@ -152,10 +152,7 @@ class MutantsComparer:
 
         difference_set = buggy_set - fixed_set
 
-        if not ordered:
-            return difference_set
-        else:
-            return sorted(difference_set, key=lambda mutant: mutant.line)
+        return difference_set
 
 
 class Report(ABC):

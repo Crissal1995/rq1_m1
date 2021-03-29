@@ -94,6 +94,7 @@ class ReportFactory:
         # sort buggy and fixed for output clarity
         buggy_muts = sorted(buggy_muts, key=lambda m: m.line)
         fixed_muts = sorted(fixed_muts, key=lambda m: m.line)
+        diff_muts = sorted(diff_muts, key=lambda m: m.line)
 
         output = self.root_dir / "output"
         os.makedirs(output, exist_ok=True)
