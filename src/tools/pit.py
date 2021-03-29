@@ -2,30 +2,16 @@ import xml.etree.ElementTree as ET
 
 from src import model
 
-KILLED = 10
-SURVIVED = 20
-TIMED_OUT = 30
-NO_COVERAGE = 40
-
-# we use dicts to ensure there is no error on xml
-# KeyError is raised if a key (xml value) is missing
-MUTATION_STATUS = {
-    "KILLED": KILLED,
-    "SURVIVED": SURVIVED,
-    "TIMED_OUT": TIMED_OUT,
-    "NO_COVERAGE": NO_COVERAGE,
-}
-
-DETECTED_STATUS = {"true": True, "false": False}
-
 
 class Mutant(model.Mutant):
     def __init__(self, element: ET.Element):
+        DETECTED_STATUS = {"true": True, "false": False}
+
         attribs = element.attrib
         """detected is wether the mutant is detected
-        (killed or timed out) or not (survived or not covered)."""
+        (killed, timed out, memory error) or not (survived, not covered)."""
         self.detected = DETECTED_STATUS[attribs["detected"]]
-        self.status = MUTATION_STATUS[attribs["status"]]
+        self.status = attribs["status"]
 
         children = list(element)
         assert len(children) == 10
