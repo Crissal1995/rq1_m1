@@ -2,7 +2,7 @@ import os
 import pathlib
 
 from src import model
-from src.tools import judy, jumble, pit
+from src.tools import judy, jumble, major, pit
 
 tools = ["judy", "jumble", "major", "pit"]
 subjects = {"cli": "cli32", "lang": "lang53", "gson": "gson15"}
@@ -46,10 +46,19 @@ class ReportFactory:
                 "buggy": jumble.Report(self.root_dir / "buggy_out.txt"),
                 "fixed": jumble.Report(self.root_dir / "fixed_out.txt"),
             },
-            "major": {"buggy": None, "fixed": None},
+            "major": {
+                "buggy": major.Report(
+                    self.root_dir / "buggy_mutants.log",
+                    self.root_dir / "buggy_kill.csv",
+                ),
+                "fixed": major.Report(
+                    self.root_dir / "fixed_mutants.log",
+                    self.root_dir / "fixed_kill.csv",
+                ),
+            },
             "pit": {
-                "buggy": pit.Report(self.root_dir / "buggy" / "mutations.xml"),
-                "fixed": pit.Report(self.root_dir / "fixed" / "mutations.xml"),
+                "buggy": pit.Report(self.root_dir / "buggy_mutations.xml"),
+                "fixed": pit.Report(self.root_dir / "fixed_mutations.xml"),
             },
         }
         self.reports = all_reports[tool]
