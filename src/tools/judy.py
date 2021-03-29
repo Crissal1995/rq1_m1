@@ -1,5 +1,6 @@
 import json
 import os
+from collections import defaultdict
 
 from src import model
 
@@ -21,9 +22,15 @@ class MutantOperator:
 
 
 class Mutant(model.Mutant):
+    counter = defaultdict(int)
+
+    @classmethod
+    def reset_counter(cls):
+        cls.counter = defaultdict(int)
+
     @property
     def hash_tuple(self) -> tuple:
-        return self.line, self.operator
+        return self.line, self.operator.name, self.operator.description, self.count
 
     def __init__(self, adict):
         lines = adict["lines"]
@@ -38,13 +45,19 @@ class Mutant(model.Mutant):
         self.points: int = points
         self.operator: MutantOperator = MutantOperator.find_by_name(operator)
 
+        # fix different mutations but with same line
+        # and description with a counter
+        key = (self.line, self.operator.name, self.operator.description)
+        self.count = Mutant.counter[key]
+        Mutant.counter[key] += 1
+
     def __repr__(self):
         if self.original_line != self.line:
             s = f" (original: {self.original_line})"
         else:
             s = ""
-        s = f"Mutant at line {self.line:4}{s} with"
-        s += f" {self.points:2} points and"
+        s = f"Mutant at line {self.line}{s} with"
+        s += f" {self.points} points and"
         s += f" operator {self.operator}"
         return s
 
@@ -62,6 +75,9 @@ class Report(model.Report):
         self.live_mutants = None
 
     def makeit(self):
+        # reset counter when we create the report
+        Mutant.reset_counter()
+
         with open(self.result_fp) as f:
             result = json.load(f)
         # instantiate operators to use them in Mutants
@@ -77,10 +93,6 @@ class Report(model.Report):
         self.killed_mutants_count = classdict["mutantsKilledCount"]
         self.live_mutants_count = self.total_mutants_count - self.killed_mutants_count
         self.live_mutants = [Mutant(mdict) for mdict in classdict["notKilledMutant"]]
-        return self
-
-    def get_mutants(self):
-        return self.get_live_mutants()
 
     def get_live_mutants(self):
         return self.live_mutants
