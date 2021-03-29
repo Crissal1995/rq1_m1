@@ -61,24 +61,13 @@ class ReportFactory:
                 "fixed": pit.Report(self.root_dir / "fixed_mutations.xml"),
             },
         }
-        self.reports = all_reports[tool]
-        self.buggy_report = self.get_buggy_report()
-        self.fixed_report = self.get_fixed_report()
+        reports = all_reports[tool]
 
-    def is_valid(self):
-        return not any(report is None for report in self.reports.values())
+        self.buggy_report = reports["buggy"]
+        self.buggy_report.makeit()
 
-    def get_buggy_report(self):
-        report = self.reports["buggy"]
-        if report:
-            report.makeit()
-        return report
-
-    def get_fixed_report(self):
-        report = self.reports["fixed"]
-        if report:
-            report.makeit()
-        return report
+        self.fixed_report = reports["fixed"]
+        self.fixed_report.makeit()
 
     def get_difference_set(self):
         comparer = model.MutantsComparer(
