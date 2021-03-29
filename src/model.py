@@ -155,11 +155,11 @@ class Report(ABC):
     def makeit(self):
         raise NotImplementedError
 
-    def get_mutants(self):
+    def get_mutants(self) -> list:
+        return self.get_live_mutants() + self.get_killed_mutants()
+
+    def get_killed_mutants(self) -> list:
         raise NotImplementedError
 
-    def get_killed_mutants(self):
-        raise NotImplementedError
-
-    def get_live_mutants(self):
+    def get_live_mutants(self) -> list:
         raise NotImplementedError
