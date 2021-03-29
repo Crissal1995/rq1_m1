@@ -32,16 +32,16 @@ class Mutant(model.Mutant):
 
         # rapid unpacking
         (
-            self.source_file,
-            self.mutated_class,
-            self.mutated_method,
-            self.method_description,
-            line,
-            self.mutator,
-            self.index,
-            self.block,
-            self.killing_test,
-            self.description,
+            self.source_file,  # java source file
+            self.mutated_class,  # java class
+            self.mutated_method,  # method name
+            self.method_description,  # method args list
+            line,  # str line number
+            self.mutator,  # mutation operator
+            self.index,  # ?
+            self.block,  # ?
+            self.killing_test,  # the test that killed this mutant, if any
+            self.description,  # the description of what was done
         ) = [child.text for child in children]
         super().__init__(int(line))
 
@@ -53,6 +53,7 @@ class Mutant(model.Mutant):
             self.mutated_method,
             self.method_description,
             self.line,
+            self.mutator,
             self.description,
         )
 
