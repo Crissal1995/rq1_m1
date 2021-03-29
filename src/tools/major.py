@@ -1,4 +1,3 @@
-import csv
 import os
 
 from src import model
@@ -71,12 +70,12 @@ class Report(model.Report):
     def makeit(self):
         # reads "mutants.log", containing a list of all mutants generated
         with open(self.mutants_log_filepath) as f:
-            mutants_reader = csv.reader(f, delimiter=":")
+            lines = [line.split(":") for line in f.readlines()]
 
-            mutants = []
-            for line in mutants_reader:
-                mut_id = int(line[0])
-                mutants.append((mut_id, Mutant(mutation_list=line)))
+        mutants = []
+        for line in lines:
+            mut_id = int(line[0])
+            mutants.append((mut_id, Mutant(mutation_list=line)))
 
         # should be sorted, but better safe than sorry ;)
         mutants.sort(key=lambda el: el[0])
@@ -90,20 +89,20 @@ class Report(model.Report):
 
         # now read "kill.csv" which contains mut id and mut status
         with open(self.kill_csv_filepath) as f:
-            reader = csv.reader(f)
+            lines = [line.split(",") for line in f.readlines()]
 
-            # mut_id will be also the key of mutants arr
-            for mut_id, mut_status in reader:
-                # fix first row (header)
-                if not mut_id.isnumeric():
-                    continue
-                mut_id = int(mut_id)
-                pos = mut_id - 1  # from 1..N to 0..N-1
-                mutant = mutants[pos]
+        # mut_id will be also the key of mutants arr
+        for mut_id, mut_status in lines:
+            # fix first row (header)
+            if not mut_id.isnumeric():
+                continue
+            mut_id = int(mut_id)
+            pos = mut_id - 1  # from 1..N to 0..N-1
+            mutant = mutants[pos]
 
-                if mut_status == "LIVE":
-                    self.live_mutants.append(mutant)
-                else:
-                    self.killed_mutants.append(mutant)
+            if mut_status == "LIVE":
+                self.live_mutants.append(mutant)
+            else:
+                self.killed_mutants.append(mutant)
 
         self.mutants = self.killed_mutants + self.live_mutants
