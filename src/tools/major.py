@@ -100,7 +100,7 @@ class Report(model.Report):
             pos = mut_id - 1  # from 1..N to 0..N-1
             mutant = mutants[pos]
 
-            if mut_status == "LIVE":
+            if mut_status.strip() == "LIVE":
                 self.live_mutants.append(mutant)
             else:
                 self.killed_mutants.append(mutant)
