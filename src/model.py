@@ -62,6 +62,7 @@ class MutantsComparer:
         fixed_mutants: [Mutant],
         buggy_filepath: [str, os.PathLike],
         fixed_filepath: [str, os.PathLike],
+        subject: str = None,
     ):
         self.buggy_mutants: [Mutant] = buggy_mutants
         self.fixed_mutants: [Mutant] = fixed_mutants
@@ -69,15 +70,21 @@ class MutantsComparer:
         self.buggy_filepath = buggy_filepath
         self.fixed_filepath = fixed_filepath
 
+        self.subject = subject
+
     def generate_diffs(self):
         # check for user errors
         buggy_filepath = pathlib.Path(self.buggy_filepath)
         fixed_filepath = pathlib.Path(self.fixed_filepath)
 
-        assert all(
+        if not all(
             path.exists() and path.is_file()
             for path in (buggy_filepath, fixed_filepath)
-        )
+        ):
+            err = "Missing source java files!"
+            if self.subject:
+                err += f" Subject: {self.subject}"
+            raise ValueError(err)
 
         buggy_lines = open(buggy_filepath).readlines()
         fixed_lines = open(fixed_filepath).readlines()

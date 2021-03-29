@@ -86,6 +86,7 @@ class ReportFactory:
             fixed_mutants=self.fixed_report.get_live_mutants(),
             buggy_filepath=self.buggy_filepath(),
             fixed_filepath=self.fixed_filepath(),
+            subject=self.subject,
         )
 
         return comparer.get_difference_set()
