@@ -6,8 +6,9 @@ from abc import ABC
 
 class Mutant(ABC):
     def __init__(self, line: int):
-        assert line >= 0
+        # assert line >= 0
         self.line = line
+        self.original_line = line
 
     @property
     def hash_tuple(self) -> tuple:

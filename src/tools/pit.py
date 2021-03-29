@@ -57,8 +57,12 @@ class Mutant(model.Mutant):
         )
 
     def __repr__(self):
+        if self.original_line != self.line:
+            s = f" (original: {self.original_line})"
+        else:
+            s = ""
         return (
-            f"Mutant at line {self.line}"
+            f"Mutant at line {self.line}{s}"
             f" ({self.mutated_class} / {self.mutated_method} / {self.method_description})\n"
             f"Mutator {self.mutator} - {self.description}"
         )

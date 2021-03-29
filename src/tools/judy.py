@@ -34,12 +34,16 @@ class Mutant(model.Mutant):
 
         line, operator, points = lines[0], operators[0], points[0]
 
-        self.line: int = line
+        super().__init__(line=int(line))
         self.points: int = points
         self.operator: MutantOperator = MutantOperator.find_by_name(operator)
 
     def __repr__(self):
-        s = f"Mutant at line {self.line:4} with"
+        if self.original_line != self.line:
+            s = f" (original: {self.original_line})"
+        else:
+            s = ""
+        s = f"Mutant at line {self.line:4}{s} with"
         s += f" {self.points:2} points and"
         s += f" operator {self.operator}"
         return s
