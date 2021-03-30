@@ -4,6 +4,8 @@ import os
 import pathlib
 from abc import ABC
 
+from src.exception import OverlappingMutantError
+
 
 class Mutant(ABC):
     def __init__(self, line: int):
@@ -153,7 +155,9 @@ class MutantsComparer:
                 for mutation in fixed_mutants
                 if mutation.line >= diff.source_line
             ]
-            logging.info(f"Working on the lines of {len(affected_mutants)} mutants")
+            logging.info(
+                f"Changing the 'line' attribute of {len(affected_mutants)} mutants"
+            )
 
             for mutation in affected_mutants:
                 logging.debug(
@@ -161,6 +165,12 @@ class MutantsComparer:
                     f"{mutation.line + diff.delta} - {repr(mutation)}"
                 )
                 mutation.line += diff.delta
+
+        logging.debug(f"Buggy mutants: {self.buggy_mutants}")
+        logging.debug(f"Fixed mutants: {fixed_mutants}")
+
+        logging.info(f"Buggy mutants length: {len(self.buggy_mutants)}")
+        logging.info(f"Fixed mutants length: {len(fixed_mutants)}")
 
         buggy_set = set(self.buggy_mutants)
         fixed_set = set(fixed_mutants)
@@ -170,6 +180,16 @@ class MutantsComparer:
 
         logging.info(f"Buggy set length: {len(buggy_set)}")
         logging.info(f"Fixed set length: {len(fixed_set)}")
+
+        if any(
+            len(theset) != len(thelist)
+            for (theset, thelist) in zip(
+                (buggy_set, fixed_set), (self.buggy_mutants, fixed_mutants)
+            )
+        ):
+            raise OverlappingMutantError(
+                "One or more mutants were deleted when set() applied! Fix your hash-tuple"
+            )
 
         difference_set = buggy_set - fixed_set
 
