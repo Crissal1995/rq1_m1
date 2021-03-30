@@ -1,3 +1,4 @@
+import logging
 import os
 import pathlib
 
@@ -32,6 +33,8 @@ class ReportFactory:
         self.subject = subject
 
         self.root_dir = get_root_dir(tool, subject)
+
+        logging.warning(f"Root dir is {self.root_dir}")
 
         all_reports = {
             "judy": {
@@ -103,7 +106,9 @@ class ReportFactory:
             ("buggy", "fixed", "diff"), (buggy_muts, fixed_muts, diff_muts)
         ):
             filename = name + ".txt"
-            with open(output / filename, "w") as f:
+            outfile = output / filename
+            with open(outfile, "w") as f:
                 s = f"{name} set, counting {len(mutants)} mutants\n\n"
                 s += "\n".join([str(mutant) for mutant in mutants])
                 f.write(s)
+            logging.info(f"Logged {len(mutants)} mutants on {outfile}")

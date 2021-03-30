@@ -1,4 +1,5 @@
 import difflib
+import logging
 import os
 import pathlib
 from abc import ABC
@@ -26,7 +27,7 @@ class Mutant(ABC):
         return f"Mutant{self.hash_tuple}"
 
 
-class Diff:
+class GitDiff:
     def __init__(
         self,
         source_line: int,
@@ -47,12 +48,12 @@ class Diff:
 
     def __repr__(self):
         return (
-            f"Diff({self.source_line}, {self.source_count}, "
+            f"GitDiff({self.source_line}, {self.source_count}, "
             f"{self.destination_line}, {self.destination_count}); delta={self.delta}"
         )
 
     def __str__(self):
-        return "\n".join(self.lines)
+        return "".join(self.lines)
 
 
 class MutantsComparer:
@@ -72,7 +73,7 @@ class MutantsComparer:
 
         self.subject = subject
 
-    def generate_diffs(self):
+    def get_git_diffs_gen(self):
         # check for user errors
         buggy_filepath = pathlib.Path(self.buggy_filepath)
         fixed_filepath = pathlib.Path(self.fixed_filepath)
@@ -125,7 +126,7 @@ class MutantsComparer:
                 limit = len(differences)
             block_diffs = differences[index:limit]
             assert len(block_diffs) == source_count + dest_count + 1
-            yield Diff(
+            yield GitDiff(
                 source_line=source_line,
                 source_count=source_count,
                 destination_line=dest_line,
@@ -133,24 +134,47 @@ class MutantsComparer:
                 lines=block_diffs,
             )
 
-    def get_difference_set(self, ordered=True):
+    def get_difference_set(self):
         # make a tmp copy of fixed mutants
         fixed_mutants = sorted(
             self.fixed_mutants.copy(), key=lambda mutant: mutant.line
         )
 
-        for diff in self.generate_diffs():
-            for mutation in [
+        for diff in self.get_git_diffs_gen():
+            logging.info(f"Difference found: {repr(diff)}")
+
+            # skip empty deltas
+            if diff.delta == 0:
+                logging.info("Empty difference delta, skip it")
+                continue
+            # else get mutants that will be affected by this change
+            affected_mutants = [
                 mutation
                 for mutation in fixed_mutants
                 if mutation.line >= diff.source_line
-            ]:
+            ]
+            logging.info(f"Working on the lines of {len(affected_mutants)} mutants")
+
+            for mutation in affected_mutants:
+                logging.debug(
+                    f"From line {mutation.line} to line "
+                    f"{mutation.line + diff.delta} - {repr(mutation)}"
+                )
                 mutation.line += diff.delta
 
         buggy_set = set(self.buggy_mutants)
         fixed_set = set(fixed_mutants)
 
+        logging.debug(f"Buggy set: {buggy_set}")
+        logging.debug(f"Fixed set: {fixed_set}")
+
+        logging.info(f"Buggy set length: {len(buggy_set)}")
+        logging.info(f"Fixed set length: {len(fixed_set)}")
+
         difference_set = buggy_set - fixed_set
+
+        logging.debug(f"M1 difference set: {difference_set}")
+        logging.info(f"M1 difference set length: {len(difference_set)}")
 
         return difference_set
 
