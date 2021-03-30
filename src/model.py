@@ -3,6 +3,7 @@ import logging
 import os
 import pathlib
 from abc import ABC
+from collections import defaultdict
 
 from src.exception import OverlappingMutantError
 
@@ -136,6 +137,18 @@ class MutantsComparer:
                 lines=block_diffs,
             )
 
+    @staticmethod
+    def find_missing_mutants(mutants_list):
+        hash_counter = defaultdict(int)
+        for mutant in mutants_list:
+            hash_counter[hash(mutant)] += 1
+        duplicate_indices = [
+            i for i, (hash_value, count) in enumerate(hash_counter.items()) if count > 1
+        ]
+        return [
+            mutant for i, mutant in enumerate(mutants_list) if i in duplicate_indices
+        ]
+
     def get_difference_set(self):
         # make a tmp copy of fixed mutants
         fixed_mutants = sorted(
@@ -181,12 +194,19 @@ class MutantsComparer:
         logging.info(f"Buggy set length: {len(buggy_set)}")
         logging.info(f"Fixed set length: {len(fixed_set)}")
 
-        if any(
-            len(theset) != len(thelist)
-            for (theset, thelist) in zip(
-                (buggy_set, fixed_set), (self.buggy_mutants, fixed_mutants)
-            )
-        ):
+        overlapping = False
+
+        if len(buggy_set) != len(self.buggy_mutants):
+            overlapping = True
+            overlapped = self.find_missing_mutants(self.buggy_mutants)
+            logging.debug(f"Missing mutants from buggy set: {overlapped}")
+
+        if len(fixed_set) != len(fixed_mutants):
+            overlapping = True
+            overlapped = self.find_missing_mutants(fixed_mutants)
+            logging.debug(f"Missing mutants from fixed set: {overlapped}")
+
+        if overlapping:
             raise OverlappingMutantError(
                 "One or more mutants were deleted when set() applied! Fix your hash-tuple"
             )

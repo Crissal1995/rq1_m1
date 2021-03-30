@@ -1,6 +1,6 @@
 import logging
 
-from src import utility
+from src import MutantError, ReportFactory, subjects, tools
 
 # FORMAT = "%(levelname)s :: %(asctime)s :: %(module)s, line %(lineno)d :: %(message)s"
 FORMAT = "%(levelname)s :: %(module)s, line %(lineno)d :: %(message)s"
@@ -23,11 +23,13 @@ logger.addHandler(stream_handler)
 logger.addHandler(file_debug_handler)
 logger.setLevel(logging.DEBUG)
 
-for subject in utility.subjects:
-    for tool in utility.tools:
+for subject in subjects:
+    for tool in tools:
         logging.warning(f"Working on subject {subject} and tool {tool}")
         try:
-            factory = utility.ReportFactory(tool=tool, subject=subject)
+            factory = ReportFactory(tool=tool, subject=subject)
             factory.write_mutants()
+        except MutantError as e:
+            logging.error(f"Mutant error caught: {e}")
         except Exception as e:
             logging.error(f"Exception caught: {e}")
