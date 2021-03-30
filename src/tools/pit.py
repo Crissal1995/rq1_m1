@@ -43,7 +43,7 @@ class Mutant(model.Mutant):
             self.description,
         )
 
-    def __repr__(self):
+    def __str__(self):
         if self.original_line != self.line:
             s = f" (original: {self.original_line})"
         else:

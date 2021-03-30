@@ -35,7 +35,7 @@ class Mutant(model.Mutant):
         self.method_signature = method_signature
         self.description = description
 
-    def __repr__(self):
+    def __str__(self):
         if self.line != self.original_line:
             org = f" (original: {self.original_line})"
         else:

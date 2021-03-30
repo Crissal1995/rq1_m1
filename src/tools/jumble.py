@@ -27,7 +27,7 @@ class Mutant(model.Mutant):
         self.count = Mutant.counter[key]
         Mutant.counter[key] += 1
 
-    def __repr__(self):
+    def __str__(self):
         if self.line != self.original_line:
             org = f" (original: {self.original_line})"
         else:

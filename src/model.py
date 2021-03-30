@@ -23,7 +23,7 @@ class Mutant(ABC):
         return all(el1 == el2 for (el1, el2) in zip(self.hash_tuple, other.hash_tuple))
 
     def __repr__(self):
-        return f"Mutant(line={self.line})"
+        return f"Mutant{self.hash_tuple}"
 
 
 class Diff:
