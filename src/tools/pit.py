@@ -1,9 +1,16 @@
 import xml.etree.ElementTree as ET
+from collections import defaultdict
 
 from src import model
 
 
 class Mutant(model.Mutant):
+    counter = defaultdict(int)
+
+    @classmethod
+    def reset_counter(cls):
+        cls.counter = defaultdict(int)
+
     def __init__(self, element: ET.Element):
         DETECTED_STATUS = {"true": True, "false": False}
 
@@ -31,6 +38,20 @@ class Mutant(model.Mutant):
         ) = [child.text for child in children]
         super().__init__(int(line))
 
+        # fix different mutations but with same line
+        # and description with a counter
+        key = (
+            self.source_file,
+            self.mutated_class,
+            self.mutated_method,
+            self.method_description,
+            self.line,
+            self.mutator,
+            self.description,
+        )
+        self.count = Mutant.counter[key]
+        Mutant.counter[key] += 1
+
     @property
     def hash_tuple(self) -> tuple:
         return (
@@ -41,6 +62,7 @@ class Mutant(model.Mutant):
             self.line,
             self.mutator,
             self.description,
+            self.count,
         )
 
     def __str__(self):
@@ -64,6 +86,9 @@ class Report(model.Report):
         self.live_mutants = None
 
     def makeit(self):
+        # reset class counter
+        Mutant.reset_counter()
+
         tree = ET.parse(self.filepath)
         root = tree.getroot()
         children = list(root)
