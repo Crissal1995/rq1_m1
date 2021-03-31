@@ -6,7 +6,7 @@ from src import model
 from src.tools import judy, jumble, major, pit
 
 tools = ["judy", "jumble", "major", "pit"]
-subjects = {"cli": "cli32", "lang": "lang53", "gson": "gson15"}
+subjects = {"cli": "cli32", "gson": "gson15", "lang": "lang53"}
 classnames = {
     "cli": "org.apache.commons.cli.HelpFormatter",
     "gson": "com.google.gson.stream.JsonWriter",
