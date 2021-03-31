@@ -15,11 +15,13 @@ class Mutant(model.Mutant):
     def hash_tuple(self) -> tuple:
         return self.line, self.mutation, self.count
 
-    def __init__(self, match: re.Match):
-        line = int(match.group(2))
+    def __init__(self, match):
+        # tuple-like obj in the format
+        # classname, line, mutation
+        line = int(match[1])
         super().__init__(line=line)
 
-        self.mutation: str = match.group(3).strip()
+        self.mutation: str = match[2].strip()
 
         # fix different mutations but with same line
         # and description with a counter
@@ -45,6 +47,14 @@ class Report(model.Report):
     def __init__(self, fp):
         self.filepath = fp
         self.live_mutants = None
+        self.live_mutants_count = None
+        self.killed_mutants_count = None
+
+    def get_killed_mutants_count(self):
+        return self.killed_mutants_count
+
+    def get_mutants_count(self):
+        return self.killed_mutants_count + self.live_mutants_count
 
     def makeit(self):
         # first reset counter
@@ -57,22 +67,22 @@ class Report(model.Report):
         )
         end_pattern = re.compile(r"Jumbling took \d+\.\d+s")
 
-        lines = [line.strip() for line in open(self.filepath).readlines()]
-        start_line_idx = (
-            lines.index([line for line in lines if re.match(start_pattern, line)].pop())
-            + 1
-        )
-        end_line_idx = lines.index(
-            [line for line in lines if re.match(end_pattern, line)].pop()
-        )
+        with open(self.filepath) as f:
+            text = f.read()
 
-        live_mutants = []
-        for line in lines[start_line_idx:end_line_idx]:
-            match = re.search(fail_pattern, line)
-            if match:
-                live_mutants.append(Mutant(match=match))
+        # get indices where the mutants are defined
+        i = start_pattern.search(text).end()
+        j = end_pattern.search(text[i:]).start() + i
 
-        self.live_mutants = sorted(live_mutants, key=lambda m: m.line)
+        # subtract from text all the fails + get count of them
+        killed_text, live_mutants_count = fail_pattern.subn("", text[i:j])
+
+        # get killed count as length of mutations with whitespaces removed
+        self.killed_mutants_count = len(re.sub(r"\s+", "", killed_text))
+
+        # create live mutants as constructor over a match for all matches found
+        self.live_mutants = [Mutant(match) for match in fail_pattern.findall(text[i:j])]
+        self.live_mutants_count = len(self.live_mutants)
 
     def __repr__(self):
         str_mutants = "\n".join(str(mutant) for mutant in self.live_mutants)

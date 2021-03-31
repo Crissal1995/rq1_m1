@@ -100,6 +100,12 @@ class Report(model.Report):
     def get_killed_mutants(self):
         return []
 
+    def get_killed_mutants_count(self):
+        return self.killed_mutants_count
+
+    def get_mutants_count(self):
+        return self.total_mutants_count
+
     def __repr__(self):
         s = f"CLASS {self.name}\n"
         s += f"Total mutants: {self.total_mutants_count} -> "
