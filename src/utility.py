@@ -69,8 +69,12 @@ class ReportFactory:
         self.buggy_report = reports["buggy"]
         self.buggy_report.makeit()
 
+        logging.info(str(self.buggy_report))
+
         self.fixed_report = reports["fixed"]
         self.fixed_report.makeit()
+
+        logging.info(str(self.fixed_report))
 
     def get_difference_set(self):
         comparer = model.MutantsComparer(
@@ -84,10 +88,10 @@ class ReportFactory:
         return comparer.get_difference_set()
 
     def buggy_filepath(self):
-        return self.root_dir / ".." / "buggy.java"
+        return self.root_dir.parent / "buggy.java"
 
     def fixed_filepath(self):
-        return self.root_dir / ".." / "fixed.java"
+        return self.root_dir.parent / "fixed.java"
 
     def write_mutants(self):
         buggy_muts = self.buggy_report.get_live_mutants()

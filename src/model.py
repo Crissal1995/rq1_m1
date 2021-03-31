@@ -231,3 +231,18 @@ class Report(ABC):
 
     def get_live_mutants(self) -> list:
         raise NotImplementedError
+
+    def get_mutants_count(self):
+        return len(self.get_mutants())
+
+    def get_killed_mutants_count(self):
+        return len(self.get_killed_mutants())
+
+    def get_live_mutants_count(self):
+        return len(self.get_live_mutants())
+
+    def __str__(self):
+        return (
+            f"Total mutants generated: {self.get_mutants_count()} -- "
+            f"killed: {self.get_killed_mutants_count()}, live: {self.get_live_mutants_count()}"
+        )
