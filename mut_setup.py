@@ -295,7 +295,7 @@ def mutants():
     set_tool_as_test("dummy")
     generate_test_classes()
 
-    testclass = f"{subject.upper()}_TEST_DUMMY.java"
+    testclass = f"{subject.upper()}_DUMMY_TEST"
     testclass_with_package = ".".join([java_package, testclass])
     class_with_package = ".".join([java_package, class_under_mutation])
 
