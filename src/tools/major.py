@@ -91,10 +91,14 @@ class Report(model.Report):
         with open(self.kill_csv_filepath) as f:
             lines = [line.split(",") for line in f.readlines()]
 
+        # hack for empty kill.csv (all live mutants)
+        if len(lines) < 2:
+            self.live_mutants = mutants
+
         # mut_id will be also the key of mutants arr
-        for mut_id, mut_status in lines:
-            # fix first row (header)
-            if not mut_id.isnumeric():
+        for i, (mut_id, mut_status) in enumerate(lines):
+            # skip first row (header)
+            if i == 0:
                 continue
             mut_id = int(mut_id)
             pos = mut_id - 1  # from 1..N to 0..N-1

@@ -14,9 +14,10 @@ classnames = {
 }
 
 
-def get_root_dir(tool, subject):
+def get_root_dir(tool, subject, base_dir):
     assert subject in subjects
-    return pathlib.Path("data") / subjects[subject] / tool
+    assert pathlib.Path(base_dir).exists()
+    return pathlib.Path(base_dir) / subjects[subject] / tool
 
 
 def get_class_name(subject: str):
@@ -25,14 +26,22 @@ def get_class_name(subject: str):
 
 
 class ReportFactory:
-    def __init__(self, tool: str, subject: str):
+    def __init__(
+        self,
+        tool: str,
+        subject: str,
+        *,
+        make_buggy_report=True,
+        make_fixed_report=True,
+        base_dir="data",
+    ):
         assert tool in tools
         self.tool = tool
 
         assert subject in subjects
         self.subject = subject
 
-        self.root_dir = get_root_dir(tool, subject)
+        self.root_dir = get_root_dir(tool, subject, base_dir=base_dir)
 
         logging.warning(f"Root dir is {self.root_dir}")
 
@@ -67,14 +76,14 @@ class ReportFactory:
         reports = all_reports[tool]
 
         self.buggy_report = reports["buggy"]
-        self.buggy_report.makeit()
-
-        logging.info(str(self.buggy_report))
+        if make_buggy_report:
+            self.buggy_report.makeit()
+            logging.info(str(self.buggy_report))
 
         self.fixed_report = reports["fixed"]
-        self.fixed_report.makeit()
-
-        logging.info(str(self.fixed_report))
+        if make_fixed_report:
+            self.fixed_report.makeit()
+            logging.info(str(self.fixed_report))
 
     def get_difference_set(self):
         comparer = model.MutantsComparer(
@@ -93,7 +102,29 @@ class ReportFactory:
     def fixed_filepath(self):
         return self.root_dir.parent / "fixed.java"
 
-    def write_mutants(self):
+    def write_mutants(self, mutants_type: str):
+        if mutants_type == "buggy":
+            mutants = self.buggy_report.get_live_mutants()
+        elif mutants_type == "fixed":
+            mutants = self.fixed_report.get_live_mutants()
+        else:
+            raise ValueError("Invalid mutants type provided!")
+
+        mutants = sorted(mutants, key=lambda m: m.line)
+
+        output = self.root_dir / "output"
+        os.makedirs(output, exist_ok=True)
+
+        name = mutants_type
+        filename = name + ".txt"
+        outfile = output / filename
+        with open(outfile, "w") as f:
+            s = f"{name} set, counting {len(mutants)} mutants\n\n"
+            s += "\n".join([str(mutant) for mutant in mutants])
+            f.write(s)
+        logging.info(f"Logged {len(mutants)} mutants on {outfile}")
+
+    def write_all_mutants(self):
         buggy_muts = self.buggy_report.get_live_mutants()
         fixed_muts = self.fixed_report.get_live_mutants()
         diff_muts = self.get_difference_set()
