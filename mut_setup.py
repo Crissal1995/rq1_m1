@@ -4,6 +4,7 @@ import os
 import re
 import shutil
 import subprocess
+import threading
 from pathlib import Path
 
 try:
@@ -209,10 +210,10 @@ def coverage():
         move_xml(tool, student_names=names)
 
 
-def run(tool, *, prefix="", suffix="", extension=".sh", stdout=False, stderr=False):
+def run_tool(
+    tool, *, prefix="", suffix="", extension=".sh", stdout=False, stderr=False
+):
     logging.info(f"Running tool {tool}")
-
-    os.chdir(subject_dir)
 
     stdout = subprocess.DEVNULL if not stdout else None
     stderr = subprocess.DEVNULL if not stderr else None
@@ -226,7 +227,6 @@ def run(tool, *, prefix="", suffix="", extension=".sh", stdout=False, stderr=Fal
     else:
         logging.debug("Running defects4j mutation...")
         defects4j_cmd("mutation", change_dir=False, stdout=stdout, stderr=stderr)
-    os.chdir(home)
 
 
 def setup_tool(tool: str, *, prefix="", suffix="", ext=".sh", **kwargs):
@@ -288,6 +288,16 @@ def generate_test_classes(delete_on_exist=True):
     defects4j_cmd("compile")
 
 
+class Worker(threading.Thread):
+    def __init__(self, tool, **kwargs):
+        super(Worker, self).__init__()
+        self.tool = tool
+        self.kwargs = kwargs
+
+    def run(self):
+        return run_tool(self.tool, **self.kwargs)
+
+
 def mutants():
     logging.info("MUTANTS START")
 
@@ -312,12 +322,25 @@ def mutants():
         },
     }
 
+    threads = []
+
     for tool in tools:
         logging.info(f"Setupping {tool} inside {subject_dir}")
         setup_tool(tool, prefix="dummy_", **tool_kwargs[tool])
 
-        logging.info(f"Running {tool}")
-        run(tool, prefix="dummy_", stdout=args.stdout, stderr=args.stderr)
+    # must do os operations at process level
+    os.chdir(subject_dir)
+
+    for tool in tools:
+        logging.info(f"Running {tool} in a separate thread")
+        worker = Worker(tool, prefix="dummy_", stdout=args.stdout, stderr=args.stderr)
+        worker.start()
+        threads.append(worker)
+
+    for thread in threads:
+        thread.join()
+
+    os.chdir(home)
 
 
 if args.action == "coverage":
