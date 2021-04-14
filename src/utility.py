@@ -55,8 +55,8 @@ class ReportFactory:
                 ),
             },
             "jumble": {
-                "buggy": jumble.Report(self.root_dir / "buggy_out.txt"),
-                "fixed": jumble.Report(self.root_dir / "fixed_out.txt"),
+                "buggy": jumble.Report(self.root_dir / "buggy_jumble_output.txt"),
+                "fixed": jumble.Report(self.root_dir / "fixed_jumble_output.txt"),
             },
             "major": {
                 "buggy": major.Report(
