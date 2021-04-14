@@ -12,7 +12,7 @@ try:
 except FileNotFoundError:
     raise OSError("defects4j not found in path!")
 
-FORMAT = "%(levelname)s :: %(module)s :: %(funcName)s :: %(lineno)d :: %(message)s"
+FORMAT = "%(levelname)s :: [%(module)s.%(funcName)s.%(lineno)d] :: %(message)s"
 
 subjects = ["cli", "gson", "lang"]
 tools = ["judy", "jumble", "major", "pit"]
@@ -39,12 +39,19 @@ parser.add_argument(
     default=False,
 )
 parser.add_argument("-v", "--verbose", action="store_true", default=False)
+parser.add_argument("-t", "--tool", choices=tools)
 
 args = parser.parse_args()
 
 subject = args.subject
 version = args.version
 action = args.action
+
+_tool = args.tool
+
+if _tool:
+    tools = [_tool]
+
 
 if args.verbose:
     level = logging.DEBUG
