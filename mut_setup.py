@@ -5,6 +5,7 @@ import re
 import shutil
 import subprocess
 import threading
+import time
 from pathlib import Path
 
 try:
@@ -332,7 +333,9 @@ class Worker(threading.Thread):
 
     def run(self):
         run_tool(self.tool, **self.kwargs)
-        logging.info(f"Thread finished - tool: {self.tool}")
+        logging.info(f"[THREAD {self.tool}] Execution finished")
+        get_output(self.tool)
+        logging.info(f"[THREAD {self.tool}] Get output finished")
 
 
 def mutants():
@@ -371,6 +374,7 @@ def mutants():
     # spawn a thread for every tool
     for tool in tools:
         logging.info(f"Running {tool} in a separate thread")
+        time.sleep(1)
         worker = Worker(tool, prefix="dummy_", stdout=args.stdout, stderr=args.stderr)
         worker.start()
         threads.append(worker)
@@ -378,15 +382,6 @@ def mutants():
     # join them
     for thread in threads:
         thread.join()
-
-    # go back in root dir
-    os.chdir(home)
-
-    # retrieve automatically outputs for tools
-    for tool in tools:
-        get_output(tool)
-
-    os.chdir(home)
 
 
 if args.action == "coverage":
