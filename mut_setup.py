@@ -287,6 +287,35 @@ def setup_tool(tool: str, *, prefix="", suffix="", ext=".sh", **kwargs):
         f.write(content_fixed)
 
 
+def get_output(tool: str):
+    prefix = f"{args.version}_"
+
+    output_list = {
+        "judy": ["result.json"],
+        "jumble": ["jumble_output.txt"],
+        "major": ["kill.csv", "mutants.log"],
+        "pit": ["mutations.xml"],
+    }
+    tool_output_dir = subject_dir
+
+    if tool == "pit":
+        tool_output_dir /= "pit_report"
+
+    tool_outputs = [tool_output_dir / out for out in output_list[tool]]
+
+    # create output dir for files
+    output_dir = home / "mut_setup_output" / subject_dict["name"] / tool
+    os.makedirs(output_dir, exist_ok=True)
+
+    for tool_out in tool_outputs:
+        logging.debug(f"Retrieving file {tool_out} ...")
+        assert tool_out.exists(), f"File doesn't exist! - {tool_out.resolve()}"
+        shutil.copy(
+            tool_out, output_dir / tool_out.with_name(f"{prefix}{tool_out.name}").name
+        )
+        logging.info(f"File {tool_out} copied in {output_dir}")
+
+
 def generate_test_classes(delete_on_exist=True):
     logging.info("Generating classes...")
     test_classes = subject_dir / subject_dict["test_class"]
@@ -302,7 +331,8 @@ class Worker(threading.Thread):
         self.kwargs = kwargs
 
     def run(self):
-        return run_tool(self.tool, **self.kwargs)
+        run_tool(self.tool, **self.kwargs)
+        logging.info(f"Thread finished - tool: {self.tool}")
 
 
 def mutants():
@@ -338,14 +368,23 @@ def mutants():
     # must do os operations at process level
     os.chdir(subject_dir)
 
+    # spawn a thread for every tool
     for tool in tools:
         logging.info(f"Running {tool} in a separate thread")
         worker = Worker(tool, prefix="dummy_", stdout=args.stdout, stderr=args.stderr)
         worker.start()
         threads.append(worker)
 
+    # join them
     for thread in threads:
         thread.join()
+
+    # go back in root dir
+    os.chdir(home)
+
+    # retrieve automatically outputs for tools
+    for tool in tools:
+        get_output(tool)
 
     os.chdir(home)
 
