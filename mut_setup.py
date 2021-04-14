@@ -1,6 +1,7 @@
 import argparse
 import logging
 import os
+import pathlib
 import re
 import shutil
 import subprocess
@@ -288,7 +289,7 @@ def setup_tool(tool: str, *, prefix="", suffix="", ext=".sh", **kwargs):
         f.write(content_fixed)
 
 
-def get_output(tool: str):
+def get_output(tool: str, base_dir="."):
     prefix = f"{args.version}_"
 
     output_list = {
@@ -297,7 +298,7 @@ def get_output(tool: str):
         "major": ["kill.csv", "mutants.log"],
         "pit": ["mutations.xml"],
     }
-    tool_output_dir = subject_dir
+    tool_output_dir = pathlib.Path(base_dir)
 
     if tool == "pit":
         tool_output_dir /= "pit_report"
