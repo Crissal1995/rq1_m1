@@ -158,16 +158,14 @@ class MutantsComparer:
         fp = root / f"hash_{self.subject}_{subject_type}_{self.tool}.txt"
 
         with open(fp, "w") as f:
-            f.write(
-                self.pprint_list(
-                    [
-                        (hash_, mutant)
-                        for (mutant, hash_) in zip(
-                            mutant_list, [hash(m) for m in mutant_list]
-                        )
-                    ]
-                )
+            # m is mutant, h is its hash
+            s = self.pprint_list(
+                [
+                    (h, m)
+                    for (h, m) in [(hash(mutant), mutant) for mutant in mutant_list]
+                ]
             )
+            f.write(s)
 
     @staticmethod
     def pprint_list(alist: list):
