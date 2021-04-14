@@ -87,7 +87,15 @@ class Report(model.Report):
             thedict
             for thedict in result["classes"]
             if self.classname == thedict["name"]
-        ][0]
+        ]
+
+        if not classdict:
+            raise ValueError(
+                f"{self.classname} not found in classes - file: {self.result_fp}"
+            )
+        else:
+            classdict = classdict[0]
+
         self.name = classdict["name"]
         self.total_mutants_count = classdict["mutantsCount"]
         self.killed_mutants_count = classdict["mutantsKilledCount"]
