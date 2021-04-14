@@ -92,6 +92,7 @@ class ReportFactory:
             buggy_filepath=self.buggy_filepath(),
             fixed_filepath=self.fixed_filepath(),
             subject=self.subject,
+            tool=self.tool,
         )
 
         return comparer.get_difference_set()

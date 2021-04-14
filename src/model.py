@@ -3,7 +3,7 @@ import logging
 import os
 import pathlib
 from abc import ABC
-from collections import defaultdict
+from collections import Counter
 
 from src.exception import OverlappingMutantError
 
@@ -67,6 +67,7 @@ class MutantsComparer:
         buggy_filepath: [str, os.PathLike],
         fixed_filepath: [str, os.PathLike],
         subject: str = None,
+        tool: str = None,
     ):
         self.buggy_mutants: [Mutant] = buggy_mutants
         self.fixed_mutants: [Mutant] = fixed_mutants
@@ -75,6 +76,7 @@ class MutantsComparer:
         self.fixed_filepath = fixed_filepath
 
         self.subject = subject
+        self.tool = tool
 
     def get_git_diffs_gen(self):
         # check for user errors
@@ -138,16 +140,38 @@ class MutantsComparer:
             )
 
     @staticmethod
-    def find_missing_mutants(mutants_list):
-        hash_counter = defaultdict(int)
-        for mutant in mutants_list:
-            hash_counter[hash(mutant)] += 1
-        duplicate_indices = [
-            i for i, (hash_value, count) in enumerate(hash_counter.items()) if count > 1
-        ]
+    def find_duplicate_mutants(mutants_list):
+        counter = Counter([hash(mutant) for mutant in mutants_list])
         return [
-            mutant for i, mutant in enumerate(mutants_list) if i in duplicate_indices
+            hash_
+            for (mutant, (hash_, count)) in zip(mutants_list, counter.items())
+            if count > 1
         ]
+
+    def write_duplicate_mutants(self, subject_type: str, mutant_list: list):
+        assert subject_type in ("buggy", "fixed")
+        assert self.subject
+        assert self.tool
+
+        root = pathlib.Path(self.buggy_filepath).parent / "hash"
+        os.makedirs(root, exist_ok=True)
+        fp = root / f"hash_{self.subject}_{subject_type}_{self.tool}.txt"
+
+        with open(fp, "w") as f:
+            f.write(
+                self.pprint_list(
+                    [
+                        (hash_, mutant)
+                        for (mutant, hash_) in zip(
+                            mutant_list, [hash(m) for m in mutant_list]
+                        )
+                    ]
+                )
+            )
+
+    @staticmethod
+    def pprint_list(alist: list):
+        return "\n".join(str(elem) for elem in alist)
 
     def get_difference_set(self):
         # make a tmp copy of fixed mutants
@@ -194,17 +218,20 @@ class MutantsComparer:
         logging.info(f"Buggy set length: {len(buggy_set)}")
         logging.info(f"Fixed set length: {len(fixed_set)}")
 
+        self.write_duplicate_mutants("buggy", self.buggy_mutants)
+        self.write_duplicate_mutants("fixed", fixed_mutants)
+
         overlapping = False
 
         if len(buggy_set) != len(self.buggy_mutants):
             overlapping = True
-            overlapped = self.find_missing_mutants(self.buggy_mutants)
-            logging.debug(f"Missing mutants from buggy set: {overlapped}")
+            overlapped = self.find_duplicate_mutants(self.buggy_mutants)
+            logging.error(f"Duplicate mutants hash (buggy set): {overlapped}")
 
         if len(fixed_set) != len(fixed_mutants):
             overlapping = True
-            overlapped = self.find_missing_mutants(fixed_mutants)
-            logging.debug(f"Missing mutants from fixed set: {overlapped}")
+            overlapped = self.find_duplicate_mutants(fixed_mutants)
+            logging.error(f"Duplicate mutants hash (fixed set): {overlapped}")
 
         if overlapping:
             raise OverlappingMutantError(
