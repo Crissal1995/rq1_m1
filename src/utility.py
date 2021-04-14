@@ -43,15 +43,15 @@ class ReportFactory:
 
         self.root_dir = get_root_dir(tool, subject, base_dir=base_dir)
 
-        logging.warning(f"Root dir is {self.root_dir}")
+        logging.debug(f"Root dir is {self.root_dir}")
 
         all_reports = {
             "judy": {
                 "buggy": judy.Report(
-                    self.root_dir / "buggy_result.json", classnames[subject]
+                    self.root_dir / "buggy_result.json", get_class_name(subject)
                 ),
                 "fixed": judy.Report(
-                    self.root_dir / "fixed_result.json", classnames[subject]
+                    self.root_dir / "fixed_result.json", get_class_name(subject)
                 ),
             },
             "jumble": {
