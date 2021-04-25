@@ -165,40 +165,13 @@ class Project:
     def __repr__(self):
         return f"{self.name} {self.bug}{self.bug_status.value} [fp: {self.filepath}]"
 
-    @staticmethod
-    def _read_config(filepath: Union[str, os.PathLike], separator="=") -> dict:
-        """Utility method to read config files"""
-        with open(filepath) as f:
-            lines = f.readlines()
-
-        result = dict()
-        for line in lines:
-            # remove trailing whitespaces
-            line = line.strip()
-
-            # skip empty and comment lines
-            if not line or line.startswith("#"):
-                continue
-
-            # split on the first separator
-            splitted = line.strip().split(separator, maxsplit=1)
-
-            # if we don't have two elements, skip to next line
-            if len(splitted) < 2:
-                continue
-            # else parse result
-            else:
-                key, value = [el.strip() for el in splitted]
-                result[key] = value
-        return result
-
     def read_defects4j_build_properties(self) -> dict:
         """Read defects4j.build.properties as key-value dictionary"""
-        return self._read_config(self.filepath / "defects4j.build.properties")
+        return utility.read_config(self.filepath / "defects4j.build.properties")
 
     def read_defects4j_config(self) -> dict:
         """Read .defects4j.config as key-value dictionary"""
-        return self._read_config(self.filepath / ".defects4j.config")
+        return utility.read_config(self.filepath / ".defects4j.config")
 
     def backup_tests(self, name=default_backup_tests):
         """Backup original/dev tests"""

@@ -2,8 +2,36 @@ import logging
 import os
 import pathlib
 import subprocess
+from typing import Union
 
 logger = logging.getLogger(__file__)
+
+
+def read_config(filepath: Union[str, os.PathLike], separator="=") -> dict:
+    """Utility method to read config files"""
+    with open(filepath) as f:
+        lines = f.readlines()
+
+    result = dict()
+    for line in lines:
+        # remove trailing whitespaces
+        line = line.strip()
+
+        # skip empty and comment lines
+        if not line or line.startswith("#"):
+            continue
+
+        # split on the first separator
+        splitted = line.strip().split(separator, maxsplit=1)
+
+        # if we don't have two elements, skip to next line
+        if len(splitted) < 2:
+            continue
+        # else parse result
+        else:
+            key, value = [el.strip() for el in splitted]
+            result[key] = value
+    return result
 
 
 def bash_command(command: str, *args):
