@@ -343,7 +343,7 @@ class Project:
         self.compile()
 
         # get dummy test name
-        dummy_test_name = f"{self.name.upper()}_DUMMY_TEST.java"
+        dummy_test_name = f"{self.name.upper()}_DUMMY_TEST"
         dummy_test = ".".join([self.package, dummy_test_name])
 
         # and also class under mutation name
