@@ -130,8 +130,10 @@ def get_tool(tool_name: str, project_dir: Union[str, os.PathLike]):
         "major": Major,
         "pit": Pit,
     }
-    if tool_name not in valid_tools:
-        msg = f"Invalid tool provided: {tool_name}. Valid tools are {valid_tools}"
+    if tool_name not in valid_tools.keys():
+        msg = (
+            f"Invalid tool provided: {tool_name}. Valid tools are {valid_tools.keys()}"
+        )
         logger.error(msg)
         raise ValueError(msg)
 
