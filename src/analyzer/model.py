@@ -122,6 +122,22 @@ class Pit(Tool):
         self.replace(mapping=mapping)
 
 
+def get_tool(tool_name: str, project_dir: Union[str, os.PathLike]):
+    """Utility function to retrieve a tool from a name and a project dir"""
+    valid_tools = {
+        "judy": Judy,
+        "jumble": Jumble,
+        "major": Major,
+        "pit": Pit,
+    }
+    if tool_name not in valid_tools:
+        msg = f"Invalid tool provided: {tool_name}. Valid tools are {valid_tools}"
+        logger.error(msg)
+        raise ValueError(msg)
+
+    return valid_tools[tool_name](project_dir)
+
+
 class BugStatus(enum.Enum):
     """Status of a checkout project's bug"""
 
