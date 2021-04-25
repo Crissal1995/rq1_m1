@@ -40,7 +40,7 @@ def main():
     )
     parser.add_argument("path", help="path to Defects4j project")
 
-    parser.add_argument("-t", "--tools", help="mutation tools to use", nargs="*")
+    parser.add_argument("--tools", help="mutation tools to use", nargs="*")
     parser.add_argument(
         "-v", "--verbose", help="increase verbosity", action="store_true", default=False
     )
