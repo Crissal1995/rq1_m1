@@ -1,8 +1,9 @@
 #!/bin/bash
 
-HERE=$(pwd)
+HERE=$(dirname "$0")
 # suppose we are in base/work/<repo>
-BASE=$(cd ../.. && pwd)
+BASE=$(cd $HERE/../.. && pwd)
+
 MUTATION_TOOLS=$(cd $BASE/mutation_tools && pwd)
 LIB_HOME="$MUTATION_TOOLS/lib"
 PIT_HOME="$MUTATION_TOOLS/pitest-1.6.3-jars"

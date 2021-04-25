@@ -1,8 +1,8 @@
 #!/bin/bash
 
-HERE=$(pwd)
+HERE=$(dirname "$0")
 # suppose we are in base/work/<repo>
-BASE=$(cd ../.. && pwd)
+BASE=$(cd $HERE/../.. && pwd)
 MUTATION_TOOLS=$(cd $BASE/mutation_tools && pwd)
 JUMBLE=$MUTATION_TOOLS/jumble/jumble_binary_1.3.0.jar
 
@@ -47,7 +47,6 @@ echo $SEP
 $CMD | tee $OUT
 echo $SEP
 
-./.jumble_parser.sh || exit 1
+# ./.jumble_parser.sh || exit 1
 # [ -f "$OUT" ] && mv $OUT "$OUT $(date).txt" && echo "Added timestamp to $OUT"
 # [ -d jumble_stats ] && mv jumble_stats "jumble_stats $(date)" && echo "Added timestamp to jumble_stats folder"
-
