@@ -1,11 +1,33 @@
 import logging
+import os
+import pathlib
 import subprocess
 
 logger = logging.getLogger(__file__)
 
 
+def bash_command(command: str, *args):
+    """Utility function to run a bash command"""
+    cmd = [command] + list(args)
+    logger.debug(f"Running {cmd}")
+    return subprocess.run(cmd)
+
+
+def bash_script(script, capture_out=True, capture_err=True):
+    """Utility function to run a bash script"""
+    command = ["bash", script]
+
+    stdout = None if capture_out else subprocess.DEVNULL
+    stderr = None if capture_err else subprocess.DEVNULL
+
+    logger.debug(
+        f"Running {command} - Capture out? {capture_out} - Capture err? {capture_err}"
+    )
+    return subprocess.run(command, stdout=stdout, stderr=stderr)
+
+
 def defects4j_cmd(cmd: str = "", *args, **kwargs):
-    """Utility function to call Defects4j"""
+    """Utility function to call a Defects4j command"""
     possible_cmds = (
         "bids",
         "checkout",
@@ -20,17 +42,38 @@ def defects4j_cmd(cmd: str = "", *args, **kwargs):
         "query",
         "test",
     )
+    command = ["defects4j"]
     if cmd:
         assert cmd in possible_cmds, "Invalid command provided for defects4j!"
-        cmd = ["defects4j", cmd] + list(args)
-    logger.debug(f"Running {cmd}")
-    subprocess.run(cmd, **kwargs)
+        command += [cmd]
+    command += list(args)
+
+    logger.debug(f"Running {command}")
+    return subprocess.run(command, **kwargs)
 
 
 def test_environment():
     """Tests if the environment is correctly set,
     i.e. that Defects4j is installed into PATH"""
     try:
-        subprocess.run(["defects4j"], stdout=subprocess.DEVNULL)
+        defects4j_cmd(stdout=subprocess.DEVNULL)
+        logger.debug("defects4j found in PATH")
     except FileNotFoundError:
         raise EnvironmentError("defects4j not found in PATH!")
+
+
+def defects4j_cmd_dirpath(project_dir, command: str, *args, **kwargs):
+    """Execute Defects4j command in the right folder"""
+    old_path = os.getcwd()
+    new_path = pathlib.Path(project_dir).resolve()
+    logger.debug(f"Old path is {old_path}")
+    logger.debug(f"New path is {new_path}")
+
+    change_dir = old_path != str(new_path)
+    logger.debug(f"Should change dir? {change_dir}")
+
+    if change_dir:
+        os.chdir(new_path)
+    defects4j_cmd(command, *args, **kwargs)
+    if change_dir:
+        os.chdir(old_path)

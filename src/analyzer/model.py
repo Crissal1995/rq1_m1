@@ -5,7 +5,9 @@ import os
 import pathlib
 import re
 import shutil
-from typing import Union
+from typing import Generator, Sequence, Union
+
+from src.analyzer import utility
 
 logger = logging.getLogger(__file__)
 
@@ -15,28 +17,41 @@ FILES = pathlib.Path(__file__).parent / "files"
 class Tool(abc.ABC):
     """Interface for mutation tools"""
 
-    name = None
+    name: str = ""
 
     bash_script = None
     other = []
     output = []
 
+    def __repr__(self):
+        return f"{self.name.capitalize()}Tool"
+
+    def __init__(self, project_dir: Union[str, os.PathLike]):
+        self.project_dir = pathlib.Path(project_dir)
+
     @property
     def files(self):
+        """Return the input files as a list"""
         return [self.bash_script] + self.other
 
-    def setup(self, project_dir, **kwargs):
+    def setup(self, **kwargs):
         """Setup tool files, copying them into the project dir"""
-        project_dir = pathlib.Path(project_dir)
         for file in self.files:
             src = os.fspath(FILES / file)
-            dst = os.fspath(project_dir / file)
+            dst = os.fspath(self.project_dir / file)
             shutil.copy(src, dst)
 
-    def replace(self, project_dir, mapping: dict):
+    def run(self, **kwargs):
+        """Run the tool via its bash script"""
+        script = self.project_dir / self.bash_script
+
+        capture_out = kwargs.get("stdout", True)
+        capture_err = kwargs.get("stderr", True)
+        utility.bash_script(script, capture_out, capture_err)
+
+    def replace(self, mapping: dict):
         """Overwrite tool flags with actual values"""
-        project_dir = pathlib.Path(project_dir)
-        file = project_dir / self.bash_script
+        file = self.project_dir / self.bash_script
 
         # read file
         with open(file) as f:
@@ -70,13 +85,13 @@ class Jumble(Tool):
     other = [".jumble_parser.sh", ".test_extract.sh"]
     output = ["jumble_output.txt"]
 
-    def setup(self, project_dir, **kwargs):
-        super(Jumble, self).setup(project_dir)
+    def setup(self, **kwargs):
+        super(Jumble, self).setup()
         mapping = {
             "tests": {"original": "<REPLACE_TESTS>", "replacement": kwargs["tests"]},
             "class": {"original": "<REPLACE_CLASS>", "replacement": kwargs["class"]},
         }
-        self.replace(project_dir, mapping=mapping)
+        self.replace(mapping=mapping)
 
 
 class Major(Tool):
@@ -85,6 +100,9 @@ class Major(Tool):
     name = "major"
 
     output = ["kill.csv", "mutants.log"]
+
+    def run(self, project_dir: Union[str, os.PathLike], **kwargs):
+        return utility.defects4j_cmd_dirpath(project_dir, "mutation", **kwargs)
 
 
 class Pit(Tool):
@@ -95,21 +113,25 @@ class Pit(Tool):
     bash_script = "pit.sh"
     output = ["pit_report/mutations.xml"]
 
-    def setup(self, project_dir, **kwargs):
-        super(Pit, self).setup(project_dir)
+    def setup(self, **kwargs):
+        super(Pit, self).setup()
         mapping = {
             "tests": {"original": "<TEST_REGEXP>", "replacement": kwargs["tests"]},
             "class": {"original": "<CLASS_REGEXP>", "replacement": kwargs["class"]},
         }
-        self.replace(project_dir, mapping=mapping)
+        self.replace(mapping=mapping)
 
 
 class BugStatus(enum.Enum):
+    """Status of a checkout project's bug"""
+
     BUGGY = "b"
     FIXED = "f"
 
 
 class Project:
+    """Interface of a Defects4j Project"""
+
     default_backup_tests = "dev_backup"
 
     def __init__(self, filepath: Union[str, os.PathLike]):
@@ -144,18 +166,29 @@ class Project:
         return f"{self.name} {self.bug}{self.bug_status.value} [fp: {self.filepath}]"
 
     @staticmethod
-    def _read_config(filepath, separator="=") -> dict:
+    def _read_config(filepath: Union[str, os.PathLike], separator="=") -> dict:
         """Utility method to read config files"""
         with open(filepath) as f:
-            content = f.read()
+            lines = f.readlines()
 
         result = dict()
-        for line in content.splitlines(keepends=False):
+        for line in lines:
+            # remove trailing whitespaces
+            line = line.strip()
+
+            # skip empty and comment lines
+            if not line or line.startswith("#"):
+                continue
+
+            # split on the first separator
             splitted = line.strip().split(separator, maxsplit=1)
+
+            # if we don't have two elements, skip to next line
             if len(splitted) < 2:
                 continue
+            # else parse result
             else:
-                key, value = splitted
+                key, value = [el.strip() for el in splitted]
                 result[key] = value
         return result
 
@@ -179,15 +212,15 @@ class Project:
         dst = os.fspath(self.test_dir)
         shutil.move(src, dst)
 
-    def _set_dir_as_tests(self, dirpath):
+    def _set_dir_testsuite(self, dirpath: Union[str, os.PathLike]):
         """Set a directory of java files as the project testsuite"""
-        dirpath = pathlib.Path(dirpath)
         src = os.fspath(dirpath)
         dst = os.fspath(self.full_test_dir)
         shutil.rmtree(self.test_dir, ignore_errors=True)
         shutil.copytree(src, dst)
 
     def project_tests_root(self):
+        """Get the root of project tests, based on project name"""
         tests = dict(
             Cli="cli_tests",
             Gson="gson_tests",
@@ -195,10 +228,151 @@ class Project:
         )
         return FILES / tests[self.name]
 
-    def set_dummy_as_tests(self):
+    def set_dummy_testsuite(self):
+        """Set dummy as project testsuite"""
         root = self.project_tests_root()
-        return self._set_dir_as_tests(root / "dummy")
+        return self._set_dir_testsuite(root / "dummy")
 
-    def set_tool_as_tests(self, tool: Tool):
+    def set_tool_testsuite(self, tool: Tool):
+        """Set <tool_name> as project testsuite"""
         root = self.project_tests_root()
-        return self._set_dir_as_tests(root / tool.name)
+        return self._set_dir_testsuite(root / tool.name)
+
+    def get_student_names(self, tool: Tool) -> Generator:
+        """Get students' names from formatted java-filename"""
+        root = self.project_tests_root()
+        tool_dir = root / tool.name
+        pattern = re.compile(r"^([a-zA-Z]+)_([a-zA-Z]+)_([a-zA-Z]\d+)")
+        for file in tool_dir.glob("*.java"):
+            match = pattern.match(file.name)
+            if not match:
+                logger.warning(f"Invalid filename found: {file.name}")
+                continue
+            else:
+                logger.debug(f"Match found: {match.groups()}")
+                yield match.group(3)
+
+    def _execute_defects4j_cmd(self, command: str, *args, **kwargs):
+        """Execute Defects4j command in the right folder"""
+        return utility.defects4j_cmd_dirpath(self.filepath, command, *args, **kwargs)
+
+    def execute_tests(self):
+        """Execute defects4j test"""
+        return self._execute_defects4j_cmd("test")
+
+    def remove_compiled(self):
+        """Remove compiled files (both src and tests)"""
+        target = self.filepath / "target"
+        if target.exists():
+            shutil.rmtree(os.fspath(target))
+        else:
+            logger.warning("Compiled target didn't exist")
+
+    def compile(self):
+        """Execute defects4j compile"""
+        return self._execute_defects4j_cmd("compile")
+
+    def execute_coverage(self):
+        """Execute defects4j coverage"""
+        return self._execute_defects4j_cmd("coverage")
+
+    def coverage(self, tools: Union[Tool, Sequence[Tool]] = None):
+        """Execute coverage for selected tools.
+        If 'tools' is None, every tool will be selected.
+        """
+
+        # if None, take every tool
+        if tools is None:
+            tools = [
+                Judy(self.filepath),
+                Jumble(self.filepath),
+                Major(self.filepath),
+                Pit(self.filepath),
+            ]
+
+        # if one tool is given, create list
+        if isinstance(tools, Tool):
+            tools = [tools]
+
+        logger.info(f"Executing coverage on tools {tools}")
+
+        for tool in tools:
+            logger.info(f"Start coverage of tool {tool}")
+
+            # set tool tests for project
+            self.set_tool_testsuite(tool)
+
+            # execute defects4j coverage
+            # produces coverage.xml
+            self.execute_coverage()
+
+            # get student names
+            names = list(self.get_student_names(tool))
+            str_names = "_".join(names)
+
+            # rename coverage.xml
+            fname = "coverage.xml"
+            src = self.filepath / fname
+            dst = src.with_name(f"{tool.name}_{str_names}_{fname}")
+            shutil.move(src, dst)
+
+    def get_mutants(self, tools: Union[Tool, Sequence[Tool]] = None):
+        """Get all mutants generated by the selected tools.
+        If 'tools' is None, every tool will be selected.
+
+        Judy doesn't generate any mutant at all with the dummy test,
+        so it will be removed if included.
+        """
+
+        # if None, take every tool (except for Judy)
+        if tools is None:
+            tools = [Jumble(self.filepath), Major(self.filepath), Pit(self.filepath)]
+
+        # if one tool is given, create list
+        if isinstance(tools, Tool):
+            tools = [tools]
+
+        # remove judy from tools
+        if any(isinstance(tool, Judy) for tool in tools):
+            logger.warning(
+                "Judy doesn't work with this dummy test, so it will be removed!"
+            )
+            tools = [tool for tool in tools if not isinstance(tool, Judy)]
+
+        logger.info(f"Executing get_mutants on tools {tools}")
+
+        # set the testsuite as dummy (empty test class)
+        self.set_dummy_testsuite()
+
+        # clean compiled and compile again
+        self.remove_compiled()
+        self.compile()
+
+        # get dummy test name
+        dummy_test_name = f"{self.name.upper()}_DUMMY_TEST.java"
+        dummy_test = ".".join([self.package, dummy_test_name])
+
+        # and also class under mutation name
+        class_under_mutation = self.relevant_class
+
+        # cycle over tools
+        for tool in tools:
+            kwargs = dict()
+
+            # must specify tests and class for replacement of dummy text
+            # inside bash scripts
+            if isinstance(tool, (Jumble, Pit)):
+                kwargs.update(
+                    {
+                        "tests": dummy_test,
+                        "class": class_under_mutation,
+                    }
+                )
+
+            logger.debug(f"{tool} kwargs: {kwargs}")
+
+            tool.setup(**kwargs)
+            logger.info(f"Setup of {tool} completed")
+
+            tool.run()
+            logger.info(f"Execution of {tool} completed")
