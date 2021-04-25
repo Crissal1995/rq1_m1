@@ -82,7 +82,6 @@ class Jumble(Tool):
     name = "jumble"
 
     bash_script = "jumble.sh"
-    other = [".jumble_parser.sh", ".test_extract.sh"]
     output = ["jumble_output.txt"]
 
     def setup(self, **kwargs):
