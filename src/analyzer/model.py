@@ -20,7 +20,6 @@ class Tool(abc.ABC):
     name: str = ""
 
     bash_script = None
-    other = []
     output = []
 
     def __repr__(self):
@@ -29,16 +28,11 @@ class Tool(abc.ABC):
     def __init__(self, project_dir: Union[str, os.PathLike]):
         self.project_dir = pathlib.Path(project_dir)
 
-    @property
-    def files(self):
-        """Return the input files as a list"""
-        return [self.bash_script] + self.other
-
     def setup(self, **kwargs):
         """Setup tool files, copying them into the project dir"""
-        for file in self.files:
-            src = os.fspath(FILES / file)
-            dst = os.fspath(self.project_dir / file)
+        if self.bash_script:
+            src = os.fspath(FILES / self.bash_script)
+            dst = os.fspath(self.project_dir / self.bash_script)
             shutil.copy(src, dst)
 
     def run(self, **kwargs):
@@ -100,8 +94,8 @@ class Major(Tool):
 
     output = ["kill.csv", "mutants.log"]
 
-    def run(self, project_dir: Union[str, os.PathLike], **kwargs):
-        return utility.defects4j_cmd_dirpath(project_dir, "mutation", **kwargs)
+    def run(self, **kwargs):
+        return utility.defects4j_cmd_dirpath(self.project_dir, "mutation", **kwargs)
 
 
 class Pit(Tool):
@@ -351,6 +345,8 @@ class Project:
 
         # cycle over tools
         for tool in tools:
+            logger.info(f"Start of {tool}")
+
             kwargs = dict()
 
             # must specify tests and class for replacement of dummy text
