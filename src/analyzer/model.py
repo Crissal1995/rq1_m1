@@ -149,9 +149,11 @@ class Project:
 
         config = self.read_defects4j_config()
         self.name = config["pid"]
-        assert (
-            self.is_compatible_project()
-        ), "Incompatible project! Use only Cli, Gson or Lang"
+
+        if not self.is_compatible_project():
+            msg = "Incompatible project! Use only Cli, Gson or Lang"
+            logger.error(msg)
+            raise ValueError(msg)
 
         self.bug, bug_status = re.match(r"(\d+)(\w+)", config["vid"]).groups()
         if bug_status == "b":
@@ -224,6 +226,8 @@ class Project:
         """Get students' names from formatted java-filename"""
         root = self.project_tests_root()
         tool_dir = root / tool.name
+        logger.debug(f"Parsing java files from {tool_dir}")
+
         pattern = re.compile(r"^([a-zA-Z]+)_([a-zA-Z]+)_([a-zA-Z]\d+)")
         for file in tool_dir.glob("*.java"):
             match = pattern.match(file.name)
