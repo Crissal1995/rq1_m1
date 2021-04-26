@@ -143,11 +143,7 @@ class Project:
         """Execute defects4j coverage"""
         return self._execute_defects4j_cmd("coverage")
 
-    def coverage(self, tools: Union[model.Tool, Sequence[model.Tool]] = None):
-        """Execute coverage for selected tools.
-        If 'tools' is None, every tool will be selected.
-        """
-
+    def _get_tools(self, tools: Union[model.Tool, Sequence[model.Tool]] = None):
         # if None, take every tool
         if tools is None:
             tools = [
@@ -161,6 +157,13 @@ class Project:
         if isinstance(tools, model.Tool):
             tools = [tools]
 
+        return tools
+
+    def coverage(self, tools: Union[model.Tool, Sequence[model.Tool]] = None):
+        """Execute coverage for selected tools.
+        If 'tools' is None, every tool will be selected.
+        """
+        tools = self._get_tools(tools)
         logger.info(f"Executing coverage on tools {tools}")
 
         for tool in tools:
@@ -198,26 +201,7 @@ class Project:
         Judy doesn't generate any mutant at all with the dummy test,
         so it will be removed if included.
         """
-
-        # if None, take every tool (except for Judy)
-        if tools is None:
-            tools = [
-                model.Jumble(self.filepath),
-                model.Major(self.filepath),
-                model.Pit(self.filepath),
-            ]
-
-        # if one tool is given, create list
-        if isinstance(tools, model.Tool):
-            tools = [tools]
-
-        # remove judy from tools
-        if any(isinstance(tool, model.Judy) for tool in tools):
-            logger.warning(
-                "Judy doesn't work with this dummy test, so it will be removed!"
-            )
-            tools = [tool for tool in tools if not isinstance(tool, model.Judy)]
-
+        tools = self._get_tools(tools)
         logger.info(f"Executing get_mutants on tools {tools}")
 
         if not tools:
