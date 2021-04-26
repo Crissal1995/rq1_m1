@@ -44,6 +44,12 @@ def main():
     parser.add_argument(
         "-v", "--verbose", help="increase verbosity", action="store_true", default=False
     )
+    parser.add_argument(
+        "--stdout", help="collect tools stdout", action="store_true", default=False
+    )
+    parser.add_argument(
+        "--stderr", help="collect tools stderr", action="store_true", default=False
+    )
 
     # parse user input
     args = parser.parse_args()
@@ -65,7 +71,7 @@ def main():
             tools.append(model.get_tool(tool, project.filepath))
 
     if args.action == "mutants":
-        project.get_mutants(tools)
+        project.get_mutants(tools, stdout=args.stdout, stderr=args.stderr)
     elif args.action == "coverage":
         project.coverage(tools)
     else:

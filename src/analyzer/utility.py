@@ -76,6 +76,11 @@ def defects4j_cmd(cmd: str = "", *args, **kwargs):
         command += [cmd]
     command += list(args)
 
+    stdout = None if kwargs.get("stdout") else subprocess.DEVNULL
+    stderr = None if kwargs.get("stderr") else subprocess.DEVNULL
+
+    kwargs.update(stdout=stdout, stderr=stderr)
+
     logger.debug(f"Running {command}")
     return subprocess.run(command, **kwargs)
 
@@ -84,7 +89,7 @@ def test_environment():
     """Tests if the environment is correctly set,
     i.e. that Defects4j is installed into PATH"""
     try:
-        defects4j_cmd(stdout=subprocess.DEVNULL)
+        defects4j_cmd()
         logger.debug("defects4j found in PATH")
     except FileNotFoundError:
         raise EnvironmentError("defects4j not found in PATH!")
