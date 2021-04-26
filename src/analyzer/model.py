@@ -57,9 +57,9 @@ class Tool(abc.ABC):
                 src = os.fspath(outfile)
                 dst = os.fspath(output_dir / outfile.name)
                 shutil.move(src, dst)
-                logger.info(f"Moved {outfile.name} to {output_dir.resolve()}")
+                logger.info(f"Moved {outfile.name} to {output_dir}")
             else:
-                msg = f"File not found: {outfile.resolve()}"
+                msg = f"File not found: {outfile} - did you execute run() before?"
                 logger.error(msg)
                 raise FileNotFoundError(msg)
 
