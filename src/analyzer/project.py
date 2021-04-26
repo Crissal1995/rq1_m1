@@ -122,7 +122,7 @@ class Project:
         """Execute Defects4j command in the right folder"""
         return utility.defects4j_cmd_dirpath(self.filepath, command, *args, **kwargs)
 
-    def execute_tests(self):
+    def d4j_test(self):
         """Execute defects4j test"""
         return self._execute_defects4j_cmd("test")
 
@@ -135,11 +135,11 @@ class Project:
         else:
             logger.debug("Project was already clean")
 
-    def compile(self):
+    def d4j_compile(self):
         """Execute defects4j compile"""
         return self._execute_defects4j_cmd("compile")
 
-    def execute_coverage(self):
+    def d4j_coverage(self):
         """Execute defects4j coverage"""
         return self._execute_defects4j_cmd("coverage")
 
@@ -171,7 +171,7 @@ class Project:
 
             # execute defects4j coverage
             # produces coverage.xml
-            self.execute_coverage()
+            self.d4j_coverage()
 
             # get student names
             names = list(self.get_student_names(tool))
@@ -229,7 +229,7 @@ class Project:
 
         # clean compiled and compile again
         self.clean()
-        self.compile()
+        self.d4j_compile()
         logger.info("Project cleaned and compiled")
 
         # get dummy test name
