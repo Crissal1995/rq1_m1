@@ -242,13 +242,14 @@ class Project:
         """Execute defects4j test"""
         return self._execute_defects4j_cmd("test")
 
-    def remove_compiled(self):
+    def clean(self):
         """Remove compiled files (both src and tests)"""
         target = self.filepath / "target"
         if target.exists():
             shutil.rmtree(os.fspath(target))
+            logger.debug("Cleaned project")
         else:
-            logger.warning("Compiled target didn't exist")
+            logger.debug("Project was already clean")
 
     def compile(self):
         """Execute defects4j compile"""
@@ -331,7 +332,7 @@ class Project:
         self.set_dummy_testsuite()
 
         # clean compiled and compile again
-        self.remove_compiled()
+        self.clean()
         self.compile()
 
         # get dummy test name
