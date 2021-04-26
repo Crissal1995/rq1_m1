@@ -118,19 +118,17 @@ class Pit(Tool):
 def get_tool(tool_name: str, project_dir: Union[str, os.PathLike]):
     """Utility function to retrieve a tool from a name and a project dir"""
     valid_tools = {
-        "judy": Judy,
-        "jumble": Jumble,
-        "major": Major,
-        "pit": Pit,
+        Judy.name: Judy(project_dir),
+        Jumble.name: Jumble(project_dir),
+        Major.name: Major(project_dir),
+        Pit.name: Pit(project_dir),
     }
     if tool_name not in valid_tools.keys():
-        msg = (
-            f"Invalid tool provided: {tool_name}. Valid tools are {valid_tools.keys()}"
-        )
+        msg = f"Invalid tool provided: {tool_name}. Valid tools are {list(valid_tools.keys())}"
         logger.error(msg)
         raise ValueError(msg)
 
-    return valid_tools[tool_name](project_dir)
+    return valid_tools[tool_name]
 
 
 class BugStatus(enum.Enum):
