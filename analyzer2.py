@@ -16,10 +16,10 @@ logger.setLevel(logging.DEBUG)
 stream_handler = logging.StreamHandler()
 stream_handler.setLevel(logging.INFO)
 
-file_handler = logging.FileHandler("analyzer.log", "w")
+file_handler = logging.FileHandler(".analyzer.log", "w")
 file_handler.setLevel(logging.INFO)
 
-file_debug_handler = logging.FileHandler("analyzer.debug.log", "w")
+file_debug_handler = logging.FileHandler(".analyzer.debug.log", "w")
 file_debug_handler.setLevel(logging.DEBUG)
 
 for handler in (stream_handler, file_handler, file_debug_handler):
