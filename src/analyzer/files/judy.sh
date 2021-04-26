@@ -34,6 +34,9 @@ if [ ! -z $TGX ]; then
   CMD="$CMD --test-file-regex $TGX"
 fi
 
+# result path of result.json file
+CMD="$CMD --result-path $HERE/result.json"
+
 echo "Command to run:"
 echo $CMD
 echo

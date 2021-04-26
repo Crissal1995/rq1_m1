@@ -39,7 +39,7 @@ TEST_TARGET="<TEST_REGEXP>"
 CLASS_TARGET="<CLASS_REGEXP>"
 TARGET_FLAG="--targetClasses $CLASS_TARGET --targetTests $TEST_TARGET"
 
-REPORT="--reportDir pit_report"
+REPORT="--reportDir $HERE/pit_report"
 TIMESTAMPED_REPORTS="--timestampedReports false"
 SRC="--sourceDirs $HERE/src/main/java"
 

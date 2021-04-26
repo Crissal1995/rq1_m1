@@ -36,7 +36,7 @@ MUTATIONS="-w -i -k -r -X -S -j"
 
 CMD="java -jar $JUMBLE $MUTATIONS -c $CLASSPATH $CLASS $TESTS_ONELINE"
 
-OUT="jumble_output.txt"
+OUT="$HERE/jumble_output.txt"
 SEP="----------------------------------------------------------------------------------------------------------"
 
 printf "Running command $CMD \n"
