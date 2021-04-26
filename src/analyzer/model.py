@@ -41,6 +41,28 @@ class Tool(abc.ABC):
         capture_err = kwargs.get("stderr", False)
         utility.bash_script(script, capture_out, capture_err)
 
+    def get_output(self, output_dir="tools_output"):
+        """Get the tool output and place it under
+        the specified output directory"""
+
+        output_dir = self.project_dir / output_dir / self.name
+        # create output directory if didn't exist
+        if not output_dir.exists():
+            os.makedirs(output_dir)
+            logger.info(f"Created {output_dir}")
+
+        for outfile in self.output:
+            outfile = self.project_dir / outfile
+            if outfile.exists():
+                src = os.fspath(outfile)
+                dst = os.fspath(output_dir / outfile.name)
+                shutil.move(src, dst)
+                logger.info(f"Moved {outfile.name} to {output_dir.resolve()}")
+            else:
+                msg = f"File not found: {outfile.resolve()}"
+                logger.error(msg)
+                raise FileNotFoundError(msg)
+
     def replace(self, mapping: dict):
         """Overwrite tool flags with actual values"""
         file = self.project_dir / self.bash_script

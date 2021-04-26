@@ -255,9 +255,12 @@ class Project:
 
             logger.info(f"Setupping {tool}...")
             tool.setup(**kwargs)
-            logger.info(f"Setup of {tool} completed")
+            logger.info("Setup completed")
 
             logger.info(f"Running {tool}...")
-            # must modify kwargs to don't interfere
             tool.run(**kwargs)
-            logger.info(f"Execution of {tool} completed")
+            logger.info("Execution completed")
+
+            logger.info("Collecting output...")
+            tool.get_output()
+            logger.info("Output collected")
