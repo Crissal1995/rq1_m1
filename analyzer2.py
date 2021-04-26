@@ -1,7 +1,8 @@
 import argparse
 import logging
 
-from src.analyzer import model
+from src.analyzer.model import get_tool
+from src.analyzer.project import Project
 from src.analyzer.utility import test_environment
 
 # set logging format
@@ -59,7 +60,7 @@ def main():
         stream_handler.setLevel(logging.DEBUG)
 
     # create project from path provided
-    project = model.Project(args.path)
+    project = Project(args.path)
 
     # select all tools if None
     tools = None
@@ -68,7 +69,7 @@ def main():
     if args.tools:
         tools = []
         for tool in args.tools:
-            tools.append(model.get_tool(tool, project.filepath))
+            tools.append(get_tool(tool, project.filepath))
 
     if args.action == "mutants":
         project.get_mutants(tools, stdout=args.stdout, stderr=args.stderr)
