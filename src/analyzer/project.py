@@ -69,19 +69,56 @@ class Project:
         src = os.fspath(self.test_dir)
         dst = os.fspath(self.test_dir.with_name(name))
         shutil.move(src, dst)
+        logger.info(f"Backupped tests to {dst}")
 
     def restore_tests(self, name=default_backup_tests):
         """Restore original/dev tests"""
         src = os.fspath(self.test_dir.with_name(name))
         dst = os.fspath(self.test_dir)
         shutil.move(src, dst)
+        logger.info(f"Restored tests to {dst}")
 
-    def _set_dir_testsuite(self, dirpath: Union[str, os.PathLike]):
-        """Set a directory of java files as the project testsuite"""
-        src = os.fspath(dirpath)
+    def _set_dir_testsuite(self, dirpath: Union[str, os.PathLike], **kwargs):
+        """Set a directory of java files as the project testsuite.
+        If 'group' is specified, then only that students group
+        testsuite will be used."""
+
+        students = kwargs.get("group")
+        if students is None:
+            src = os.fspath(dirpath)
+        else:
+            students = students.upper()
+            logger.debug(f"Searching {students} in Java files")
+            fnames = list(pathlib.Path(dirpath).glob(f"*{students}*"))
+            logger.debug(f"Found {fnames}")
+            assert len(fnames) > 0, f"No match found for {students}"
+            assert len(fnames) == 1, f"More than one match found for {students}"
+            fname = fnames[0]
+            src = os.fspath(fname.resolve())
+
         dst = os.fspath(self.full_test_dir)
         shutil.rmtree(self.test_dir, ignore_errors=True)
-        shutil.copytree(src, dst)
+
+        logger.debug(f"Source is {src}")
+        logger.debug(f"Destination is {dst}")
+
+        if students is None:
+            shutil.copytree(src, dst)
+        else:
+            os.makedirs(dst)
+            shutil.copy(src, dst)
+
+        with_dev = kwargs.get("with_dev", False)
+        logger.debug(f"Restore dev tests? {with_dev}")
+        if with_dev:
+            dev_test = self.test_dir.parent / self.default_backup_tests
+            logger.debug(f"Dev test: {dev_test}")
+            if dev_test.exists():
+                shutil.copytree(dev_test, self.test_dir, dirs_exist_ok=True)
+                logger.info(f"Dev tests copied into {dst}")
+            else:
+                msg = "Dev tests doesn't exist! Did you run 'analyzer.py backup <path>' before?"
+                logger.error(msg)
 
     def project_tests_root(self):
         """Get the root of project tests, based on project name"""
@@ -97,10 +134,10 @@ class Project:
         root = self.project_tests_root()
         return self._set_dir_testsuite(root / "dummy")
 
-    def set_tool_testsuite(self, tool: model.Tool):
+    def set_tool_testsuite(self, tool: model.Tool, **kwargs):
         """Set <tool_name> as project testsuite"""
         root = self.project_tests_root()
-        return self._set_dir_testsuite(root / tool.name)
+        return self._set_dir_testsuite(root / tool.name, **kwargs)
 
     def get_student_names(self, tool: model.Tool) -> Generator:
         """Get students' names from formatted java-filename"""
@@ -166,19 +203,38 @@ class Project:
         tools = self._get_tools(tools)
         logger.info(f"Executing coverage on tools {tools}")
 
+        if len(tools) > 1 and kwargs.get("group"):
+            msg = (
+                "Cannot select a students group with multiple tools, retry with a single tool. "
+                "Arg will be ignored!"
+            )
+            logger.warning(msg)
+            kwargs.pop("group")
+
+        skip_setup = kwargs.get("skip_setup", False)
+
         for tool in tools:
             logger.info(f"Start coverage of tool {tool}")
 
-            # set tool tests for project
-            self.set_tool_testsuite(tool)
+            if not skip_setup:
+                # set tool tests for project
+                self.clean()
+                self.d4j_compile()
+                self.set_tool_testsuite(tool, **kwargs)
+            else:
+                logger.info("Skipping setup testsuite")
 
             # execute defects4j coverage
             # produces coverage.xml
             self.d4j_coverage(**kwargs)
 
             # get student names
-            names = list(self.get_student_names(tool))
-            str_names = "_".join(names)
+            students_group = kwargs.get("group")
+            if students_group:
+                str_names = students_group.upper()
+            else:
+                names = list(self.get_student_names(tool))
+                str_names = "_".join(names)
 
             # rename coverage.xml
             fname = "coverage.xml"

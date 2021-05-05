@@ -32,7 +32,7 @@ def main():
     # assure we're in a good env
     test_environment()
 
-    actions = ("mutants", "coverage")
+    actions = ("backup", "restore", "mutants", "coverage")
 
     # create argument parser
     parser = argparse.ArgumentParser()
@@ -42,6 +42,7 @@ def main():
     parser.add_argument("path", help="path to Defects4j project")
 
     parser.add_argument("--tools", help="mutation tools to use", nargs="*")
+    parser.add_argument("--group", help="students group's testsuite to use")
     parser.add_argument(
         "-v", "--verbose", help="increase verbosity", action="store_true", default=False
     )
@@ -51,6 +52,18 @@ def main():
     parser.add_argument(
         "--stderr", help="collect tools stderr", action="store_true", default=False
     )
+    parser.add_argument(
+        "--with-dev",
+        help="add original dev tests to testsuite",
+        action="store_true",
+        default=False,
+    )
+    parser.add_argument(
+        "--skip-setup",
+        help="skip the setup of the tool (running coverage against current testsuite)",
+        action="store_true",
+        default=False,
+    )
 
     # parse user input
     args = parser.parse_args()
@@ -58,6 +71,8 @@ def main():
     # increase verbosity (debug logging)
     if args.verbose:
         stream_handler.setLevel(logging.DEBUG)
+
+    logger.info(f"args are {args}")
 
     # create project from path provided
     project = Project(args.path)
@@ -73,14 +88,25 @@ def main():
     else:
         tools = get_all_tools(project.filepath)
 
-    kwargs = dict(stdout=args.stdout, stderr=args.stderr)
+    kwargs = dict(
+        stdout=args.stdout,
+        stderr=args.stderr,
+        group=args.group,
+        with_dev=args.with_dev,
+        skip_setup=args.skip_setup,
+    )
 
-    if args.action == "mutants":
+    action = args.action
+    if action == "mutants":
         project.get_mutants(tools, **kwargs)
-    elif args.action == "coverage":
+    elif action == "coverage":
         project.coverage(tools, **kwargs)
+    elif action == "backup":
+        project.backup_tests()
+    elif action == "restore":
+        project.restore_tests()
     else:
-        raise ValueError(f"Invalid action provided: {args.action}. Valid are {actions}")
+        raise ValueError(f"Invalid action provided: {action}. Valid are {actions}")
 
 
 if __name__ == "__main__":
