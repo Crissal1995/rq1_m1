@@ -3,7 +3,7 @@ import os
 import pathlib
 
 from src import model
-from src.tools import judy, jumble, major, pit
+from src.tools import JudyReport, JumbleReport, MajorReport, PitReport
 
 tools = ["judy", "jumble", "major", "pit"]
 subjects = {"cli": "cli32", "gson": "gson15", "lang": "lang53"}
@@ -47,30 +47,30 @@ class ReportFactory:
 
         all_reports = {
             "judy": {
-                "buggy": judy.Report(
+                "buggy": JudyReport(
                     self.root_dir / "buggy_result.json", get_class_name(subject)
                 ),
-                "fixed": judy.Report(
+                "fixed": JudyReport(
                     self.root_dir / "fixed_result.json", get_class_name(subject)
                 ),
             },
             "jumble": {
-                "buggy": jumble.Report(self.root_dir / "buggy_jumble_output.txt"),
-                "fixed": jumble.Report(self.root_dir / "fixed_jumble_output.txt"),
+                "buggy": JumbleReport(self.root_dir / "buggy_jumble_output.txt"),
+                "fixed": JumbleReport(self.root_dir / "fixed_jumble_output.txt"),
             },
             "major": {
-                "buggy": major.Report(
+                "buggy": MajorReport(
                     self.root_dir / "buggy_mutants.log",
                     self.root_dir / "buggy_kill.csv",
                 ),
-                "fixed": major.Report(
+                "fixed": MajorReport(
                     self.root_dir / "fixed_mutants.log",
                     self.root_dir / "fixed_kill.csv",
                 ),
             },
             "pit": {
-                "buggy": pit.Report(self.root_dir / "buggy_mutations.xml"),
-                "fixed": pit.Report(self.root_dir / "fixed_mutations.xml"),
+                "buggy": PitReport(self.root_dir / "buggy_mutations.xml"),
+                "fixed": PitReport(self.root_dir / "fixed_mutations.xml"),
             },
         }
         reports = all_reports[tool]
