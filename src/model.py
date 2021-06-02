@@ -1,9 +1,11 @@
+import datetime
 import difflib
 import logging
 import os
 import pathlib
 from abc import ABC
 from collections import Counter
+from typing import Sequence
 
 from src.exception import OverlappingMutantError
 
@@ -57,6 +59,189 @@ class GitDiff:
 
     def __str__(self):
         return "".join(self.lines)
+
+    @classmethod
+    def gen_diffs(cls, src: str, dst: str):
+        """Get a generator of GitDiff elements"""
+        src = pathlib.Path(src)
+        dst = pathlib.Path(dst)
+
+        src_lines = open(src).readlines()
+        dst_lines = open(dst).readlines()
+
+        diffs_gen = difflib.unified_diff(src_lines, dst_lines, n=0)
+        differences = list(diffs_gen)
+
+        start_indices = [
+            i for i, line in enumerate(differences) if line.startswith("@@")
+        ]
+
+        for i, index in enumerate(start_indices):
+            diffline = differences[index]
+            lines = diffline.split()[1:3]
+
+            source_line_list = lines[0].split(",")
+            if len(source_line_list) == 2:
+                source_count = int(source_line_list[1])
+            else:
+                source_count = 1
+            source_line = int(source_line_list[0].replace("-", ""))
+
+            dest_line_list = lines[1].split(",")
+            if len(dest_line_list) == 2:
+                dest_count = int(dest_line_list[1])
+            else:
+                dest_count = 1
+            dest_line = int(dest_line_list[0].replace("+", ""))
+
+            if i != len(start_indices) - 1:
+                limit = start_indices[i + 1]
+            else:
+                limit = len(differences)
+            block_diffs = differences[index:limit]
+            assert len(block_diffs) == source_count + dest_count + 1
+            yield cls(
+                source_line=source_line,
+                source_count=source_count,
+                destination_line=dest_line,
+                destination_count=dest_count,
+                lines=block_diffs,
+            )
+
+
+class MutantsComparerSets:
+    def __init__(self, first_seq: Sequence[Mutant], second_seq: Sequence[Mutant]):
+        self.first_seq = first_seq
+        self.first_set = set(first_seq)
+
+        self.second_seq = second_seq
+        self.second_set = set(second_seq)
+
+    @staticmethod
+    def correct_lines(mutants: Sequence[Mutant], src_filepath: str, dst_filepath: str):
+        """This function should be called if a mutants set should be corrected
+        because of mismatching lines (e.g. a buggy and a fixed version of the same Java file)."""
+
+        # sort mutants based on their mutation line
+        sorted_mutants = sorted(mutants, key=lambda mutant: mutant.line)
+
+        for diff in GitDiff.gen_diffs(src_filepath, dst_filepath):
+            logging.info(f"Difference found: {repr(diff)}")
+
+            # skip empty deltas
+            if diff.delta == 0:
+                logging.info("Empty difference delta, skip it")
+                continue
+            # else get mutants that will be affected by this change
+            affected_mutants = [
+                mutation
+                for mutation in sorted_mutants
+                if mutation.line >= diff.source_line
+            ]
+            logging.info(
+                f"Changing the 'line' attribute of {len(affected_mutants)} mutants"
+            )
+
+            for mutation in affected_mutants:
+                logging.debug(
+                    f"From line {mutation.line} to line "
+                    f"{mutation.line + diff.delta} - {repr(mutation)}"
+                )
+                mutation.line += diff.delta
+
+        return sorted_mutants
+
+    @staticmethod
+    def find_duplicate_mutants(mutants: Sequence[Mutant]):
+        counter = Counter([hash(mutant) for mutant in mutants])
+        return [
+            mutant
+            for (mutant, (hash_, count)) in zip(mutants, counter.items())
+            if count > 1
+        ]
+
+    def summary(self):
+        """Print a summary and write on files the output"""
+        now = str(datetime.datetime.now()).replace(":", ".").replace(".", "-")
+
+        l1_seq = len(self.first_seq)
+        l1_set = len(self.first_set)
+
+        l2_seq = len(self.second_seq)
+        l2_set = len(self.second_set)
+
+        # mismatch is a binary flag variable
+        mismatch = 0
+
+        # set bits
+        if l1_set != l1_seq:
+            mismatch |= 1
+        if l2_set != l2_seq:
+            mismatch |= 2
+
+        # if any of these bit is high, error found
+        if mismatch & 3:
+            path = pathlib.Path("overlapping") / now
+            os.makedirs(path, exist_ok=True)
+
+            msg = ""
+            if mismatch & 1:
+                mutants = self.find_duplicate_mutants(self.first_seq)
+                with open(path / "seq1.txt", "w") as f:
+                    f.write("\n\n".join(mutants))
+                msg += "Written overlapping mutants on seq1.txt\n"
+
+            if mismatch & 2:
+                mutants = self.find_duplicate_mutants(self.second_seq)
+                with open(path / "seq2.txt", "w") as f:
+                    f.write("\n\n".join(mutants))
+                msg += "Written overlapping mutants on seq2.txt\n"
+
+            raise OverlappingMutantError(msg)
+
+        path = pathlib.Path("result") / now
+        os.makedirs(path)
+
+        # original
+        # first set
+        with open(path / "first_set.txt", "w") as f:
+            f.write("\n\n".join([str(m) for m in self.first_seq]))
+
+        # second set
+        with open(path / "second_set.txt", "w") as f:
+            f.write("\n\n".join([str(m) for m in self.second_seq]))
+
+        # union
+        union = list(self.first_set | self.second_set)
+        with open(path / "union.txt", "w") as f:
+            f.write("\n\n".join([str(m) for m in union]))
+
+        # diff 1-2
+        first_diff = list(self.first_set - self.second_set)
+        with open(path / "first_diff.txt", "w") as f:
+            f.write("\n\n".join([str(m) for m in first_diff]))
+
+        # diff 2-1
+        second_diff = list(self.second_set - self.first_set)
+        with open(path / "second_diff.txt", "w") as f:
+            f.write("\n\n".join([str(m) for m in second_diff]))
+
+        # xor
+        xor = list(self.first_set ^ self.second_set)
+        with open(path / "xor.txt", "w") as f:
+            f.write("\n\n".join([str(m) for m in xor]))
+
+        msg = (
+            f"SUMMARY LIVE MUTANTS - lengths:\n"
+            f"First set: {len(self.first_seq)}\n"
+            f"Second set: {len(self.second_seq)}\n"
+            f"Union: {len(union)}\n"
+            f"First - Second: {len(first_diff)}\n"
+            f"Second - First: {len(second_diff)}\n"
+            f"Xor: {len(xor)}\n"
+            f"(now: {now})"
+        )
+        logging.info(msg)
 
 
 class MutantsComparer:
