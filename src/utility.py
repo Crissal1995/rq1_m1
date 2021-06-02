@@ -148,3 +148,48 @@ class ReportFactory:
                 s += "\n".join([str(mutant) for mutant in mutants])
                 f.write(s)
             logging.info(f"Logged {len(mutants)} mutants on {outfile}")
+
+
+def get_report(subject: str, tool: str, *args, root: str) -> model.Report:
+    root = get_root_dir(tool=tool, subject=subject, base_dir=root)
+
+    # fix files' paths
+    args = [root / arg for arg in args]
+
+    subject = subject.lower()
+    tool = tool.lower()
+
+    if subject not in subjects:
+        raise ValueError(f"{subject} not valid! Valid values are: {subjects}")
+
+    if tool not in tools:
+        raise ValueError(f"{tool} not valid! Valid values are: {tools}")
+
+    if not 1 <= len(args) <= 2:
+        raise ValueError(
+            "Invalid args! Must be at least one element and at most two elements"
+        )
+
+    reports = dict(
+        judy=JudyReport,
+        jumble=JumbleReport,
+        major=MajorReport,
+        pit=PitReport,
+    )
+
+    # specify another argument to judy constructor
+    # that is, the classname
+    if tool == "judy":
+        classname = get_class_name(subject)
+        args = args + [classname]
+
+    if tool == "major":
+        assert len(args) == 2
+        arg1, arg2 = args
+
+        # arg1 must be log file
+        # if it's not, then swap them
+        if isinstance(arg1, str) and not arg1.lower().endswith(".log"):
+            args = (arg2, arg1)
+
+    return reports[tool](*args)
