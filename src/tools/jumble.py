@@ -67,8 +67,20 @@ class Report(model.Report):
         )
         end_pattern = re.compile(r"Jumbling took \d+\.\d+s")
 
+        # but also check out for errors
+        score_pattern = re.compile(r"Score: \d+%(\s*\(([\w\s]+)\))?")
+
         with open(self.filepath) as f:
             text = f.read()
+
+        # check if there are errors
+        msg = score_pattern.search(text).group(2)
+        if msg:
+            errmsg = (
+                f"Invalid Jumble output provided! {self.filepath}"
+                f"\nJumble error: {msg}"
+            )
+            raise ValueError(errmsg)
 
         # get indices where the mutants are defined
         i = start_pattern.search(text).end()
