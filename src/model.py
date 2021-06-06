@@ -160,9 +160,12 @@ class MutantsComparerSets:
             if count > 1
         ]
 
-    def summary(self):
+    def summary(self, dirname: str = None):
         """Print a summary and write on files the output"""
         now = str(datetime.datetime.now()).replace(":", ".").replace(".", "-")
+        path = pathlib.Path("result")
+        thedir = f"{dirname} {now}" if dirname else now
+        path /= thedir
 
         l1_seq = len(self.first_seq)
         l1_set = len(self.first_set)
@@ -199,7 +202,6 @@ class MutantsComparerSets:
 
             raise OverlappingMutantError(msg)
 
-        path = pathlib.Path("result") / now
         os.makedirs(path)
 
         # original

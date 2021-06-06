@@ -63,7 +63,8 @@ def main():
     comparer = MutantsComparerSets(
         report1.get_live_mutants(), report2.get_live_mutants()
     )
-    comparer.summary()
+    dirname = f"{subject} {tool}"
+    comparer.summary(dirname=dirname)
 
 
 if __name__ == "__main__":
