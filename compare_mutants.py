@@ -27,9 +27,8 @@ def main():
     # set one subject (cannot compare two different subjects)
     parser.add_argument("subject", choices=subjects)
 
-    # set first and second tools
-    parser.add_argument("tool1", choices=tools)
-    parser.add_argument("tool2", choices=tools)
+    # set tool (cannot compare between two or more tools)
+    parser.add_argument("tool", choices=tools)
 
     # set first and second files arguments
     parser.add_argument("-f1", "--files1", nargs="+")
@@ -39,26 +38,26 @@ def main():
     parser.add_argument("--root", default="data")
 
     args = parser.parse_args()
-    print(args)
-
-    max_files_length = 2
-    if any(
-        len(args.__getattribute__(s)) > max_files_length for s in ("files1", "files2")
-    ):
-        parser.error(f"filesX can hold up to {max_files_length} files")
 
     root: str = args.root
     subject: str = args.subject
 
-    tool1: str = args.tool1
+    tool: str = args.tool
     files1: [str] = args.files1
-
-    tool2: str = args.tool2
     files2: [str] = args.files2
 
-    report1 = get_report(subject, tool1, *files1, root=root)
+    max_files_length = 2
+
+    if len(args.files1) > max_files_length:
+        parser.error(f"files1 can hold up to {max_files_length} arguments")
+
+    if len(args.files2) > max_files_length:
+        parser.error(f"files2 can hold up to {max_files_length} arguments")
+
+    report1 = get_report(subject, tool, *files1, root=root)
     report1.makeit()
-    report2 = get_report(subject, tool2, *files2, root=root)
+
+    report2 = get_report(subject, tool, *files2, root=root)
     report2.makeit()
 
     comparer = MutantsComparerSets(
