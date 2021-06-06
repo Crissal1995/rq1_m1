@@ -191,9 +191,8 @@ def get_report(subject: str, tool: str, *args, root: str = None) -> model.Report
         assert len(args) == 2
         arg1, arg2 = args
 
-        # arg1 must be log file
-        # if it's not, then swap them
-        if isinstance(arg1, str) and not arg1.lower().endswith(".log"):
+        # arg1 must be log file, so if it's not, swap args
+        if not pathlib.Path(arg1).name.lower().endswith(".log"):
             args = (arg2, arg1)
 
     return reports[tool](*args)
