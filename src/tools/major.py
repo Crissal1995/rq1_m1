@@ -1,9 +1,12 @@
+import io
 import os
+
+import pandas as pd
 
 from src import model
 
 
-class Mutant(model.Mutant):
+class OldMutant(model.Mutant):
     @property
     def hash_tuple(self) -> tuple:
         return (
@@ -47,6 +50,38 @@ class Mutant(model.Mutant):
         )
 
 
+class Mutant(model.Mutant):
+    def __init__(self, mutation_series: pd.Series):
+        self.status = mutation_series.Status
+        self.operator = mutation_series.Operator
+        self._from = mutation_series.From
+        self.to = mutation_series.To
+        self.signature = mutation_series.Signature
+        self.line = mutation_series.LineNumber
+        self.original_line = self.line
+        self.description = mutation_series.Description
+
+        self._series = mutation_series
+
+    @property
+    def hash_tuple(self) -> tuple:
+        return (
+            self.operator,
+            self._from,
+            self.to,
+            self.signature,
+            self.line,
+            self.description,
+        )
+
+    def __str__(self):
+        if self.line != self.original_line:
+            org = f" (original: {self.original_line})"
+        else:
+            org = ""
+        return f"Mutant at line {self.line}{org}\n" f"{str(self._series)}"
+
+
 class Report(model.Report):
     def __init__(
         self,
@@ -68,6 +103,56 @@ class Report(model.Report):
         return self.live_mutants
 
     def makeit(self):
+        with open(self.kill_csv_filepath) as f:
+            kill_csv_stream = io.StringIO(f.read())
+        columns = ["MutantNo", "Status"]
+        kill_df = pd.read_csv(kill_csv_stream, header=0, names=columns).set_index(
+            "MutantNo"
+        )
+
+        with open(self.mutants_log_filepath) as f:
+            stream = io.StringIO(f.read())
+        columns = [
+            "MutantNo",
+            "Operator",
+            "From",
+            "To",
+            "Signature",
+            "LineNumber",
+            "Description",
+        ]
+        mutants_df = pd.read_csv(
+            stream, delimiter=":", header=None, names=columns
+        ).set_index("MutantNo")
+
+        # fix mismatch in length
+        if len(kill_df) == 0:
+            # empty kill csv -> all mutants are live
+            kill_df = pd.DataFrame(["LIVE"] * len(mutants_df), columns=["Status"])
+            kill_df.index.name = "MutantNo"
+        elif len(kill_df) < len(mutants_df):
+            kill_df = kill_df.reindex(range(1, len(mutants_df) + 1), fill_value="LIVE")
+        elif len(kill_df) > len(mutants_df):
+            msg = "Found more mutants in kill.csv than in mutants.log!"
+            raise ValueError(msg)
+
+        df = mutants_df.join(kill_df)
+        live_mutants = df.loc[df.Status == "LIVE"]
+        killed_mutants = df.loc[df.index.difference(live_mutants.index)]
+        live_count = len(live_mutants)
+        killed_count = len(killed_mutants)
+        assert len(df) == live_count + killed_count
+
+        for index, row in df.iterrows():
+            mutant = Mutant(row)
+            if mutant.status == "LIVE":
+                self.live_mutants.append(mutant)
+            else:
+                self.killed_mutants.append(mutant)
+
+        self.mutants = self.killed_mutants + self.live_mutants
+
+    def _old_makeit(self):
         # reads "mutants.log", containing a list of all mutants generated
         with open(self.mutants_log_filepath) as f:
             lines = [line.split(":") for line in f.readlines()]
@@ -75,7 +160,7 @@ class Report(model.Report):
         mutants = []
         for line in lines:
             mut_id = int(line[0])
-            mutants.append((mut_id, Mutant(mutation_list=line)))
+            mutants.append((mut_id, OldMutant(mutation_list=line)))
 
         # should be sorted, but better safe than sorry ;)
         mutants.sort(key=lambda el: el[0])
