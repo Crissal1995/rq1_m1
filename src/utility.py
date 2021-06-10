@@ -150,7 +150,9 @@ class ReportFactory:
             logging.info(f"Logged {len(mutants)} mutants on {outfile}")
 
 
-def get_report(subject: str, tool: str, *args, root: str = None) -> model.Report:
+def get_report(
+    subject: str, tool: str, *args, root: str = None, args_absolute_path=False
+) -> model.Report:
     if not root:
         root = get_root_dir(tool=tool, subject=subject, base_dir=root)
 
@@ -158,7 +160,10 @@ def get_report(subject: str, tool: str, *args, root: str = None) -> model.Report
     root = pathlib.Path(root)
 
     # fix files' paths
-    args = [root / arg for arg in args]
+    if not args_absolute_path:
+        args = [root / arg for arg in args]
+    else:
+        args = [pathlib.Path(arg) for arg in args]
 
     subject = subject.lower()
     tool = tool.lower()
