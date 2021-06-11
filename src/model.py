@@ -113,9 +113,11 @@ class MutantsComparerSets:
     def __init__(self, first_seq: Sequence[Mutant], second_seq: Sequence[Mutant]):
         self.first_seq = first_seq
         self.first_set = set(first_seq)
+        assert len(self.first_set) == len(self.first_seq)
 
         self.second_seq = second_seq
         self.second_set = set(second_seq)
+        assert len(self.second_set) == len(self.second_seq)
 
     @staticmethod
     def correct_lines(mutants: Sequence[Mutant], src_filepath: str, dst_filepath: str):
