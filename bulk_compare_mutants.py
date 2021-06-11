@@ -11,7 +11,7 @@ def set_logging():
     # FORMAT = "%(levelname)s :: %(asctime)s :: %(module)s, line %(lineno)d :: %(message)s"
     FORMAT = "%(levelname)s :: [%(module)s.%(lineno)d] :: %(message)s"
 
-    file_handler = logging.FileHandler("bulk_compare_mutants.log", mode="w")
+    file_handler = logging.FileHandler("bulk_compare_mutants.log")
     file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(logging.Formatter(FORMAT))
 
@@ -39,11 +39,15 @@ if __name__ == "__main__":
     parser.add_argument("tool", choices=tools)
 
     # set root for files
-    parser.add_argument("--root", default="data")
+    parser.add_argument("--root")
 
     args = parser.parse_args()
 
-    root = pathlib.Path(args.root)
+    root = args.root
+    if not root:
+        root = f"data_cmp/{args.subject}/{args.tool}"
+    root = pathlib.Path(root)
+
     directories = [dir_ for dir_ in root.iterdir() if dir_.is_dir()]
     basename = "_single_dev"
     base = [dir_ for dir_ in directories if dir_.name == basename]
