@@ -1,5 +1,7 @@
 import argparse
 import logging
+from os import PathLike
+from typing import Union
 
 from src.model import MutantsComparerSets
 from src.utility import get_report, subjects, tools
@@ -25,7 +27,7 @@ def set_logging():
 
 
 def main(
-    root: str,
+    root: Union[str, PathLike],
     subject: str,
     tool: str,
     files1: [str],
@@ -33,7 +35,7 @@ def main(
     compare: str = "live",
     dirname: str = None,
     args_absolute_path: bool = False,
-):
+) -> MutantsComparerSets:
     valid_compare_values = "live", "killed", "all"
     if compare not in valid_compare_values:
         raise ValueError(
@@ -71,6 +73,8 @@ def main(
 
     dirname = dirname or f"{subject} {tool}"
     comparer.summary(dirname=dirname)
+
+    return comparer
 
 
 if __name__ == "__main__":
