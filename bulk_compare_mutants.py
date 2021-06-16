@@ -2,6 +2,7 @@ import argparse
 import logging
 import pathlib
 
+import pandas as pd
 from compare_mutants import main
 
 from src.utility import subjects, tools
@@ -57,14 +58,32 @@ if __name__ == "__main__":
     directories.pop(directories.index(base))
 
     files1 = list(base.iterdir())
+    series = []
+
+    # set level to WARNING to exclude printing to stdout
+    # except for severe problems
+    logger.setLevel(logging.WARNING)
     logger.info(f"Base directory found: {base}")
 
+    # compare to itself to gen first column - that is, single_dev live mutants
+    comparer = main(
+        root, args.subject, args.tool, files1, files1, args_absolute_path=True
+    )
+    series.append(comparer.get_series(name="single_dev", kind="first"))
+
+    # restore level
+    logger.setLevel(logging.INFO)
     for i, directory in enumerate(directories):
         if i > 0:
             logger.info("-" * 50)
 
         files2 = list(directory.iterdir())
         logger.info(f"Comparison with {directory}")
-        main(
-            args.root, args.subject, args.tool, files1, files2, args_absolute_path=True
+
+        comparer = main(
+            root, args.subject, args.tool, files1, files2, args_absolute_path=True
         )
+        series.append(comparer.get_series(name=directory.name))
+
+    x = pd.DataFrame(series).transpose()
+    print(x)
