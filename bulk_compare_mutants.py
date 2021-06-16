@@ -8,7 +8,7 @@ from compare_mutants import main
 from src.utility import subjects, tools
 
 
-def set_logging():
+def set_logging(name: str = None):
     # FORMAT = "%(levelname)s :: %(asctime)s :: %(module)s, line %(lineno)d :: %(message)s"
     FORMAT = "%(levelname)s :: [%(module)s.%(lineno)d] :: %(message)s"
 
@@ -20,12 +20,12 @@ def set_logging():
     stream_handler.setLevel(logging.INFO)
     stream_handler.setFormatter(logging.Formatter(FORMAT))
 
-    logger = logging.getLogger()
-    logger.addHandler(file_handler)
-    logger.addHandler(stream_handler)
-    logger.setLevel(logging.DEBUG)
+    _logger = logging.getLogger(name)
+    _logger.addHandler(file_handler)
+    _logger.addHandler(stream_handler)
+    _logger.setLevel(logging.DEBUG)
 
-    return logger
+    return _logger
 
 
 if __name__ == "__main__":
@@ -85,5 +85,6 @@ if __name__ == "__main__":
         )
         series.append(comparer.get_series(name=directory.name))
 
-    x = pd.DataFrame(series).transpose()
-    print(x)
+    df = pd.DataFrame(series)
+    df.to_csv(f"{root}/{args.subject}_{args.tool}.csv")
+    print(df)

@@ -256,7 +256,7 @@ class MutantsComparerSets:
         logging.info(msg)
 
     def get_series(
-        self, name: str = None, *, kind: str = "first_diff", data_type: str = "hash"
+        self, name: str = None, *, kind: str = "first_diff", data_type: str = "original"
     ) -> pd.Series:
         kind = kind.lower()
         kinds = (
@@ -289,15 +289,16 @@ class MutantsComparerSets:
         }
 
         original_data = data_dict[kind]
+        hash_data = [hash(mutant) for mutant in original_data]
 
         if data_type == "original":
             data = original_data
         elif data_type == "hash":
-            data = [hash(mutant) for mutant in original_data]
+            data = hash_data
         else:
             raise AssertionError("Should not reach this LoC")
 
-        return pd.Series(data=data, name=name or kind)
+        return pd.Series(data=data, name=name or kind, index=hash_data)
 
 
 class MutantsComparer:
