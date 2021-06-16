@@ -8,6 +8,34 @@ from compare_mutants import main
 from src.utility import subjects, tools
 
 
+def rearrange(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Rearrange Series values based on another Series values.
+    Ref (SO): https://is.gd/UjkuXb
+
+    Returns a new pd.DataFrame
+    """
+    import numpy as np
+
+    df2 = df.copy(deep=True)
+
+    df2.columns = list(range(len(df2.columns)))
+    df2.columns = df2.columns.astype(int).__add__(1).to_list()
+    count = len(df2.columns)
+    df2[[i for i in range(1, count)]] = (
+        df2[[i for i in range(1, count)]]
+        .apply(
+            lambda row: np.array(
+                [i / 10 if i / 10 in row.values else np.nan for i in row.index]
+            ),
+            axis=1,
+        )
+        .apply(pd.Series)
+    )
+
+    return df2
+
+
 def set_logging(name: str = None):
     # FORMAT = "%(levelname)s :: %(asctime)s :: %(module)s, line %(lineno)d :: %(message)s"
     FORMAT = "%(levelname)s :: [%(module)s.%(lineno)d] :: %(message)s"
@@ -65,11 +93,18 @@ if __name__ == "__main__":
     logger.setLevel(logging.WARNING)
     logger.info(f"Base directory found: {base}")
 
+    data_type = "original"
+    index = True
+
     # compare to itself to gen first column - that is, single_dev live mutants
     comparer = main(
         root, args.subject, args.tool, files1, files1, args_absolute_path=True
     )
-    series.append(comparer.get_series(name="single_dev", kind="first"))
+    series.append(
+        comparer.get_series(
+            name="single_dev", kind="first", data_type=data_type, index=index
+        )
+    )
 
     # restore level
     logger.setLevel(logging.INFO)
@@ -83,8 +118,11 @@ if __name__ == "__main__":
         comparer = main(
             root, args.subject, args.tool, files1, files2, args_absolute_path=True
         )
-        series.append(comparer.get_series(name=directory.name))
+        series.append(
+            comparer.get_series(name=directory.name, data_type=data_type, index=index)
+        )
 
     df = pd.DataFrame(series)
+    df2 = rearrange(df)
     df.to_csv(f"{root}/{args.subject}_{args.tool}.csv")
     print(df)
