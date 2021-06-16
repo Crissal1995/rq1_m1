@@ -7,6 +7,8 @@ from abc import ABC
 from collections import Counter
 from typing import Sequence
 
+import pandas as pd
+
 from src.exception import OverlappingMutantError
 
 
@@ -215,6 +217,11 @@ class MutantsComparerSets:
         with open(path / "second_set.txt", "w") as f:
             f.write("\n\n".join([str(m) for m in self.second_seq]))
 
+        # intersection
+        intersection = list(self.first_set & self.second_set)
+        with open(path / "intersection.txt", "w") as f:
+            f.write("\n\n".join([str(m) for m in intersection]))
+
         # union
         union = list(self.first_set | self.second_set)
         with open(path / "union.txt", "w") as f:
@@ -239,6 +246,7 @@ class MutantsComparerSets:
             f"SUMMARY LIVE MUTANTS - lengths:\n"
             f"First set: {len(self.first_seq)}\n"
             f"Second set: {len(self.second_seq)}\n"
+            f"Intersection: {len(intersection)}\n"
             f"Union: {len(union)}\n"
             f"First - Second: {len(first_diff)}\n"
             f"Second - First: {len(second_diff)}\n"
@@ -246,6 +254,50 @@ class MutantsComparerSets:
             f"(now: {now})"
         )
         logging.info(msg)
+
+    def get_series(
+        self, name: str = None, *, kind: str = "first_diff", data_type: str = "hash"
+    ) -> pd.Series:
+        kind = kind.lower()
+        kinds = (
+            "first",
+            "second",
+            "union",
+            "intersection",
+            "first_diff",
+            "second_diff",
+            "xor",
+        )
+        kinds = sorted(kinds)
+        if kind not in kinds:
+            raise ValueError(f"Kind '{kind}' must be one of {kinds}")
+
+        data_type = data_type.lower()
+        data_types = ("original", "hash")
+        data_types = sorted(data_types)
+        if data_type not in data_types:
+            raise ValueError(f"Data type '{data_type}' must be one of {data_types}")
+
+        data_dict = {
+            "first": self.first_seq,
+            "second": self.second_seq,
+            "intersection": list(self.first_set & self.second_set),
+            "union": list(self.first_set | self.second_set),
+            "xor": list(self.first_set ^ self.second_set),
+            "first_diff": list(self.first_set - self.second_set),
+            "second_diff": list(self.second_set - self.first_set),
+        }
+
+        original_data = data_dict[kind]
+
+        if data_type == "original":
+            data = original_data
+        elif data_type == "hash":
+            data = [hash(mutant) for mutant in original_data]
+        else:
+            raise AssertionError("Should not reach this LoC")
+
+        return pd.Series(data=data, name=name or kind)
 
 
 class MutantsComparer:
