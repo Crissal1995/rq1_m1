@@ -6,7 +6,8 @@ from src.utility import subjects, tools
 
 
 def main(root_dir: str = "data_cmp"):
-    valid_tools = [tool for tool in tools if tool != "judy"]
+    # valid_tools = [tool for tool in tools if tool != "judy"]
+    valid_tools = tools
 
     dataframes = []
 
@@ -30,15 +31,9 @@ def main(root_dir: str = "data_cmp"):
             )
             dataframes.append(x)
 
-    y = pd.concat(dataframes, axis=1)
-    yy = y.apply(
-        lambda row: [el for el in row if el and not pd.isna(el)][:2],
-        axis=1,
-        result_type="expand",
-    )
-    yy.columns = ["live_count", "effectiveness"]
-    yy.to_csv(f"{root_dir}/effectiveness.csv")
-    print(yy)
+    df = pd.concat(dataframes).sort_index()
+    df.to_csv(f"{root_dir}/effectiveness.csv")
+    print(df)
 
 
 if __name__ == "__main__":
