@@ -1,5 +1,6 @@
 import io
 import os
+from collections import defaultdict
 
 import pandas as pd
 
@@ -51,10 +52,12 @@ class OldMutant(model.Mutant):
 
 
 class Mutant(model.Mutant):
+    counter_hashkey = defaultdict(int)
+
     def __init__(self, mutation_series: pd.Series):
         self.status = mutation_series.Status
         self.operator = mutation_series.Operator
-        self._from = mutation_series.From
+        self.from_ = mutation_series.From
         self.to = mutation_series.To
         self.signature = mutation_series.Signature
         self.line = mutation_series.LineNumber
@@ -63,16 +66,24 @@ class Mutant(model.Mutant):
 
         self._series = mutation_series
 
+        thehash = hash((mutation_series[k] for k in self._hash_tuple))
+        self._counter = self.counter_hashkey[thehash]
+        self.counter_hashkey[thehash] += 1
+
     @property
-    def hash_tuple(self) -> tuple:
+    def _hash_tuple(self) -> tuple:
         return (
             self.operator,
-            self._from,
+            self.from_,
             self.to,
             self.signature,
             self.line,
             self.description,
         )
+
+    @property
+    def hash_tuple(self) -> tuple:
+        return self._hash_tuple + (self._counter,)
 
     def __str__(self):
         if self.line != self.original_line:
