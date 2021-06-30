@@ -137,15 +137,10 @@ class Report(model.Report):
         ).set_index("MutantNo")
 
         # fix mismatch in length
-        if len(kill_df) == 0:
+        if kill_df.empty or len(kill_df) == 0:
             # empty kill csv -> all mutants are live
             kill_df = pd.DataFrame(["LIVE"] * len(mutants_df), columns=["Status"])
             kill_df.index.name = "MutantNo"
-        elif len(kill_df) < len(mutants_df):
-            kill_df = kill_df.reindex(range(1, len(mutants_df) + 1), fill_value="LIVE")
-        elif len(kill_df) > len(mutants_df):
-            msg = "Found more mutants in kill.csv than in mutants.log!"
-            raise ValueError(msg)
 
         df = mutants_df.join(kill_df)
         live_mutants = df.loc[df.Status == "LIVE"]
