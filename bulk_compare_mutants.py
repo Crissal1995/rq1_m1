@@ -86,6 +86,10 @@ if __name__ == "__main__":
         if i > 0:
             logger.info("-" * 50)
 
+        if basename not in directory.name:
+            logger.info(f"Skipping {directory}")
+            continue
+
         files2 = list(directory.iterdir())
         logger.info(f"Comparison with {directory}")
 
