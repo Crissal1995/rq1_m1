@@ -62,13 +62,15 @@ if __name__ == "__main__":
 
     # set level to WARNING to exclude printing to stdout
     # except for severe problems
-    logger.setLevel(logging.WARNING)
     logger.info(f"Base directory found: {base}")
 
     data_type = "original"
     index = True
 
     # compare to itself to gen first column - that is, single_dev live mutants
+    logger.info("Getting dev mutants")
+
+    logger.setLevel(logging.WARNING)
     comparer = main(
         root, args.subject, args.tool, files1, files1, args_absolute_path=True
     )
@@ -77,9 +79,9 @@ if __name__ == "__main__":
             name="single_dev", kind="first", data_type=data_type, index=index
         )
     )
-
     # restore level
     logger.setLevel(logging.INFO)
+
     for i, directory in enumerate(directories):
         if i > 0:
             logger.info("-" * 50)
@@ -87,9 +89,12 @@ if __name__ == "__main__":
         files2 = list(directory.iterdir())
         logger.info(f"Comparison with {directory}")
 
+        logger.setLevel(logging.WARNING)
         comparer = main(
             root, args.subject, args.tool, files1, files2, args_absolute_path=True
         )
+        logger.setLevel(logging.INFO)
+
         series.append(
             comparer.get_series(name=directory.name, data_type=data_type, index=index)
         )
