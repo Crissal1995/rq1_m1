@@ -8,10 +8,22 @@ from src import model
 class MutantOperator:
     operators = {}
 
+    @classmethod
+    def reset_operators(cls):
+        cls.operators = {}
+
     def __init__(self, adict):
         self.name: str = adict["name"]
         self.description: str = adict["description"]
-        MutantOperator.operators[self.name] = self
+
+        if self.name in self.operators:
+            msg = (
+                f"Found duplicate operator name! "
+                f"{self.name} found, but got already {self.operators[self.name]}"
+            )
+            raise ValueError(msg)
+        else:
+            self.operators[self.name] = self
 
     @classmethod
     def find_by_name(cls, name: str):
@@ -30,7 +42,11 @@ class Mutant(model.Mutant):
 
     @property
     def hash_tuple(self) -> tuple:
-        return self.line, self.operator.name, self.operator.description, self.count
+        return self._hash_tuple + (self._count,)
+
+    @property
+    def _hash_tuple(self) -> tuple:
+        return self.line, self.operator.name
 
     def __init__(self, adict):
         lines = adict["lines"]
@@ -43,13 +59,13 @@ class Mutant(model.Mutant):
 
         super().__init__(line=int(line))
         self.points: int = points
-        self.operator: MutantOperator = MutantOperator.find_by_name(operator)
+        self.operator = MutantOperator.find_by_name(operator)
 
         # fix different mutations but with same line
         # and description with a counter
-        key = (self.line, self.operator.name, self.operator.description)
-        self.count = Mutant.counter[key]
-        Mutant.counter[key] += 1
+        thehash = hash(self._hash_tuple)
+        self._count = Mutant.counter[thehash]
+        Mutant.counter[thehash] += 1
 
     def __str__(self):
         if self.original_line != self.line:
@@ -91,8 +107,10 @@ class Report(model.Report):
 
         if not classdict:
             raise ValueError(
-                f"{self.classname} not found in classes - file: {self.result_fp}"
+                f"{self.classname} not found in classes; file: {self.result_fp}"
             )
+        elif len(classdict) > 1:
+            raise ValueError(f"{self.classname} found 2+ times; file: {self.result_fp}")
         else:
             classdict = classdict[0]
 
@@ -101,6 +119,9 @@ class Report(model.Report):
         self.killed_mutants_count = classdict["mutantsKilledCount"]
         self.live_mutants_count = self.total_mutants_count - self.killed_mutants_count
         self.live_mutants = [Mutant(mdict) for mdict in classdict["notKilledMutant"]]
+
+        # at the end of execution, reset mutant operator dictionary
+        MutantOperator.reset_operators()
 
     def get_live_mutants(self):
         return self.live_mutants
