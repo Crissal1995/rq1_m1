@@ -100,7 +100,9 @@ if __name__ == "__main__":
         logger.setLevel(logging.INFO)
 
         series.append(
-            comparer.get_series(name=directory.name, data_type=data_type, index=index)
+            comparer.get_series(
+                name=directory.name, data_type=data_type, index=index, kind="second"
+            )
         )
 
     df = pd.DataFrame(series)
