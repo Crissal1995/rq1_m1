@@ -22,6 +22,7 @@ def main(root_dir: str = "data_cmp"):
             ddf["Project"] = subject.capitalize()
 
             # calculate effectiveness as 1 - live achieved / live total
+            ddf["live_total_count"] = ddf["live_count"].max()
             ddf["effectiveness"] = 1 - ddf["live_count"] / ddf["live_count"].max()
 
             x = (
@@ -32,8 +33,10 @@ def main(root_dir: str = "data_cmp"):
             dataframes.append(x)
 
     df = pd.concat(dataframes).sort_index()
-    df.to_csv(f"{root_dir}/effectiveness.csv")
-    print(df)
+    path = f"{root_dir}/effectiveness.csv"
+    df.to_csv(path)
+    logging.info(f"Written dataframe to {path}")
+    logging.info(df)
 
 
 if __name__ == "__main__":
