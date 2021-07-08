@@ -1,5 +1,6 @@
 import datetime
 import difflib
+import hashlib
 import logging
 import os
 import pathlib
@@ -23,12 +24,17 @@ class Mutant(ABC):
         raise NotImplementedError
 
     def __hash__(self):
-        return hash(self.hash_tuple)
+        s = b"_".join(str(e).encode("utf-8") for e in self.hash_tuple)
+        h = hashlib.sha256(s)
+        digest = int(h.hexdigest(), base=16)
+        return digest
 
     def __eq__(self, other):
-        if type(self) is not type(other):
-            return False
-        return all(el1 == el2 for (el1, el2) in zip(self.hash_tuple, other.hash_tuple))
+        return (
+            type(self) is type(other)
+            and len(self.hash_tuple) == len(other.hash_tuple)
+            and all(el1 == el2 for (el1, el2) in zip(self.hash_tuple, other.hash_tuple))
+        )
 
     def __repr__(self):
         return f"Mutant{self.hash_tuple}"
