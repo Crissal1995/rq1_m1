@@ -170,11 +170,8 @@ class MutantsComparerSets:
     @staticmethod
     def find_duplicate_mutants(mutants: Sequence[Mutant]):
         counter = Counter([hash(mutant) for mutant in mutants])
-        return [
-            mutant
-            for (mutant, (hash_, count)) in zip(mutants, counter.items())
-            if count > 1
-        ]
+        duplicates = [h for (h, c) in counter.items() if c > 1]
+        return set([m for m in mutants if hash(m) in duplicates])
 
     def summary(self, dirname: str = None):
         """Print a summary and write on files the output"""
