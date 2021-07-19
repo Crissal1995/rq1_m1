@@ -119,19 +119,15 @@ class GitDiff:
 
 class MutantsComparerSets:
     def __init__(self, first_seq: Sequence[Mutant], second_seq: Sequence[Mutant]):
+        self.check_overlapping(first_seq)
+        self.check_overlapping(second_seq)
+
+        # if I'm here, there are no dups
         self.first_seq = first_seq
         self.first_set = set(first_seq)
-        if not len(self.first_set) == len(self.first_seq):
-            logging.error("DUPLICATE MUTANTS FOUND")
-            logging.error(self.find_duplicate_mutants(first_seq))
-            raise ValueError
 
         self.second_seq = second_seq
         self.second_set = set(second_seq)
-        if not len(self.second_set) == len(self.second_seq):
-            logging.error("DUPLICATE MUTANTS FOUND")
-            logging.error(self.find_duplicate_mutants(second_seq))
-            raise ValueError
 
     @staticmethod
     def correct_lines(mutants: Sequence[Mutant], src_filepath: str, dst_filepath: str):
@@ -168,10 +164,24 @@ class MutantsComparerSets:
         return sorted_mutants
 
     @staticmethod
-    def find_duplicate_mutants(mutants: Sequence[Mutant]):
+    def find_overlapping_mutants(mutants: Sequence[Mutant]):
         counter = Counter([hash(mutant) for mutant in mutants])
         duplicates = [h for (h, c) in counter.items() if c > 1]
         return set([m for m in mutants if hash(m) in duplicates])
+
+    @staticmethod
+    def check_overlapping(mutants: Sequence[Mutant]):
+        """Check if in the provided mutants list there are overlaps,
+        so mutants that share the same hash value - and therefore
+        the same attributes."""
+
+        dups = MutantsComparerSets.find_overlapping_mutants(mutants)
+        if dups:
+            logging.error("Overlapping mutants found!")
+            logging.error(dups)
+            raise OverlappingMutantError
+        else:
+            logging.debug("No overlapping mutant found")
 
     def summary(self, dirname: str = None):
         """Print a summary and write on files the output"""
@@ -179,42 +189,6 @@ class MutantsComparerSets:
         path = pathlib.Path("result")
         thedir = f"{dirname} {now}" if dirname else now
         path /= thedir
-
-        l1_seq = len(self.first_seq)
-        l1_set = len(self.first_set)
-
-        l2_seq = len(self.second_seq)
-        l2_set = len(self.second_set)
-
-        # mismatch is a binary flag variable
-        mismatch = 0
-
-        # set bits
-        if l1_set != l1_seq:
-            mismatch |= 1
-        if l2_set != l2_seq:
-            mismatch |= 2
-
-        # if any of these bit is high, error found
-        if mismatch & 3:
-            path = pathlib.Path("overlapping") / now
-            os.makedirs(path, exist_ok=True)
-
-            msg = ""
-            if mismatch & 1:
-                mutants = self.find_duplicate_mutants(self.first_seq)
-                with open(path / "seq1.txt", "w") as f:
-                    f.write("\n\n".join(mutants))
-                msg += "Written overlapping mutants on seq1.txt\n"
-
-            if mismatch & 2:
-                mutants = self.find_duplicate_mutants(self.second_seq)
-                with open(path / "seq2.txt", "w") as f:
-                    f.write("\n\n".join(mutants))
-                msg += "Written overlapping mutants on seq2.txt\n"
-
-            raise OverlappingMutantError(msg)
-
         os.makedirs(path)
 
         # original
