@@ -1,11 +1,11 @@
-import io
+import datetime
 import json
 import os
 import re
 import xml.etree.ElementTree as ET
 from abc import ABC
 from collections import Counter
-from typing import Sequence, Set, Union
+from typing import List, Sequence, Set, Union
 
 import pandas as pd
 
@@ -62,10 +62,26 @@ class WrongTagInPitReportError(PitReportError):
 
 
 class Report(ABC):
-    killed_mutants: Sequence[Mutant] = None
-    live_mutants: Sequence[Mutant] = None
+    killed_mutants: List[Mutant] = None
+    live_mutants: List[Mutant] = None
     _killed_mutants_count: int = None
     _live_mutants_count: int = None
+
+    _created_at = datetime.datetime.now()
+
+    def summary(self) -> str:
+        buffer = f"Report created at {self._created_at}\n"
+
+        if self.killed_mutants:
+            ...
+        else:
+            ...
+        if self.live_mutants:
+            ...
+        else:
+            ...
+
+        return buffer
 
     @staticmethod
     def find_overlapping_mutants(mutants: Sequence[Mutant]) -> Set[Mutant]:
@@ -120,68 +136,76 @@ class Report(ABC):
 
 
 class ReportSingleFile(Report):
-    @classmethod
-    def from_file(cls, filepath: Union[str, os.PathLike], **kwargs) -> "Report":
-        content = open(filepath).read()
-        return cls.extract(content, **kwargs)
+    def __init__(self, filepath: Union[str, os.PathLike], **kwargs):
+        super(ReportSingleFile, self).__init__()
 
-    @classmethod
-    def extract(cls, content: str, **kwargs) -> "Report":
+        self.filepath = filepath
+        self.extract(**kwargs)
+
+        self.sanity_check()
+
+    def extract(self, **kwargs):
         raise NotImplementedError
 
 
 class ReportMultipleFiles(Report):
-    @classmethod
-    def from_files(
-        cls, filepaths: Sequence[Union[str, os.PathLike]], **kwargs
-    ) -> "Report":
-        contents = [open(fp).read() for fp in filepaths]
-        return cls.extract_multiple(contents, **kwargs)
+    def __init__(self, *filepaths: Union[str, os.PathLike], **kwargs):
+        super(ReportMultipleFiles, self).__init__()
 
-    @classmethod
-    def extract_multiple(cls, contents: Sequence[str], **kwargs) -> "Report":
+        self.filepaths = list(filepaths)
+        self.extract_multiple(**kwargs)
+
+        self.sanity_check()
+
+    def extract_multiple(self, **kwargs):
         raise NotImplementedError
 
 
 class JudyReport(ReportSingleFile):
+    class_under_mutation: str
+
+    def __init__(self, filepath: Union[str, os.PathLike], class_under_mutation: str):
+        self.class_under_mutation = class_under_mutation
+        super(JudyReport, self).__init__(
+            filepath, class_under_mutation=class_under_mutation
+        )
+
     def __repr__(self):
         return "Judy" + super(JudyReport, self).__repr__()
 
-    @classmethod
-    def extract(cls, content: str, **kwargs) -> "Report":
-        class_under_mutation = kwargs["class_under_mutation"]
-        judy_dict = json.loads(content)
+    def extract(self, **kwargs):
+        judy_dict = json.loads(open(self.filepath).read())
 
         thedict = [
             adict
             for adict in judy_dict["classes"]
-            if adict["name"] == class_under_mutation
+            if adict["name"] == self.class_under_mutation
         ]
 
         if len(thedict) == 0:
-            raise MissingClassFromJudyReportError(f"{class_under_mutation} not found!")
+            raise MissingClassFromJudyReportError(
+                f"{self.class_under_mutation} not found!"
+            )
         elif len(thedict) > 1:
             raise MultipleClassFromJudyReportError(
-                f"{class_under_mutation} found multiple times!"
+                f"{self.class_under_mutation} found multiple times!"
             )
         else:
             thedict = thedict[0]
 
-        report = cls()
-        report._killed_mutants_count = thedict["mutantsKilledCount"]
-        report.live_mutants = [
+        self._killed_mutants_count = thedict["mutantsKilledCount"]
+        self.live_mutants = [
             JudyMutant.from_dict(mdict) for mdict in thedict["notKilledMutant"]
         ]
-        report.sanity_check()
-        return report
 
 
 class JumbleReport(ReportSingleFile):
     def __repr__(self):
         return "Jumble" + super(JumbleReport, self).__repr__()
 
-    @classmethod
-    def extract(cls, content: str, **kwargs) -> "Report":
+    def extract(self, **kwargs):
+        content = open(self.filepath).read()
+
         fail_pattern = re.compile(r"M FAIL:\s*([a-zA-Z.]+):(\d+):\s*(.+)")
         start_pattern = re.compile(
             r"Mutation points = \d+, unit test time limit \d+\.\d+s"
@@ -204,39 +228,43 @@ class JumbleReport(ReportSingleFile):
         killed_text, live_mutants_count = fail_pattern.subn("", text)
         killed_mutants_count = len(re.sub(r"\s+", "", killed_text))
 
-        report = cls()
-        report._killed_mutants_count = killed_mutants_count
+        self._killed_mutants_count = killed_mutants_count
 
-        report.live_mutants = [
+        self.live_mutants = [
             JumbleMutant.from_tuple(atuple) for atuple in fail_pattern.findall(text)
         ]
-        assert report.live_mutants_count == live_mutants_count
-        report.sanity_check()
-
-        return report
+        assert self.live_mutants_count == live_mutants_count
 
 
 class MajorReport(ReportMultipleFiles):
+    def __init__(
+        self,
+        mutation_log_fp: Union[str, os.PathLike],
+        kill_csv_fp: Union[str, os.PathLike],
+    ):
+        super(MajorReport, self).__init__(mutation_log_fp, kill_csv_fp)
+
     def __repr__(self):
         return "Major" + super(MajorReport, self).__repr__()
 
-    @classmethod
-    def extract_multiple(cls, contents: Sequence[str], **kwargs) -> "Report":
-        if len(contents) != 2:
+    def extract_multiple(self, **kwargs):
+        if len(self.filepaths) != 2:
             raise MajorReportError(
                 "Two files must be provided! kill.csv and mutants.log"
             )
 
-        # if we find the colon, we've found the mutants.log file
-        if ":" in contents[0].splitlines()[0]:
-            logfile, csvfile = contents
+        first_fp, second_fp = self.filepaths
+        first_fp_first_line = open(first_fp).read().splitlines()[0]
+
+        # if we find the colon in first file, this is mutants.log file
+        if ":" in first_fp_first_line:
+            logfile, csvfile = first_fp, second_fp
+        # otherwise mutants.log is the second file
         else:
-            csvfile, logfile = contents
+            logfile, csvfile = second_fp, first_fp
 
         columns = ["MutantNo", "Status"]
-        kill_df = pd.read_csv(io.StringIO(csvfile), header=0, names=columns).set_index(
-            columns[0]
-        )
+        kill_df = pd.read_csv(csvfile, header=0, names=columns).set_index(columns[0])
 
         columns = [
             "MutantNo",
@@ -248,7 +276,7 @@ class MajorReport(ReportMultipleFiles):
             "Description",
         ]
         mutants_df = pd.read_csv(
-            io.StringIO(logfile), delimiter=":", header=None, names=columns
+            logfile, delimiter=":", header=None, names=columns
         ).set_index(columns[0])
 
         # fix mismatch in length
@@ -264,40 +292,32 @@ class MajorReport(ReportMultipleFiles):
         killed_count = len(killed_mutants)
         assert len(df) == live_count + killed_count
 
-        report = cls()
-        report.live_mutants = []
-        report.killed_mutants = []
+        self.live_mutants = []
+        self.killed_mutants = []
 
         for index, row in df.iterrows():
             mutant = MajorMutant.from_series(row)
             if mutant.status == "LIVE":
-                report.live_mutants.append(mutant)
+                self.live_mutants.append(mutant)
             else:
-                report.killed_mutants.append(mutant)
-
-        report.sanity_check()
-        return report
+                self.killed_mutants.append(mutant)
 
 
 class PitReport(ReportSingleFile):
     def __repr__(self):
         return "Pit" + super(PitReport, self).__repr__()
 
-    @classmethod
-    def extract(cls, content: str, **kwargs) -> "Report":
-        root = ET.fromstring(content)
+    def extract(self, **kwargs):
+        tree = ET.parse(self.filepath)
+        root = tree.getroot()
         elements = list(root)
 
-        report = cls()
-        report.live_mutants = []
-        report.killed_mutants = []
+        self.live_mutants = []
+        self.killed_mutants = []
 
         for element in elements:
             mutant = PitMutant.from_xml_element(element)
             if mutant.detected:
-                report.killed_mutants.append(mutant)
+                self.killed_mutants.append(mutant)
             else:
-                report.live_mutants.append(mutant)
-
-        report.sanity_check()
-        return report
+                self.live_mutants.append(mutant)
