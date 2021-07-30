@@ -5,7 +5,7 @@ import re
 import xml.etree.ElementTree as ET
 from abc import ABC
 from collections import Counter
-from typing import List, Optional, Sequence, Set, Union
+from typing import List, Optional, Set, Union
 
 import pandas as pd
 
@@ -93,7 +93,7 @@ class Report(ABC):
         return "\n".join(buffer)
 
     @staticmethod
-    def find_overlapping_mutants(mutants: Sequence[Mutant]) -> Set[Mutant]:
+    def find_overlapping_mutants(mutants: List[Mutant]) -> Set[Mutant]:
         """This brief algorithm finds the mutants that are duplicates,
         i.e. their hash value is equal."""
         counter = Counter([hash(mutant) for mutant in mutants])
