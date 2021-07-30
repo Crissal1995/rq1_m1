@@ -100,12 +100,12 @@ class Report(ABC):
 
     def sanity_check(self):
         """Check for overlapping mutants"""
-        if self.killed_mutants is not None:
+        if self.killed_mutants:
             set_killed = self.find_overlapping_mutants(self.killed_mutants)
             if set_killed:
                 raise OverlappingMutantsError(set_killed)
 
-        if self.live_mutants is not None:
+        if self.live_mutants:
             set_live = self.find_overlapping_mutants(self.live_mutants)
             if set_live:
                 raise OverlappingMutantsError(set_live)
