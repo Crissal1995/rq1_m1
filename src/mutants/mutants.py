@@ -97,7 +97,7 @@ class JumbleMutant(MutantWithCounter):
         return mutant
 
 
-class MajorMutant(Mutant):
+class MajorMutant(MutantWithCounter):
     status: str
     operator: str
     original: str
@@ -108,7 +108,7 @@ class MajorMutant(Mutant):
     def __repr__(self):
         return "Major" + super(MajorMutant, self).__repr__()
 
-    def hash_tuple(self) -> tuple:
+    def hash_tuple_reduced(self) -> tuple:
         return (
             self.line,
             self.status,
@@ -130,6 +130,8 @@ class MajorMutant(Mutant):
         mutant.mutated = row.To
         mutant.signature = row.Signature
         mutant.description = row.Description
+
+        mutant.get_hash_count()
 
         return mutant
 
