@@ -21,13 +21,7 @@ class Mutant(ABC):
         return digest
 
     def __eq__(self, other):
-        return (
-            type(self) is type(other)
-            and len(self.hash_tuple()) == len(other.hash_tuple())
-            and all(
-                el1 == el2 for (el1, el2) in zip(self.hash_tuple(), other.hash_tuple())
-            )
-        )
+        return type(self) is type(other) and hash(self) == hash(other)
 
     def __repr__(self):
         return f"Mutant{self.hash_tuple()}"
