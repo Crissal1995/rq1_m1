@@ -62,6 +62,8 @@ class WrongTagInPitReportError(PitReportError):
 
 
 class Report(ABC):
+    class_under_mutation: str
+
     def __init__(self):
         self._created_at = datetime.datetime.now()
 
@@ -72,10 +74,11 @@ class Report(ABC):
 
     def summary(self, mutants: bool = False) -> str:
         buffer = [
-            f"Report created at {self._created_at}",
-            f"Total mutants count: {self.total_mutants_count}",
+            f"Report created at:    {self._created_at}",
+            f"Mutated class:        {self.class_under_mutation}",
+            f"Total mutants count:  {self.total_mutants_count}",
             f"Killed mutants count: {self.killed_mutants_count}",
-            f"Live mutants count: {self.live_mutants_count}",
+            f"Live mutants count:   {self.live_mutants_count}",
         ]
 
         for mutants_arr, mutants_str in zip(
@@ -136,7 +139,8 @@ class Report(ABC):
 
     def __repr__(self):
         return (
-            f"Report(killed_count={self.killed_mutants_count},"
+            f"Report(class_under_mutation={self.class_under_mutation},"
+            f" killed_count={self.killed_mutants_count},"
             f" live_count={self.live_mutants_count},"
             f" total_count={self.total_mutants_count})"
         )
@@ -179,13 +183,9 @@ class ReportMultipleFiles(Report):
 
 
 class JudyReport(ReportSingleFile):
-    class_under_mutation: str
-
     def __init__(self, filepath: Union[str, os.PathLike], class_under_mutation: str):
         self.class_under_mutation = class_under_mutation
-        super(JudyReport, self).__init__(
-            filepath, class_under_mutation=class_under_mutation
-        )
+        super(JudyReport, self).__init__(filepath)
 
     def __repr__(self):
         return "Judy" + super(JudyReport, self).__repr__()
@@ -222,6 +222,9 @@ class JumbleReport(ReportSingleFile):
 
     def extract(self, **kwargs):
         content = open(self.filepath).read()
+
+        class_pattern = re.compile(r"Mutating (.+)")
+        self.class_under_mutation = class_pattern.search(content).group(1)
 
         fail_pattern = re.compile(r"M FAIL:\s*([a-zA-Z.]+):(\d+):\s*(.+)")
         start_pattern = re.compile(
@@ -311,13 +314,22 @@ class MajorReport(ReportMultipleFiles):
 
         self.live_mutants = []
         self.killed_mutants = []
+        classes = []
 
         for index, row in df.iterrows():
             mutant = MajorMutant.from_series(row)
+            cls = mutant.signature.split("@")[0]  # get the left part of class@method
+            cls = cls.split("$")[0]  # get the left part of class$subclass
+            classes.append(cls)
             if mutant.status == "LIVE":
                 self.live_mutants.append(mutant)
             else:
                 self.killed_mutants.append(mutant)
+
+        if len(set(classes)) > 1:
+            raise MajorReportError("Multiple classes mutated!")
+        else:
+            self.class_under_mutation = set(classes).pop()
 
 
 class PitReport(ReportSingleFile):
@@ -331,6 +343,7 @@ class PitReport(ReportSingleFile):
 
         self.live_mutants = []
         self.killed_mutants = []
+        classes = []
 
         for element in elements:
             if element.tag != "mutation":
@@ -338,7 +351,13 @@ class PitReport(ReportSingleFile):
                 raise WrongTagInPitReportError(msg)
 
             mutant = PitMutant.from_xml_element(element)
+            classes.append(mutant.mutated_class)
             if mutant.detected:
                 self.killed_mutants.append(mutant)
             else:
                 self.live_mutants.append(mutant)
+
+        if len(set(classes)) > 1:
+            raise PitReportError("Multiple classes mutated!")
+        else:
+            self.class_under_mutation = set(classes).pop()
