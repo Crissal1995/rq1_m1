@@ -5,7 +5,7 @@ import re
 import xml.etree.ElementTree as ET
 from abc import ABC
 from collections import Counter
-from typing import List, Sequence, Set, Union
+from typing import List, Optional, Sequence, Set, Union
 
 import pandas as pd
 
@@ -16,11 +16,11 @@ class ReportError(Exception):
     """Base report error"""
 
 
-class MissingMutantListException(ReportError):
-    """Exception when a mutant list is missing,
-    so it's None. This can happen if it's impossible
-    to extract information about that particular
-    kind of mutants from a report"""
+class MissingMutantCountException(ReportError):
+    """Exception when a mutant list count is missing,
+    This can happen if it's impossible to extract
+    information about that particular kind of
+     mutants from a report"""
 
 
 class OverlappingMutantsError(ReportError):
@@ -62,12 +62,13 @@ class WrongTagInPitReportError(PitReportError):
 
 
 class Report(ABC):
-    killed_mutants: List[Mutant] = None
-    live_mutants: List[Mutant] = None
-    _killed_mutants_count: int = None
-    _live_mutants_count: int = None
+    def __init__(self):
+        self._created_at = datetime.datetime.now()
 
-    _created_at = datetime.datetime.now()
+        self.killed_mutants: Optional[List[Mutant]] = None
+        self.live_mutants: Optional[List[Mutant]] = None
+        self._killed_mutants_count: Optional[int] = None
+        self._live_mutants_count: Optional[int] = None
 
     def summary(self, mutants: bool = False) -> str:
         buffer = [
@@ -111,26 +112,23 @@ class Report(ABC):
             if set_live:
                 raise OverlappingMutantsError(set_live)
 
-    @staticmethod
-    def _mutant_seq_length(theseq: Sequence):
-        if theseq is not None:
-            return len(theseq)
-        else:
-            raise MissingMutantListException()
-
     @property
     def killed_mutants_count(self) -> int:
-        if self._killed_mutants_count is not None:
+        if self.killed_mutants is not None:
+            return len(self.killed_mutants)
+        elif self._killed_mutants_count is not None:
             return self._killed_mutants_count
         else:
-            return self._mutant_seq_length(self.killed_mutants)
+            raise MissingMutantCountException()
 
     @property
     def live_mutants_count(self) -> int:
-        if self._live_mutants_count is not None:
+        if self.live_mutants is not None:
+            return len(self.live_mutants)
+        elif self._live_mutants_count is not None:
             return self._live_mutants_count
         else:
-            return self._mutant_seq_length(self.live_mutants)
+            raise MissingMutantCountException()
 
     @property
     def total_mutants_count(self) -> int:
