@@ -72,6 +72,7 @@ class Report(ABC):
     def summary(self, mutants: bool = False) -> str:
         buffer = [
             f"Report created at {self._created_at}",
+            f"Total mutants count: {self.total_mutants_count}",
             f"Killed mutants count: {self.killed_mutants_count}",
             f"Live mutants count: {self.live_mutants_count}",
         ]
@@ -138,7 +139,8 @@ class Report(ABC):
     def __repr__(self):
         return (
             f"Report(killed_count={self.killed_mutants_count},"
-            f" live_count={self.live_mutants_count})"
+            f" live_count={self.live_mutants_count},"
+            f" total_count={self.total_mutants_count})"
         )
 
 
