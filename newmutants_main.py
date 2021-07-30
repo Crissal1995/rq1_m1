@@ -11,6 +11,8 @@ classes = [
 
 
 for project, cls in zip(projects, classes):
+    print(f"WORKING WITH {project}")
+
     p = pathlib.Path(f"data_cmp/{project}/judy/_single_dev/result.json")
     report = reports.JudyReport.from_file(p, class_under_mutation=cls)
     print(report)
@@ -27,3 +29,5 @@ for project, cls in zip(projects, classes):
     p = pathlib.Path(f"data_cmp/{project}/pit/_single_dev/mutations.xml")
     report = reports.PitReport.from_file(p)
     print(report)
+
+    print("-" * 60)
