@@ -327,12 +327,16 @@ class PitReport(ReportSingleFile):
     def extract(self, **kwargs):
         tree = ET.parse(self.filepath)
         root = tree.getroot()
-        elements = list(root)
+        elements: List[ET.Element] = list(root)
 
         self.live_mutants = []
         self.killed_mutants = []
 
         for element in elements:
+            if element.tag != "mutation":
+                msg = f"Expecting 'mutation' element, got {element.tag}"
+                raise WrongTagInPitReportError(msg)
+
             mutant = PitMutant.from_xml_element(element)
             if mutant.detected:
                 self.killed_mutants.append(mutant)
