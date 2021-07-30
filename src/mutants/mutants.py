@@ -36,7 +36,7 @@ class MutantWithCounter(Mutant):
         If it's missing from the current object, assign it"""
 
         # the key is the reduced hash tuple
-        key = self._hash_tuple()
+        key = self.hash_tuple_reduced()
 
         # we get its current count (defaults to 0)
         count = self.hash_counter[key]
@@ -49,11 +49,11 @@ class MutantWithCounter(Mutant):
         self.hash_counter[key] += 1
         return count
 
-    def _hash_tuple(self) -> tuple:
+    def hash_tuple_reduced(self) -> tuple:
         raise NotImplementedError
 
     def hash_tuple(self) -> tuple:
-        return self._hash_tuple() + (self.hash_count,)
+        return self.hash_tuple_reduced() + (self.hash_count,)
 
 
 class JudyMutant(MutantWithCounter):
@@ -62,7 +62,7 @@ class JudyMutant(MutantWithCounter):
     def __repr__(self):
         return "Judy" + super(JudyMutant, self).__repr__()
 
-    def _hash_tuple(self) -> tuple:
+    def hash_tuple_reduced(self) -> tuple:
         return self.line, self.operator
 
     @classmethod
@@ -84,7 +84,7 @@ class JumbleMutant(MutantWithCounter):
     def __repr__(self):
         return "Jumble" + super(JumbleMutant, self).__repr__()
 
-    def _hash_tuple(self) -> tuple:
+    def hash_tuple_reduced(self) -> tuple:
         return self.line, self.description
 
     @classmethod
