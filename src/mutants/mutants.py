@@ -66,7 +66,7 @@ class JudyMutant(MutantWithCounter):
         return self.line, self.operator
 
     @classmethod
-    def from_dict(cls, thedict: dict) -> Mutant:
+    def from_dict(cls, thedict: dict) -> "JudyMutant":
         operator = thedict["operators"][0]
         # points = thedict["points"][0]
         line = thedict["lines"][0]
@@ -88,7 +88,7 @@ class JumbleMutant(MutantWithCounter):
         return self.line, self.description
 
     @classmethod
-    def from_tuple(cls, thetuple: tuple) -> Mutant:
+    def from_tuple(cls, thetuple: tuple) -> "JumbleMutant":
         classpath, line, description = thetuple
         mutant = cls(int(line))
         mutant.description = description
@@ -120,7 +120,7 @@ class MajorMutant(Mutant):
         )
 
     @classmethod
-    def from_series(cls, row: pd.Series):
+    def from_series(cls, row: pd.Series) -> "MajorMutant":
         line = row.LineNumber
         mutant = cls(int(line))
 
