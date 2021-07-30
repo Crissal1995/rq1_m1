@@ -69,19 +69,26 @@ class Report(ABC):
 
     _created_at = datetime.datetime.now()
 
-    def summary(self) -> str:
-        buffer = f"Report created at {self._created_at}\n"
+    def summary(self, mutants: bool = False) -> str:
+        buffer = [
+            f"Report created at {self._created_at}",
+            f"Killed mutants count: {self.killed_mutants_count}",
+            f"Live mutants count: {self.live_mutants_count}",
+        ]
 
-        if self.killed_mutants:
-            ...
-        else:
-            ...
-        if self.live_mutants:
-            ...
-        else:
-            ...
+        for mutants_arr, mutants_str in zip(
+            [self.killed_mutants, self.live_mutants], ["Killed", "Live"]
+        ):
+            if mutants_arr:
+                buffer.append(f"{mutants_str} mutants report:")
+                if mutants:
+                    buffer.append("\n".join(str(m) for m in mutants_arr))
+                else:
+                    buffer.append("< SNIP >")
+            else:
+                buffer.append(f"Cannot report {mutants_str} mutants")
 
-        return buffer
+        return "\n".join(buffer)
 
     @staticmethod
     def find_overlapping_mutants(mutants: Sequence[Mutant]) -> Set[Mutant]:
@@ -147,6 +154,11 @@ class ReportSingleFile(Report):
     def extract(self, **kwargs):
         raise NotImplementedError
 
+    def summary(self, mutants: bool = False) -> str:
+        summary = super(ReportSingleFile, self).summary()
+        fp = str(self.filepath)
+        return f"{summary}\nFilepath: {fp}"
+
 
 class ReportMultipleFiles(Report):
     def __init__(self, *filepaths: Union[str, os.PathLike], **kwargs):
@@ -159,6 +171,11 @@ class ReportMultipleFiles(Report):
 
     def extract_multiple(self, **kwargs):
         raise NotImplementedError
+
+    def summary(self, mutants: bool = False) -> str:
+        summary = super(ReportMultipleFiles, self).summary()
+        fps = [str(fp) for fp in self.filepaths]
+        return f"{summary}\nFilepaths: {fps}"
 
 
 class JudyReport(ReportSingleFile):

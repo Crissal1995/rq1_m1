@@ -15,19 +15,19 @@ for project, cls in zip(projects, classes):
 
     p = pathlib.Path(f"data_cmp/{project}/judy/_single_dev/result.json")
     report = reports.JudyReport(p, cls)
-    print(report)
+    print(report.summary(), "\n")
 
     p = pathlib.Path(f"data_cmp/{project}/jumble/_single_dev/jumble_output.txt")
     report = reports.JumbleReport(p)
-    print(report)
+    print(report.summary(), "\n")
 
     p1 = pathlib.Path(f"data_cmp/{project}/major/_single_dev/kill.csv")
     p2 = pathlib.Path(f"data_cmp/{project}/major/_single_dev/mutants.log")
     report = reports.MajorReport(p2, p1)
-    print(report)
+    print(report.summary(), "\n")
 
     p = pathlib.Path(f"data_cmp/{project}/pit/_single_dev/mutations.xml")
     report = reports.PitReport(p)
-    print(report)
+    print(report.summary(), "\n")
 
     print("-" * 60)
