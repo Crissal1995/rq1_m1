@@ -115,7 +115,9 @@ TOOLS_CLASSES = {
 }
 COMMANDS = {"summary": print_summary}
 
-HELP_COMMANDS = "Specify the command to execute, then exit"
+HELP_CMD_SUMMARY = "For each report print its summary, then exit"
+HELP_CMD_SUMMARY_VERB = "Increase summary verbosity, printing killed and live mutants"
+
 HELP_PROJECT = "The report's Defects4J project"
 HELP_BUG = "The project bug id; must be a numeric value"
 HELP_TOOL = "The mutation tool to which the reports to study belong"
@@ -137,7 +139,7 @@ ERR_EXP_MULT_FILES = "Was expecting 2 or more files, but found {n}!"
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(add_help=False)
 
     # specify the arguments to parse Defects4J project and bug's modified classes
     parser.add_argument("-p", "--project", help=HELP_PROJECT, required=True)
@@ -151,22 +153,28 @@ if __name__ == "__main__":
     # specify the list of files to parse into reports
     parser.add_argument("-f", "--files", help=HELP_FILES, nargs="+", required=True)
 
-    # specify the command to launch
-    parser.add_argument(
-        "-c", "--command", help=HELP_COMMANDS, choices=COMMANDS.keys(), required=True
-    )
+    # subparsers for commands
+    parser2 = argparse.ArgumentParser()
+    subparsers = parser2.add_subparsers(title="Commands", dest="command")
+    subparsers.required = True
 
-    # increase verbosity
-    parser.add_argument("-v", "--verbose", help=HELP_BUG, action="store_true")
+    summary_parser = subparsers.add_parser(
+        "summary", help=HELP_CMD_SUMMARY, parents=[parser]
+    )
+    summary_parser.add_argument(
+        "-v", "--verbose", help=HELP_CMD_SUMMARY_VERB, action="store_true"
+    )
+    summary_parser.set_defaults(func=print_summary)
 
     # parse args
-    args = parser.parse_args()
+    args = parser2.parse_args()
 
     # get the reports
     _reports = get_reports(
         project=args.project, bug=args.bug, tool=args.tool, files=args.files
     )
 
-    # then execute the command specified
-    func = COMMANDS[args.command]
-    func(_reports, verbose=args.verbose)
+    if args.command == "summary":
+        print_summary(_reports, verbose=args.verbose)
+    else:
+        parser.error("Invalid command provided!")
