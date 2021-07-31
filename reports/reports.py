@@ -47,6 +47,10 @@ class JudyReportError(ReportError):
     """Judy specialized report error"""
 
 
+class EmptyJudyReportError(JudyReportError):
+    """Error raised when a report is empty"""
+
+
 class MissingClassFromJudyReportError(JudyReportError):
     """Exception when the desired class is
     missing from a report"""
@@ -131,6 +135,11 @@ class Report(ABC):
             if set_live:
                 raise OverlappingMutantsError(set_live)
 
+        if not self.class_under_mutation:
+            raise ReportError(
+                "Cannot set class under mutation! Maybe input report was broken?"
+            )
+
     @property
     def killed_mutants_count(self) -> int:
         if self.killed_mutants is not None:
@@ -178,7 +187,7 @@ class SingleFileReport(Report):
         raise NotImplementedError
 
     def summary(self, print_mutants: bool = False) -> str:
-        summary = super(SingleFileReport, self).summary()
+        summary = super(SingleFileReport, self).summary(print_mutants=print_mutants)
         fp = str(self.filepath)
         return f"{summary}\nFilepath: {fp}"
 
@@ -199,7 +208,7 @@ class MultipleFilesReport(Report):
         raise NotImplementedError
 
     def summary(self, print_mutants: bool = False) -> str:
-        summary = super(MultipleFilesReport, self).summary()
+        summary = super(MultipleFilesReport, self).summary(print_mutants=print_mutants)
         fps = [str(fp) for fp in self.filepaths]
         return f"{summary}\nFilepaths: {fps}"
 
@@ -215,10 +224,14 @@ class JudyReport(SingleFileReport):
     def extract(self):
         judy_dict = json.loads(open(self.filepath).read())
 
+        classes = judy_dict["classes"]
+        if not classes:
+            raise EmptyJudyReportError(
+                "No mutated class found! There were some errors in execution phase"
+            )
+
         thedict = [
-            adict
-            for adict in judy_dict["classes"]
-            if adict["name"] == self.class_under_mutation
+            adict for adict in classes if adict["name"] == self.class_under_mutation
         ]
 
         if len(thedict) == 0:
