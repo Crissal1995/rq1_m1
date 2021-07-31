@@ -50,6 +50,7 @@ ERR_MULT_CLASSES = (
     "This combination of project and bug have {n} "
     "modified classes, that are {l}"
 )
+ERR_CLASS = "Report class under mutation is {rep_cls}, but it should be {cls}!"
 ERR_EXP_DIR = "Was expecting a directory, but found a file!"
 ERR_EXP_FILE = "Was expecting a file, but found a directory!"
 ERR_EXP_MULT_FILES = "Was expecting 2 or more files, but found {n}!"
@@ -109,6 +110,13 @@ def get_reports(project: str, bug: str, tool: str, files: List[str]):
                 report = tool_cls(path, class_under_mutation=class_under_mutation)
             else:
                 report = tool_cls(path)
+
+        if report.class_under_mutation != class_under_mutation:
+            raise ReportError(
+                ERR_CLASS.format(
+                    rep_cls=report.class_under_mutation, cls=class_under_mutation
+                )
+            )
 
         reports.append(report)
 
