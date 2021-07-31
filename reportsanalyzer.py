@@ -11,6 +11,7 @@ from reports.reports import (
     MultipleClassUnderMutationError,
     MultipleFilesReport,
     PitReport,
+    Report,
     ReportError,
     SingleFileReport,
 )
@@ -56,7 +57,7 @@ ERR_EXP_FILE = "Was expecting a file, but found a directory!"
 ERR_EXP_MULT_FILES = "Was expecting 2 or more files, but found {n}!"
 
 
-def get_reports(project: str, bug: str, tool: str, files: List[str]):
+def get_reports(project: str, bug: str, tool: str, files: List[str]) -> List[Report]:
     # get modified classes from defects4j framework
     # if there are 2+, raise an error
     # else get the single class under mutation
@@ -120,8 +121,7 @@ def get_reports(project: str, bug: str, tool: str, files: List[str]):
 
         reports.append(report)
 
-    for report in reports:
-        print(report.summary(), "\n")
+    return reports
 
 
 if __name__ == "__main__":
@@ -140,3 +140,6 @@ if __name__ == "__main__":
     _reports = get_reports(
         project=args.project, bug=args.bug, tool=args.tool, files=args.files
     )
+
+    for r in _reports:
+        print(r.summary(), "\n")
