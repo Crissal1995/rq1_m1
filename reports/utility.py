@@ -58,7 +58,7 @@ def get_defects4j_framework_path() -> pathlib.Path:
     return get_defects4j_root_path() / "framework"
 
 
-def get_defects4j_modified_classes(project: str, bug: int) -> List[str]:
+def get_defects4j_modified_classes(project: str, bug: str) -> List[str]:
     """Get the list of modified classes for provided
     project identifier and bug number"""
     projects = get_defects4j_framework_path() / "projects"

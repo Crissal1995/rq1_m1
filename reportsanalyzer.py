@@ -2,6 +2,7 @@ import argparse
 import pathlib
 import re
 from functools import partial
+from typing import List
 
 from reports.reports import (
     JudyReport,
@@ -54,25 +55,11 @@ ERR_EXP_FILE = "Was expecting a file, but found a directory!"
 ERR_EXP_MULT_FILES = "Was expecting 2 or more files, but found {n}!"
 
 
-def main():
-    parser = argparse.ArgumentParser()
-
-    parser.add_argument("-p", "--project", help=PROJECT_HELP, required=True)
-    parser.add_argument(
-        "-b", "--bug", help=BUG_HELP, type=check_bug_pattern, required=True
-    )
-    parser.add_argument("-t", "--tool", help=TOOL_HELP, choices=TOOLS, required=True)
-
-    parser.add_argument("files", help=FILES_HELP, nargs="+")
-
-    args = parser.parse_args()
-
+def get_reports(project: str, bug: str, tool: str, files: List[str]):
     # get modified classes from defects4j framework
     # if there are 2+, raise an error
     # else get the single class under mutation
-    modified_classes = get_defects4j_modified_classes(
-        project=args.project, bug=args.bug
-    )
+    modified_classes = get_defects4j_modified_classes(project=project, bug=bug)
     if len(modified_classes) > 1:
         raise MultipleClassUnderMutationError(
             ERR_MULT_CLASSES.format(n=len(modified_classes), l=modified_classes)
@@ -81,7 +68,7 @@ def main():
         class_under_mutation = modified_classes[0]
 
     # from the tool string, get the corresponding class
-    tool_cls = TOOLS_CLASSES[args.tool]
+    tool_cls = TOOLS_CLASSES[tool]
 
     # check if the input is a single file, or a directory, i.e. multifiles
     if issubclass(tool_cls, SingleFileReport):
@@ -95,7 +82,7 @@ def main():
 
     reports = []
 
-    for file in args.files:
+    for file in files:
         # convert the file to a Path object
         path = pathlib.Path(file)
 
@@ -130,4 +117,18 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("-p", "--project", help=PROJECT_HELP, required=True)
+    parser.add_argument(
+        "-b", "--bug", help=BUG_HELP, type=check_bug_pattern, required=True
+    )
+    parser.add_argument("-t", "--tool", help=TOOL_HELP, choices=TOOLS, required=True)
+
+    parser.add_argument("files", help=FILES_HELP, nargs="+")
+
+    args = parser.parse_args()
+
+    _reports = get_reports(
+        project=args.project, bug=args.bug, tool=args.tool, files=args.files
+    )

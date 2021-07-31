@@ -8,8 +8,7 @@ from collections import Counter
 from typing import List, Optional, Set, Union
 
 import pandas as pd
-
-from src.mutants.mutants import JudyMutant, JumbleMutant, MajorMutant, Mutant, PitMutant
+from reports.mutants import JudyMutant, JumbleMutant, MajorMutant, Mutant, PitMutant
 
 
 class ReportError(Exception):
