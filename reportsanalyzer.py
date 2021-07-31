@@ -113,8 +113,7 @@ TOOLS_CLASSES = {
     "major": MajorReport,
     "pit": PitReport,
 }
-COMMANDS = {"summary": print_summary}
-
+COMMANDS = ["summary"]
 HELP_CMD_SUMMARY = "For each report print its summary, then exit"
 HELP_CMD_SUMMARY_VERB = "Increase summary verbosity, printing killed and live mutants"
 
@@ -164,7 +163,6 @@ if __name__ == "__main__":
     summary_parser.add_argument(
         "-v", "--verbose", help=HELP_CMD_SUMMARY_VERB, action="store_true"
     )
-    summary_parser.set_defaults(func=print_summary)
 
     # parse args
     args = parser2.parse_args()
@@ -174,7 +172,10 @@ if __name__ == "__main__":
         project=args.project, bug=args.bug, tool=args.tool, files=args.files
     )
 
-    if args.command == "summary":
-        print_summary(_reports, verbose=args.verbose)
-    else:
+    command = args.command.lower()
+    if command not in COMMANDS:
         parser.error("Invalid command provided!")
+        quit(1)
+
+    if command == "summary":
+        print_summary(_reports, verbose=args.verbose)
