@@ -29,7 +29,7 @@ def check_pattern(arg_value: str, pattern: re.Pattern):
 
 
 # make partial function with pattern already set
-check_bug_pattern = partial(check_pattern, pattern=re.compile(r"\d+"))
+check_bug_pattern = partial(check_pattern, pattern=re.compile(r"^\d+$"))
 
 
 def get_reports(project: str, bug: str, tool: str, files: List[str]) -> List[Report]:
